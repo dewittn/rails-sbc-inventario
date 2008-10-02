@@ -1,0 +1,4 @@
+		<td>
+			<p><label for="inventario_#{selects.name.downcase}_id"><%= selects.name.titlecase %></label><br/>
+			<%= select("inventario", "#{selects.name.downcase}_id", selects.find(:all).collect{|c| [c.descr, c.id]})%></p>
+		</td> 

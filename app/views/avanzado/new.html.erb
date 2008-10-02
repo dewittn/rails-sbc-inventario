@@ -1,0 +1,12 @@
+<% page_title "New" %>
+
+<h1><%= yield :title %></h1>
+<div class="results" id="new">
+<% form_tag(:action => "create") do %>
+	<%= render :partial => 'application/cantidad' %>
+	<%= render :partial => 'application/attributes' %>
+<% end %>
+</div>
+<br/>
+<% button_1("<= Atras",avanzado_index_path) %>
+<% button_2("Crear =>","#", :onclick => 'document.forms[0].submit()') %>

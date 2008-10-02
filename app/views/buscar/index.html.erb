@@ -1,0 +1,9 @@
+<% page_title "Buscar" %>
+<% solicitadas %>
+<% location %>
+<%= render :partial => 'application/search_boxes' %>
+<%= yield :solicitadas %>
+<div id="results"><%= render :partial => 'application/results' %></div>
+<%= render :partial => 'application/total' %>
+<% ajax_button_2("Limpiar") %>
+<% ajax_button_2("Sacar =>") %>

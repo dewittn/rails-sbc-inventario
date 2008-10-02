@@ -1,0 +1,12 @@
+			<tr class="<%= cycle :odd, :even %>">
+				<td><%=h cosas_por_sacar.id %></td>
+				<td></td>
+				<td><%=h cosas_por_sacar.marca.descr %></td>
+			    <td><%=h cosas_por_sacar.tipo.descr %></td>			
+			    <td><%=h cosas_por_sacar.color.descr %></td>				
+			    <td><%=h cosas_por_sacar.talla.descr %></td>
+				<td><%=h cosas_por_sacar.cantidad %></td>
+				<td><%= text_field_tag "inventario[sacar_#{cosas_por_sacar.id}]", cosas_por_sacar.por_sacar ,:size => 2 %></td>
+				<%= observe_field "inventario[sacar_#{cosas_por_sacar.id}]".to_sym, :url => cantidad_update_javascripts_path,
+				 				  :frequency => 0.25, :with => "'id=' + #{cosas_por_sacar.id} + '&cantidad=' + value" %>
+			</tr>

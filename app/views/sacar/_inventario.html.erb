@@ -1,0 +1,15 @@
+	  <tr class="<%= cycle :odd,:even %>">
+		<td><%=h inventario.id %></td>						
+	    <td><%=h inventario.fila %></td>
+	    <td><%=h inventario.columna %></td>	
+		<td></td>	
+	    <td><%=h inventario.cantidad %><%= "(#{inventario.por_sacar} por sacar, #{inventario.nombre_de_orden})" %></td>	
+	    <td><%=h inventario.marca.descr %></td>		
+	    <td><%=h inventario.tipo.descr %></td>			
+	    <td><%=h inventario.color.descr %></td>				
+	    <td><%=h inventario.talla.descr %></td>
+		<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>			
+	    <td><%= link_to 'Devolver', edit_sacar_path(inventario) %></td>
+	    <td><%= link_to 'Reinventariar', sacar_path(inventario), :method => 'put' %></td>
+	    <td><%= link_to 'Eliminar', sacar_path(inventario), :confirm => "Est&aacute;s seguro?", :method => 'delete' %></td>
+	  </tr>

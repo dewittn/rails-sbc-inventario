@@ -1,0 +1,44 @@
+<% page_title "Para Sacar" %>
+<h1><%= yield :title %></h1>
+<% unless @inventarios.empty? %>
+	<table class="results">
+	  <tr class="title">
+	  	<th>C&oacute;digo</th>	
+	    <th>Fila</th>
+	    <th>Columna</th>	
+		<th>&nbsp;&nbsp;</th>		
+	    <th>Cantidad</th>
+	    <th>Marca</th>	
+	    <th>Tipo</th>	
+	    <th>Color</th>	
+	    <th>Talla</th>
+		<th><th>
+		<th></th>
+		<th></th>
+	  </tr>
+	<%= render :partial => 'inventario', :collection => @inventarios %>
+	</table>
+	<%= will_paginate @inventarios %>
+<% else %>
+<p style="color: green"><%= "No se encontraron registros" %></p>
+<% end %>
+<div name='temporal'>
+<% unless @temporal.empty? %>
+<h1>Temporal</h1>
+	<table class="results">
+	  <tr class="title">
+	  	<th>C&oacute;digo</th>	
+	    <th>Fila</th>
+	    <th>Columna</th>	
+		<th>&nbsp;&nbsp;</th>		
+	    <th>Cantidad</th>
+	    <th>Marca</th>	
+	    <th>Tipo</th>	
+	    <th>Color</th>	
+	    <th>Talla</th>
+	  </tr>
+	<%= render :partial => 'temporal', :collection => @temporal %>
+	</table>
+	<% button_2("Limpiar",sacar_temporal_sacar_path, :method => :put) %>
+<% end %>
+<div>
