@@ -1,0 +1,19 @@
+<% page_title "Editar" %>
+
+<h1><%= yield :title %></h1>
+<div class="results" id="edit">
+<% form_tag(avanzado_path(@inventario),:method => :put) do %>
+<%= render :partial => 'application/cantidad' %>
+<%= render :partial => 'application/location' %>
+<%= render :partial => 'application/attributes' %>
+<p>  Necesita Reinventariarse?
+  <select name="inventario[necesita_reinventariarse]" id="inventario_necesita_reinventariarse">
+  	<option value="true" <%if @inventario.necesita_reinventariarse == true then %> selected="true" <% end %> >S&iacute;</option>
+  	<option value="false" <%if not @inventario.necesita_reinventariarse == true then %> selected="true" <% end %>>No</option>	
+  </select>
+</p>  
+<% end %>
+</div>
+<% button_1("Inventario", avanzado_index_path) %>
+<% button_2("Mostrar",avanzado_path(@inventario)) %>
+<% button_2("Editar =>",'#', :onclick => 'document.forms[0].submit()') %>

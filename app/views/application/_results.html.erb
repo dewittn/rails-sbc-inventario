@@ -1,0 +1,29 @@
+<% unless @inventarios.empty? %>
+	<div class="content">
+		<div class="float-left">
+			<table class="results">
+			  <tr class="title">
+			    <th>Cantidad</th>
+			    <th>Marca</th>	
+			    <th>Tipo</th>	
+			    <th>Color</th>	
+			    <th>Talla</th>
+				<%= yield :avanzado_results_label %>
+				<th></th>	
+			  </tr>
+				<%= render :partial => 'application/inventario', :collection => @inventarios %>
+				</table>
+			</div>
+		<div class="float-right">
+			<%= yield :location %>
+		</div>
+		<div class="clear"></div>
+		<% form_remote_tag(:url => por_sacar_javascripts_path) do %>
+			<div id="por_sacar"><%= render :partial => 'application/por_sacar' %></div>
+		<% end %>
+		<%= make_dragable %>		
+		</div>
+	<%= will_paginate @inventarios %>
+<% else %>
+	<p style="color: green"><%= "No se encontraron registros" %></p>
+<% end %>
