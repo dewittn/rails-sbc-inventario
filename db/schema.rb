@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20081203172209) do
+ActiveRecord::Schema.define(:version => 20081204200524) do
 
   create_table "colors", :force => true do |t|
     t.string "descr", :limit => 250
@@ -54,8 +54,8 @@ ActiveRecord::Schema.define(:version => 20081203172209) do
     t.integer  "marca_id",                                    :null => false
     t.integer  "talla_id",                                    :null => false
     t.integer  "cantidad",                                    :null => false
-    t.string   "fila"
-    t.integer  "columna"
+    t.string   "row"
+    t.integer  "column"
     t.boolean  "eliminado",                :default => false, :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
