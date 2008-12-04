@@ -1,8 +1,8 @@
 class Inventario < ActiveRecord::Base  
-  before_save :find_or_create_ubcicion
+  before_save :find_or_create_ubicacion
   after_create :create_history
   
-  validates_presence_of :talla_id, :color_id, :tipo_id, :marca_id, :estillo_id, :factura_id, :genetico_id 
+  validates_presence_of :talla_id, :color_id, :tipo_id, :marca_id, :estilo_id, :genero_id 
   
   has_one :historia
   
@@ -14,6 +14,22 @@ class Inventario < ActiveRecord::Base
   belongs_to :factura
   belongs_to :marca
   belongs_to :ubicacion
+  
+  def fila
+    @fila ||= ubicacion_id ? Ubicacion.all_cached.detect{ |u| u['id'] == ubicacion_id }.fila : row
+  end
+  
+  def fila=(value)
+    @fila = value
+  end
+  
+  def columna
+    @columna ||= ubicacion_id ? Ubicacion.all_cached.detect{ |u| u['id'] == ubicacion_id }.columna : column
+  end
+  
+  def columna=(value)
+    @columna = value
+  end
   
   def columna_required?
     not columna.blank?
@@ -35,8 +51,8 @@ class Inventario < ActiveRecord::Base
     search("por_sacar > 0 and tiene_por_sacar = false")
   end
   
-  def find_or_create__ubcicion
-    update_attribute(:ubicacion_id, Ubicacion.find_or_create(:fila => fila, :columna => columna).id) if (fila && columna)
+  def find_or_create_ubicacion
+    self.ubicacion_id = Ubicacion.find_or_create(:fila => fila, :columna => columna).id if (fila && columna)
   end
   
 end
