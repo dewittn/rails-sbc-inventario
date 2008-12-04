@@ -33,6 +33,13 @@ ActiveRecord::Schema.define(:version => 20081204200524) do
     t.datetime "updated_at"
   end
 
+  create_table "historials", :force => true do |t|
+    t.integer  "inventario_id"
+    t.datetime "created_at"
+    t.integer  "cantidad_original"
+    t.datetime "created_at_original"
+  end
+
   create_table "historias", :force => true do |t|
     t.integer  "cantidad"
     t.text     "talla"
