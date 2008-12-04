@@ -1,13 +1,19 @@
-class Inventario < ActiveRecord::Base
-  validates_presence_of :marca_id, :tipo_id, :color_id, :talla_id, :cantidad #, :fila, :columna
-  validates_numericality_of :cantidad
-  validates_numericality_of :columna, :if => :columna_required?
-  belongs_to :color
-  belongs_to :marca
-  belongs_to :talla
+class Inventario < ActiveRecord::Base  
+  before_save :find_or_create_ubcicion
+  after_create :create_history
+  
+  validates_presence_of :talla_id, :color_id, :tipo_id, :marca_id, :estillo_id, :factura_id, :genetico_id 
+  
+  has_one :historia
+  
   belongs_to :tipo
-  has_many :historial
-  validates_numericality_of :por_sacar  
+  belongs_to :color
+  belongs_to :talla
+  belongs_to :factura
+  belongs_to :estillo
+  belongs_to :factura
+  belongs_to :marca
+  belongs_to :ubicacion
   
   def columna_required?
     not columna.blank?
@@ -27,6 +33,10 @@ class Inventario < ActiveRecord::Base
   
   def self.temporal
     search("por_sacar > 0 and tiene_por_sacar = false")
+  end
+  
+  def find_or_create__ubcicion
+    update_attribute(:ubicacion_id, Ubicacion.find_or_create(:fila => fila, :columna => columna).id) if (fila && columna)
   end
   
 end

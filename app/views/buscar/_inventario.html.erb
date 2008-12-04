@@ -1,5 +1,5 @@
 	<tr class="<%= cycle :odd, :even %>">
 		<td><%=h inventario.id %></td>
-		<td><%=h inventario.fila %></td>
-		<td><%=h inventario.columna %></td>
+		<td><%=h @ubicaciones.detect{ |u| u.id == inventario.ubicacion_id }.fila %></td>
+		<td><%=h @ubicaciones.detect{ |u| u.id == inventario.ubicacion_id }.columna %></td>
 	</tr>

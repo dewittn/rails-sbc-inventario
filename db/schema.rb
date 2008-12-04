@@ -1,5 +1,5 @@
 # This file is auto-generated from the current state of the database. Instead of editing this file, 
-# please use the migrations feature of ActiveRecord to incrementally modify your database, and
+# please use the migrations feature of Active Record to incrementally modify your database, and
 # then regenerate this schema definition.
 #
 # Note that this schema.rb definition is the authoritative source for your database schema. If you need
@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 13) do
+ActiveRecord::Schema.define(:version => 20081203172209) do
 
   create_table "colors", :force => true do |t|
     t.string "descr", :limit => 250
@@ -21,17 +21,31 @@ ActiveRecord::Schema.define(:version => 13) do
     t.datetime "updated_at"
   end
 
+  create_table "facturas", :force => true do |t|
+    t.text     "descr"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "generos", :force => true do |t|
     t.string   "descr"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "historial", :force => true do |t|
+  create_table "historias", :force => true do |t|
+    t.integer  "cantidad"
+    t.text     "talla"
+    t.text     "marca"
+    t.text     "estillo"
+    t.text     "tipo"
+    t.text     "genetico"
+    t.text     "factura"
+    t.text     "ubicacion"
+    t.integer  "factura_id"
     t.integer  "inventario_id"
     t.datetime "created_at"
-    t.integer  "cantidad_original"
-    t.datetime "created_at_original"
+    t.datetime "updated_at"
   end
 
   create_table "inventarios", :force => true do |t|
@@ -52,6 +66,7 @@ ActiveRecord::Schema.define(:version => 13) do
     t.string   "nombre_de_orden"
     t.integer  "estilo_id"
     t.integer  "genero_id"
+    t.integer  "ubicacion_id"
   end
 
   create_table "marcas", :force => true do |t|
@@ -64,6 +79,14 @@ ActiveRecord::Schema.define(:version => 13) do
 
   create_table "tipos", :force => true do |t|
     t.string "descr", :limit => 250
+  end
+
+  create_table "ubicacions", :force => true do |t|
+    t.text     "descr"
+    t.string   "fila"
+    t.string   "columna"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
 end
