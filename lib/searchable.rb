@@ -36,7 +36,7 @@ class Searchable
   end
   
   def values(selected_model)
-    [["Cualquiera",""]] + selected_model.find(:all,:order => "descr ASC").collect {|p| [ p.descr, p.id ]}
+    [["Cualquiera",""]] + selected_model.all_cached.collect {|p| [ p['descr'], p['id'] ]}.sort{ |a,b| a <=> b }
   end
   
   def method_missing(*args,&block)

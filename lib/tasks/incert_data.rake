@@ -81,6 +81,13 @@ namespace :insert do
     puts "done"      
   end
   
+  task(:import_ubicacion => :environment) do
+    puts "importing ubicacion"
+    Inventario.all.each do |inventario|
+      inventario.find_or_create__ubcicion
+    end
+  end
+  
   task :all => [:Colors,:Marcas,:Tallas,:Tipos,:Generos]
   
   

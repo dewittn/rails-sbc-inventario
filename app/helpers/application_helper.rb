@@ -27,8 +27,8 @@ module ApplicationHelper
     if params[:controller] == "avanzado"
       content_for "inventario_#{inventario.id}".to_sym do
   		    "<td>#{h(inventario.id)}</td>						
-  		    <td>#{h(inventario.fila)}</td>
-  		    <td>#{h(inventario.columna)}</td>
+  		    <td>#{h(@ubicaciones.detect{ |u| u['id'] == inventario.ubicacion_id }.fila)}</td>
+  		    <td>#{h(@ubicaciones.detect{ |u| u['id'] == inventario.ubicacion_id }.columna)}</td>
   		    <td>#{link_to 'Mostrar', :action => 'show', :id => inventario}</td>	
   		    <td>#{link_to 'Editar', :action => 'edit', :id => inventario}</td>
   		    <td>#{link_to 'Retirar', avanzado_path(inventario),:confirm => "Est&aacute;s seguro?", :id => inventario, :method => :delete}</td>"

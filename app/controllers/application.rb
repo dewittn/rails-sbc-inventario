@@ -25,5 +25,10 @@ class ApplicationController < ActionController::Base
     @inventarios ||= Inventario.pag_search(params[:page], @sql)
     @total ||= Inventario.count_camisas(@sql)
     @solicitadas ||= params[:cantidad].to_i unless params[:cantidad].blank?
+    @ubicaciones = Ubicacion.all_cached
+    @marcas = Marca.all_cached
+    @tallas = Talla.all_cached
+    @tipos = Tipo.all_cached
+    @colores = Color.all_cached
   end
 end
