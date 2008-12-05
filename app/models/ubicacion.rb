@@ -16,10 +16,8 @@ class Ubicacion < ActiveRecord::Base
   def self.all_cached
     Rails.cache.fetch('Ubicacion') { all }
   end
-  
-  private
-  
-  def delete_cahce
+
+  def self.delete_cahce
     Rails.cache.delete('Ubicacion')
   end
 end
