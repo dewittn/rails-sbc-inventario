@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20081204200524) do
+ActiveRecord::Schema.define(:version => 20081205170109) do
 
   create_table "colors", :force => true do |t|
     t.string "descr", :limit => 250
@@ -25,19 +25,13 @@ ActiveRecord::Schema.define(:version => 20081204200524) do
     t.text     "descr"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "fecha"
   end
 
   create_table "generos", :force => true do |t|
     t.string   "descr"
     t.datetime "created_at"
     t.datetime "updated_at"
-  end
-
-  create_table "historials", :force => true do |t|
-    t.integer  "inventario_id"
-    t.datetime "created_at"
-    t.integer  "cantidad_original"
-    t.datetime "created_at_original"
   end
 
   create_table "historias", :force => true do |t|
@@ -61,8 +55,6 @@ ActiveRecord::Schema.define(:version => 20081204200524) do
     t.integer  "marca_id",                                    :null => false
     t.integer  "talla_id",                                    :null => false
     t.integer  "cantidad",                                    :null => false
-    t.string   "row"
-    t.integer  "column"
     t.boolean  "eliminado",                :default => false, :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -74,6 +66,7 @@ ActiveRecord::Schema.define(:version => 20081204200524) do
     t.integer  "estilo_id"
     t.integer  "genero_id"
     t.integer  "ubicacion_id"
+    t.integer  "factura_id"
   end
 
   create_table "marcas", :force => true do |t|
