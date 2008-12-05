@@ -1,6 +1,6 @@
 class Inventario < ActiveRecord::Base  
-  before_save :find_or_create_ubicacion, :find_or_create_factura
-  after_create :create_history
+  before_save :find_or_create_ubicacion #, :find_or_create_factura
+  #after_create :create_history
   
   validates_presence_of :talla_id, :color_id, :tipo_id, :marca_id, :estilo_id, :genero_id 
   
