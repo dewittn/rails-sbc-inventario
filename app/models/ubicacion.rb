@@ -20,4 +20,8 @@ class Ubicacion < ActiveRecord::Base
   def self.delete_cahce
     Rails.cache.delete('Ubicacion')
   end
+  
+  def delete_cahce
+    Rails.cache.delete('Ubicacion')
+  end
 end
