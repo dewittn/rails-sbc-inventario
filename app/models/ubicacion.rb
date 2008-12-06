@@ -16,12 +16,12 @@ class Ubicacion < ActiveRecord::Base
   def self.all_cached
     Rails.cache.fetch('Ubicacion') { all }
   end
-
-  def self.delete_cahce
+  
+  def self.delete_cache
     Rails.cache.delete('Ubicacion')
   end
   
-  def delete_cahce
+  def delete_cache
     Rails.cache.delete('Ubicacion')
   end
 end
