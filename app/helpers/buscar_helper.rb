@@ -10,5 +10,6 @@ module BuscarHelper
       	end
     	end
     end
-  end  
+  end 
+
 end

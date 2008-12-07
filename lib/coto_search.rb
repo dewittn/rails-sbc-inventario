@@ -46,6 +46,13 @@ module Searches
   end
 end
 
+module AllCached
+  def detect_from_cached
+    all_cached.detect{ |m| m['id'] == id }.descr
+  end
+end
+
 class ActiveRecord::Base
   extend Searches
+  #extend AllCahced
 end

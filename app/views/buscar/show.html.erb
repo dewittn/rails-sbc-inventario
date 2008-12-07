@@ -1,0 +1,66 @@
+<% page_title "Mostrar" %>
+
+<h1>Codigo: <%=h @inventario.id %></h1>
+
+<table class="show-item">
+	<tr>
+		<td>Cantidad:</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td><%=h @inventario.cantidad %></td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>Fila:</td>
+		<td>Columna:</td>
+	</tr>
+	<tr>
+		<td><%=h @inventario.fila %></td>
+		<td><%=h @inventario.columna %></td>
+	</tr>
+	<tr>
+		<td>Marca:</td>
+		<td>Tipo:</td>
+	</tr>
+	<tr>
+		<td><%=h @inventario.marca.descr %></td>
+		<td><%=h @inventario.tipo.descr %></td>
+	</tr>
+	<tr>
+		<td>Color:</td>
+		<td>Talla:</td>
+	</tr>
+	<tr>
+		<td><%=h @inventario.color.descr %></td>
+		<td><%=h @inventario.talla.descr %></td>
+	</tr>
+	<tr>
+		<td>Inventariado:</td>
+		<td>Actualizado:</td>
+	</tr>
+	<tr>
+		<td><%=h @inventario.created_at.strftime("%d/%m/%Y, %I:%M%p") %></td>
+		<td><% if !@inventario.updated_at.nil? %><%=h @inventario.updated_at.strftime("%d/%m/%Y, %I:%M%p") %><% end %></td>
+	</tr>
+</table>
+
+<%if @inventario.necesita_reinventariarse == true%>
+	<p style="color: red">Necesita Reinventariarse</p>
+<% end %>
+
+<%if @inventario.eliminado == true%>
+	<p style="color: red">Retirado <%= @inventario.eliminado_at.strftime("el d&iacute;a %d/%m/%Y, %I:%M%p") %></p>
+	<p><i>Estuvo en inventario <b>
+		<% if @inventario.historial.empty? %>
+			<%= distance_of_time_in_words_esp(@inventario.created_at, @inventario.eliminado_at)%></b></i></p>
+		<% else %>
+			<%= distance_of_time_in_words_esp(@inventario.historial.first.created_at_original, @inventario.eliminado_at)%></b></i></p>
+		<% end %>
+	<%= link_to 'Ver Paquetes Retirados', :action => 'edit' %> |
+<% else %>
+	<p><i>Ha estado en inventario <b><% #distance_of_time_in_words_esp(@inventario.created_at, Time.now) %></b></i></p>
+<% end %>
+<% button_1("Inventario",buscar_index_path) %>
+<% button_2("Nuevo",nuevo_path) %>
+
