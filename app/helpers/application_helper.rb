@@ -70,5 +70,9 @@ module ApplicationHelper
   def get_value(value)
     value.blank?  ? '' : value
   end
+  
+  def descr_from_cashed_values(model,id)
+    model.detect_from_cached(id)
+  end
     
 end

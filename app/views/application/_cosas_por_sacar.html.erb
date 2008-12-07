@@ -1,10 +1,10 @@
 			<tr class="<%= cycle :odd, :even %>">
 				<td><%=h cosas_por_sacar.id %></td>
 				<td></td>
-				<td><%=h @marcas.detect{ |m| m['id'] == cosas_por_sacar.marca_id }.descr %></td>		
-			    <td><%=h @tipos.detect{ |t| t['id'] == cosas_por_sacar.tipo_id }.descr %></td>			
-			    <td><%=h @colores.detect{ |c| c['id'] == cosas_por_sacar.color_id }.descr %></td>				
-			    <td><%=h @tallas.detect{ |t| t['id'] == cosas_por_sacar.talla_id }.descr %></td>
+				<td><%=h Marca.detect_from_cached cosas_por_sacar.marca_id %></td>		
+			    <td><%=h Tipo.detect_from_cached cosas_por_sacar.tipo_id %></td>			
+			    <td><%=h Color.detect_from_cached cosas_por_sacar.color_id %></td>				
+			    <td><%=h Talla.detect_from_cached cosas_por_sacar.talla_id %></td>
 				<td><%=h cosas_por_sacar.cantidad %></td>
 				<td><%= text_field_tag "inventario[sacar_#{cosas_por_sacar.id}]", cosas_por_sacar.por_sacar ,:size => 2 %></td>
 				<%= observe_field "inventario[sacar_#{cosas_por_sacar.id}]".to_sym, :url => cantidad_update_javascripts_path,

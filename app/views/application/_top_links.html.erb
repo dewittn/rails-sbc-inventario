@@ -1,7 +1,8 @@
-<% create_top_links ("Buscar","Sacar","Reinventariar", "Avanzado") %>
+<% create_top_links ("Buscar","Sacar","Reinventariar") %>
 <div id="top-bar">
 <div class="float-left">
 	<%= yield :top_link %>
+	<%= link_to "Nuevo", nuevo_path() %>
 </div>
 <div class="float-right">
 	<%= yield :log_out %>
