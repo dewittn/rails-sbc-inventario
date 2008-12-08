@@ -14,7 +14,8 @@ module ApplicationHelper
   			<td>#{text_field_tag("columna", {}, {:size => 3, :value => params[:columna]})}</td>"
   		end
   		content_for :avanzado_results_label do
-  		  "<th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>	
+  		  "<th></th>
+  		  <th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>	
   		  	<th>C&oacute;digo</th>	
   		    <th>Fila</th>
   		    <th>Columna</th>
@@ -26,7 +27,8 @@ module ApplicationHelper
   def avanzado_results(inventario)
     if params[:controller] == "avanzado"
       content_for "inventario_#{inventario.id}".to_sym do
-  		    "<td>#{h(inventario.id)}</td>						
+  		    "<td></td>
+  		    <td>#{h(inventario.id)}</td>						
   		    <td>#{h(@ubicaciones.detect{ |u| u['id'] == inventario.ubicacion_id }.fila)}</td>
   		    <td>#{h(@ubicaciones.detect{ |u| u['id'] == inventario.ubicacion_id }.columna)}</td>
   		    <td>#{link_to 'Mostrar', :action => 'show', :id => inventario}</td>	
@@ -37,9 +39,7 @@ module ApplicationHelper
   end
   
   def location
-    content_for :location do
-      render :partial => 'location'
-		end
+      render :partial => 'location' if params[:controller] =="buscar"
   end
 
   def cantidad
@@ -48,15 +48,6 @@ module ApplicationHelper
   
   def nombre_de_orden
     session[:nombre].blank? ? "(agregue el nombre)" : session[:nombre].titlecase
-  end
-  
-  def ajax_button_2(text)
-    content_for(:button2) do
-      "<td>#{link_to_function "<div id='ajax_button_#{text.split[0].downcase}' class='three'><center>#{text}</center></div>" do |page|
-        page.insert_html :bottom, :por_sacar, hidden_field_tag('commit',text)
-        page << "new Ajax.Request('/javascripts/por_sacar', {asynchronous:true, evalScripts:true, parameters:Form.serialize(document.forms[1]) + '&amp;authenticity_token=' + encodeURIComponent('#{escape_javascript form_authenticity_token}')}); return false;"
-      end}</td>"
-		end
   end
   
   def make_dragable
@@ -71,8 +62,32 @@ module ApplicationHelper
     value.blank?  ? '' : value
   end
   
+  ### New methods
+  
+  def draggable(inventario)
+    draggable_element("inventario_#{inventario.id}",:revert => true,:ghosting => true)
+  end
+  
+  
   def descr_from_cashed_values(model,id)
     model.detect_from_cached(id)
   end
+  
+  def detalles(inventario)
+    render :partial => 'application/detalles', :locals => {:inventario => inventario}
+  end
+  
+  def cantidad_por_sacar(inventario)
+    " ( #{inventario.por_sacar.to_s} por sacar)" unless inventario.por_sacar == 0 
+  end
+  
+  def resultados_avanzados(inventario)
+    yield "inventario_#{inventario.id}".to_sym if params[:controller] == "avanza"
+  end
+  
+  def total_camisas
+    "<p><b>Total:</b> #{(@total.blank?) ? "0": @total } camisas, en #{(@inventarios.total_entries.blank?) ? "0": @inventarios.total_entries} paquetes.</p>"
+  end
+  
     
 end

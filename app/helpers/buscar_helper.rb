@@ -1,15 +1,16 @@
 module BuscarHelper
   def solicitadas
-    if not @solicitadas.nil? 
-      n = (@total.to_i - @solicitadas) 
-      content_for :solicitadas do
-      	if n < 0 
-      		"<p style='color: red'>Har&iacute;an falta <b>#{n.abs}</b> camisas para poder satisfacer la cantidad especificada ( #{@solicitadas} )"
+    if !@solicitadas.blank?
+      	if total< 0 
+      		"<p style='color: red'>Har&iacute;an falta <b>#{total.abs}</b> camisas para poder satisfacer la cantidad especificada ( #{@solicitadas} )"
       	 else
-      		"<p style='color: green'>Sobrar&iacute;an <b>#{n.abs}</b> camisas despu&eacute;s de satisfacer la cantidad especificada ( #{@solicitadas} )</p>"		
+      		"<p style='color: green'>Sobrar&iacute;an <b>#{total.abs}</b> camisas despu&eacute;s de satisfacer la cantidad especificada ( #{@solicitadas} )</p>"		
       	end
-    	end
     end
   end 
+  
+  def total
+    @total_solicitadas ||= (@total.to_i - @solicitadas)
+  end
 
 end

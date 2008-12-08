@@ -1,9 +1,7 @@
 <% page_title "Buscar" %>
-<% solicitadas %>
-<% location %>
 <%= render :partial => 'application/search_boxes' %>
-<%= yield :solicitadas %>
-<div id="results"><%= render :partial => 'application/results' %></div>
-<%= render :partial => 'application/total' %>
-<% ajax_button_2("Limpiar") %>
-<% ajax_button_2("Sacar =>") %>
+<%= solicitadas %>
+<%= render :partial => 'application/results' %>
+<%= total_camisas %>
+<% button_2("Limpiar", '#', :onclick => "limpar_submit()") %>
+<% button_2("Sacar =>", '#', :onclick => "sacar_submit()") %>
