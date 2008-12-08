@@ -1,11 +1,7 @@
 					<% avanzado_results(inventario)  %>
 					  <tr id="inventario_<%= inventario.id %>" class="<%= cycle :odd,:even %>">
-					    <td><%=h inventario.cantidad %><%= " ( #{inventario.por_sacar.to_s} por sacar)" unless inventario.por_sacar == 0 %></td>	
-					    <td><%=h @marcas.detect{ |m| m['id'] == inventario.marca_id }.descr %></td>		
-					    <td><%=h @tipos.detect{ |t| t['id'] == inventario.tipo_id }.descr %></td>			
-					    <td><%=h @colores.detect{ |c| c['id'] == inventario.color_id }.descr %></td>				
-					    <td><%=h @tallas.detect{ |t| t['id'] == inventario.talla_id }.descr %></td>
-						<td></td>
-						<%= yield "inventario_#{inventario.id}".to_sym %>			
+					    <td><%=h inventario.cantidad %><%= cantidad_por_sacar(inventario) %></td>	
+						<%= detalles(inventario) %>
+						<%= resultados_avanzados(inventario) %>
 					  </tr>
-					<%= draggable_element("inventario_#{inventario.id}",:revert => true,:ghosting => true) %>
+					<%= draggable(inventario) %>

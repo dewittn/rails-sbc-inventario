@@ -8,22 +8,19 @@
 			    <th>Tipo</th>	
 			    <th>Color</th>	
 			    <th>Talla</th>
-				<%= yield :avanzado_results_label %>
-				<th></th>	
+				<%= yield :avanzado_results_label %>	
 			  </tr>
 				<%= render :partial => 'application/inventario', :collection => @inventarios %>
-				</table>
-			</div>
-		<div class="float-right">
-			<%= yield :location %>
+			</table>
 		</div>
+		<div class="float-right"><%= location %></div>
 		<div class="clear"></div>
+		<div class="results"><%= will_paginate @inventarios %></div>
 		<% form_remote_tag(:url => por_sacar_javascripts_path) do %>
 			<div id="por_sacar"><%= render :partial => 'application/por_sacar' %></div>
 		<% end %>
 		<%= make_dragable %>		
-		</div>
-	<%= will_paginate @inventarios %>
+	</div>
 <% else %>
 	<p style="color: green"><%= "No se encontraron registros" %></p>
 <% end %>

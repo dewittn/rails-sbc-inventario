@@ -1,11 +1,7 @@
 <tr class="<%= cycle :odd,:even %>">
 	<td><%=h temporal.id %></td>						
-  <td><%=h temporal.fila %></td>
-  <td><%=h temporal.columna %></td>	
-	<td></td>	
-  <td><%=h temporal.cantidad %><%= "(#{temporal.por_sacar} por sacar, #{temporal.nombre_de_orden})" %></td>	
-  <td><%=h temporal.marca.descr %></td>		
-  <td><%=h temporal.tipo.descr %></td>			
-  <td><%=h temporal.color.descr %></td>				
-  <td><%=h temporal.talla.descr %></td>
+	<td><%=h temporal.fila %></td>
+	<td><%=h temporal.columna %></td>	
+	<td><%=h temporal.cantidad %><%= cantidad_por_sacar(inventario) %></td>	
+	<%= detalles(temporal) %>
 </tr>

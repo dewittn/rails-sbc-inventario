@@ -2,7 +2,7 @@ class AvanzadoController < ApplicationController
   def index
     redirect_to(avanzado_index_path) if params[:commit] == "Limpiar"
     @sql ||= build_sql(Color,Marca,Genero,Estilo,Tipo,Talla,:id,:fila,:columna)
-    html_xml_search
+    search_vars
   end
   
   def show

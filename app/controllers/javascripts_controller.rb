@@ -5,13 +5,16 @@ class JavascriptsController < ApplicationController
   end
   
   def agregar_otro_para_sacar
-    id ||= params[:id].split("_")[1].to_i
     session[:por_sacar].blank? ? session[:por_sacar] = [id] : session[:por_sacar] += [id]
     session[:por_sacar].uniq!
     Inventario.update(id, {"por_sacar" => params[:cantidad].to_i}) unless params[:cantidad].blank?
     @sacar ||= Inventario.find(id)
     @por_sacar ||= Inventario.find(session[:por_sacar]) unless session[:por_sacar].blank?
     respond_to(&:js)
+  end
+  
+  def id
+    params[:id].split("_")[1].to_i
   end
   
   def por_sacar

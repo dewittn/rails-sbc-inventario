@@ -5,14 +5,13 @@
 	  <tr class="title">
 	  	<th>C&oacute;digo</th>	
 	    <th>Fila</th>
-	    <th>Columna</th>	
-		<th>&nbsp;&nbsp;</th>		
+	    <th>Columna</th>		
 	    <th>Cantidad</th>
 	    <th>Marca</th>	
 	    <th>Tipo</th>	
 	    <th>Color</th>	
 	    <th>Talla</th>
-		<th><th>
+		<th></th>
 		<th></th>
 		<th></th>
 	  </tr>
@@ -20,7 +19,7 @@
 	</table>
 	<%= will_paginate @inventarios %>
 <% else %>
-<p style="color: green"><%= "No se encontraron registros" %></p>
+	<p style="color: green"><%= "No se encontraron registros" %></p>
 <% end %>
 <div name='temporal'>
 <% unless @temporal.empty? %>
@@ -29,8 +28,7 @@
 	  <tr class="title">
 	  	<th>C&oacute;digo</th>	
 	    <th>Fila</th>
-	    <th>Columna</th>	
-		<th>&nbsp;&nbsp;</th>		
+	    <th>Columna</th>		
 	    <th>Cantidad</th>
 	    <th>Marca</th>	
 	    <th>Tipo</th>	
