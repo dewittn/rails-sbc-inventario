@@ -11,7 +11,7 @@ class SacarController < ApplicationController
   
   def update
     Inventario.update(id, {"por_sacar" => 0, "tiene_por_sacar" => false, "nombre_de_orden" => nil,"necesita_reinventariarse" => true})
-    redirect_to sacar_index_path
+    redirect_to edit_reinventariar_path(id)
   end
   
   def destroy
