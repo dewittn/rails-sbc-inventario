@@ -18,34 +18,35 @@ class JavascriptsController < ApplicationController
   end
   
   def por_sacar
-    !session[:por_sacar].blank? ? button_push(params[:commit].split[0]) : redirect_to(buscar_index_path)
+    #!session[:por_sacar].blank? ? button_push(params[:commit].split[0]) : redirect_to(buscar_index_path)
   end
   
   def button_push(button)
-    if button == "Limpiar"
-      session[:por_sacar].each do |id|
-       Inventario.update(id, {"por_sacar" => 0})
-      end
+    limpiar if button == "Limpiar"
+    sacar if button == "Sacar"
+  end
+  
+  def sacar
+    session[:nombre].blank? ? @error = "La orden no tiene nombre" : update_or_error(session[:por_sacar])  
+    @error = "Codigo #{@message} falta#{ "n" if @faltan.size > 1} cantidad por sacar" unless @faltan.blank?      
+    if @error.blank?
       clear_session
       respond_to do |wants|
-        wants.html { redirect_to(buscar_index_path) }
-        wants.js {  }
+        wants.js { render :update do |page|
+                    page.redirect_to(sacar_index_path)
+                    end }
       end
-      
-    elsif button == "Sacar"
-      session[:nombre].blank? ? @error = "La orden no tiene nombre" : update_or_error(session[:por_sacar])  
-      @error = "Codigo #{@message} falta#{ "n" if @faltan.size > 1} cantidad por sacar" unless @faltan.blank?      
-      if @error.blank?
-        clear_session
-        respond_to do |wants|
-          wants.js { render :update do |page|
-                      page.redirect_to(sacar_index_path)
-                      end }
-        end
-      else
-        @por_sacar ||= Inventario.find(session[:por_sacar]) unless session[:por_sacar].blank?
-        respond_to(&:js)
-      end
+    end
+  end
+  
+  def limpiar
+    session[:por_sacar].each do |id|
+     Inventario.update(id, {"por_sacar" => 0})
+    end
+    clear_session
+    respond_to do |wants|
+      wants.html { redirect_to(buscar_index_path) }
+      wants.js {  }
     end
   end
   

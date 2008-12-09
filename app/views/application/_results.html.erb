@@ -15,7 +15,7 @@
 		</div>
 		<div class="float-right"><%= location %></div>
 		<div class="clear"></div>
-		<div class="results"><%= will_paginate @inventarios %></div>
+		<div class="pagination"><%= will_paginate @inventarios %></div>
 		<% form_remote_tag(:url => por_sacar_javascripts_path) do %>
 			<div id="por_sacar"><%= render :partial => 'application/por_sacar' %></div>
 		<% end %>
