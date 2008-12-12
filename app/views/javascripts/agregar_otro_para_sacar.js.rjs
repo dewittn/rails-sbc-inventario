@@ -1,9 +1,6 @@
 page.replace_html :por_sacar, :partial => 'application/por_sacar'
 unless params[:cantidad].blank?
   page.replace_html params[:id].to_sym, "<td>#{h(@sacar.cantidad)} (#{@sacar.por_sacar unless @sacar.por_sacar.blank? } por sacar)</td>	
-  				                          <td>#{h(@sacar.marca.descr)}</td>		
-                        				    <td>#{h(@sacar.tipo.descr)}</td>			
-                        				    <td>#{h(@sacar.color.descr)}</td>				
-                        				    <td>#{h(@sacar.talla.descr)}</td>
+  				                          #{detalles(@sacar)}
                         					<td></td>"
 end

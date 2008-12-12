@@ -1,3 +1,4 @@
+<%# debug session[:por_sacar] %>
 <% if !@por_sacar.blank?  %>
 	<div id="por_sacar_error"><%= @error unless @error.blank? %></div>
 	<h2>Nombre de orden: <span id="nombre"><%= nombre_de_orden %></span></h2>
