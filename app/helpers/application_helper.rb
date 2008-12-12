@@ -46,10 +46,6 @@ module ApplicationHelper
     params[:cantidad] unless params[:cantidad].blank?
   end
   
-  def nombre_de_orden
-    session[:nombre].blank? ? "(agregue el nombre)" : session[:nombre].titlecase
-  end
-  
   def make_dragable
     drop_receiving_element("por_sacar", :url => { :controller => "javascripts", :action => "agregar_otro_para_sacar", :params => { :cantidad => params[:cantidad] } })
   end
@@ -88,6 +84,4 @@ module ApplicationHelper
   def total_camisas
     "<p><b>Total:</b> #{(@total.blank?) ? "0": @total } camisas, en #{(@inventarios.total_entries.blank?) ? "0": @inventarios.total_entries} paquetes.</p>"
   end
-  
-    
 end
