@@ -50,6 +50,10 @@ module ApplicationHelper
     drop_receiving_element("por_sacar", :url => { :controller => "javascripts", :action => "agregar_otro_para_sacar", :params => { :cantidad => params[:cantidad] } })
   end
   
+  def nombre_de_orden
+    session[:nombre].blank? ? "(agregue el nombre)" : session[:nombre].titlecase
+  end
+  
   def cantidad_txt_field
     text_field 'inventario', 'cantidad', {:size => 3, :maxlength => 3, :value => get_value(params[:cantidad]), :id => 'cantidad', :name => 'cantidad'}
   end
