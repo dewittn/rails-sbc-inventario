@@ -36,9 +36,12 @@ module JavascriptMethods
        @error = "La orden no tiene nombre"
      else
        session_por_sacar.each do |id|
-         cantidad_por_sacar(id).zero? ? faltan << [id] : Inventario.update(id, {"por_sacar" => cantidad_por_sacar(id), "tiene_por_sacar" => true, "nombre_de_orden" => session[:nombre]})
+         faltan << id  if cantidad_por_sacar(id).zero?
        end
        @error = "Codigo #{message} falta#{ "n" if faltan.size > 1} cantidad por sacar" unless faltan.blank? 
+       session_por_sacar.each do |id|
+          Inventario.update(id, {"por_sacar" => cantidad_por_sacar(id), "tiene_por_sacar" => true, "nombre_de_orden" => session[:nombre]}) if faltan.blank?
+        end
      end
      @error.blank?
    end

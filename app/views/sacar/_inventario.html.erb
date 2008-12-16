@@ -2,7 +2,8 @@
 		<td><%=h inventario.id %></td>						
 	    <td><%=h inventario.fila %></td>
 	    <td><%=h inventario.columna %></td>
-	    <td><%=h inventario.cantidad %><%= cantidad_por_sacar(inventario) %></td>	
+	    <td><%=h inventario.cantidad %><%= cantidad_por_sacar(inventario) %></td>
+		<td><%=h inventario.nombre_de_orden %></td>
 		<%= detalles(inventario) %>		
 	    <td><%= link_to 'Devolver', edit_sacar_path(inventario) %></td>
 	    <td><%= link_to 'Reinventariar', sacar_path(inventario), :method => 'put' %></td>
