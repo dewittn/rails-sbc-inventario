@@ -23,7 +23,7 @@ module JavascriptMethods
    end
 
    def clear_session
-     session_por_sacar = []
+     session[:por_sacar] = []
      session[:nombre] = nil
    end
 
