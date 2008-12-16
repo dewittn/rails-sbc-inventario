@@ -2,6 +2,6 @@
 					  <tr id="inventario_<%= inventario.id %>" class="<%= cycle :odd,:even %>">
 					    <td><%=h inventario.cantidad %><%= cantidad_por_sacar(inventario) %></td>	
 						<%= detalles(inventario) %>
-						<%= resultados_avanzados(inventario) %>
+						<%= yield resultados_avanzados(inventario) %>
 					  </tr>
 					<%= draggable(inventario) %>

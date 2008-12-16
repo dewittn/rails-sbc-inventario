@@ -29,8 +29,8 @@ module ApplicationHelper
       content_for "inventario_#{inventario.id}".to_sym do
   		    "<td></td>
   		    <td>#{h(inventario.id)}</td>						
-  		    <td>#{h(@ubicaciones.detect{ |u| u['id'] == inventario.ubicacion_id }.fila)}</td>
-  		    <td>#{h(@ubicaciones.detect{ |u| u['id'] == inventario.ubicacion_id }.columna)}</td>
+  		    <td>#{h(@ubicaciones.detect{ |u| u['id'] == inventario.ubicacion_id }.fila) rescue ""}</td>
+  		    <td>#{h(@ubicaciones.detect{ |u| u['id'] == inventario.ubicacion_id }.columna) rescue ""}</td>
   		    <td>#{link_to 'Mostrar', :action => 'show', :id => inventario}</td>	
   		    <td>#{link_to 'Editar', :action => 'edit', :id => inventario}</td>
   		    <td>#{link_to 'Retirar', avanzado_path(inventario),:confirm => "Est&aacute;s seguro?", :id => inventario, :method => :delete}</td>"
@@ -82,7 +82,7 @@ module ApplicationHelper
   end
   
   def resultados_avanzados(inventario)
-    yield "inventario_#{inventario.id}".to_sym if params[:controller] == "avanza"
+    ("inventario_#{inventario.id}".to_sym) if params[:controller] == "avanzado"
   end
   
   def total_camisas
