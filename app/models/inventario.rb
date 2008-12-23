@@ -1,5 +1,5 @@
 class Inventario < ActiveRecord::Base  
-  before_save :find_or_create_ubicacion #, :find_or_create_factura
+  before_save :find_or_create_ubicacion, :find_or_create_factura
   #after_create :create_history
   
   validates_presence_of :talla_id, :color_id, :tipo_id, :marca_id, :estilo_id, :genero_id 
@@ -14,7 +14,7 @@ class Inventario < ActiveRecord::Base
   belongs_to :factura
   belongs_to :ubicacion
   
-  attr_accessor :factura, :fecha
+  attr_accessor :numero_de_factura, :fecha
   
   def fila
     @fila ||= ubicacion_id ? Ubicacion.all_cached.detect{ |u| u['id'] == ubicacion_id }.fila : nil
@@ -57,7 +57,7 @@ class Inventario < ActiveRecord::Base
   end
   
   def find_or_create_factura
-    self.factura_id = Factura.find_or_create(:descr => factura, :fecha => fecha).id
+    self.factura_id = Factura.find_or_create(:descr => numero_de_factura, :fecha => fecha).id if (numero_de_factura || fecha)
   end
   
   def create_history

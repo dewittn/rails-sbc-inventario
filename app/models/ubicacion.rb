@@ -24,4 +24,12 @@ class Ubicacion < ActiveRecord::Base
   def delete_cache
     Rails.cache.delete('Ubicacion')
   end
+  
+  def self.fila_from_cached(id)
+    all_cached.detect{ |m| m['id'] == id }.fila rescue ""
+  end
+  
+  def self.columna_from_cached(id)
+    all_cached.detect{ |m| m['id'] == id }.columna rescue ""
+  end
 end

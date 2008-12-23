@@ -1,5 +1,4 @@
 	<tr class="<%= cycle :odd, :even %>">
 		<td><%=h inventario.id %></td>
-		<td><%=h @ubicaciones.detect{ |u| u['id'] == inventario.ubicacion_id }.fila rescue "" %></td>
-		<td><%=h @ubicaciones.detect{ |u| u['id'] == inventario.ubicacion_id }.columna rescue "" %></td>
+		<%= fila_columna(inventario) %>
 	</tr>
