@@ -1,7 +1,6 @@
 	  <tr class="<%= cycle :odd,:even %>">
 		<td><%=h inventario.id %></td>						
-	    <td><%=h inventario.fila %></td>
-	    <td><%=h inventario.columna %></td>
+		<%= fila_columna(inventario) %>
 	    <td><%=h inventario.cantidad %><%= cantidad_por_sacar(inventario) %></td>
 		<td><%=h inventario.nombre_de_orden %></td>
 		<%= detalles(inventario) %>		

@@ -29,13 +29,13 @@ module ApplicationHelper
       content_for "inventario_#{inventario.id}".to_sym do
   		    "<td></td>
   		    <td>#{h(inventario.id)}</td>						
-  		    <td>#{h(@ubicaciones.detect{ |u| u['id'] == inventario.ubicacion_id }.fila) rescue ""}</td>
-  		    <td>#{h(@ubicaciones.detect{ |u| u['id'] == inventario.ubicacion_id }.columna) rescue ""}</td>
+  		    <td>#{Ubicacion.fila_from_cached(inventario.id)}</td>
+      		<td>#{Ubicacion.columna_from_cached(inventario.id)}</td>
   		    <td>#{link_to 'Mostrar', :action => 'show', :id => inventario}</td>	
   		    <td>#{link_to 'Editar', :action => 'edit', :id => inventario}</td>
   		    <td>#{link_to 'Retirar', avanzado_path(inventario),:confirm => "Est&aacute;s seguro?", :id => inventario, :method => :delete}</td>"
-  		  end   
-  	end 
+  		  end
+  	end
   end
   
   def location
@@ -88,4 +88,9 @@ module ApplicationHelper
   def total_camisas
     "<p><b>Total:</b> #{(@total.blank?) ? "0": @total } camisas, en #{(@inventarios.total_entries.blank?) ? "0": @inventarios.total_entries} paquetes.</p>"
   end
+  
+  def fila_columna(inventario)
+    render :partial => 'application/fila_columna', :locals => {:inventario => inventario}
+  end
+  
 end
