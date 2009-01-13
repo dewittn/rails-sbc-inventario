@@ -17,4 +17,8 @@ class JavascriptsController < ApplicationController
   def por_sacar
     (button_push == "Sacar" ? sacar : limpiar) unless session[:por_sacar].blank?
   end
+  
+  def factura
+      session[:factura] = !params[:value].blank? ? params[:value] : Time.now.strftime("%d-%m-%Y")
+  end
 end

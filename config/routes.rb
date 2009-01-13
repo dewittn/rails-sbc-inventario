@@ -1,7 +1,7 @@
 ActionController::Routing::Routes.draw do |map|
   map.resources :reinventariar, :avanzado, :buscar
   map.resources :sacar, :collection => {:sacar_temporal => :put}
-  map.resources :javascripts, :collection => { :nombre_de_orden => :post, :por_sacar => :post, :agregar_otro_para_sacar => :post, :cantidad_update =>:post }
+  map.resources :javascripts, :collection => { :nombre_de_orden => :post, :por_sacar => :post, :agregar_otro_para_sacar => :post, :cantidad_update =>:post, :factura => :post, }
   map.nuevo '/nuevo', :controller => 'buscar', :action => 'new' 
   
   # The priority is based upon order of creation: first created -> highest priority.
