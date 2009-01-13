@@ -12,5 +12,9 @@ module BuscarHelper
   def total
     @total_solicitadas ||= (@total.to_i - @solicitadas)
   end
+  
+  def factura
+    session[:factura] || Time.now.strftime("%d-%m-%Y")
+  end
 
 end

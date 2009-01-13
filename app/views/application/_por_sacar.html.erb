@@ -1,7 +1,7 @@
 <%# debug session[:por_sacar] %>
 <% if !@por_sacar.blank?  %>
 	<div id="por_sacar_error"><%= @error unless @error.blank? %></div>
-	<h2>Nombre de orden: <span id="nombre"><%= nombre_de_orden %></span></h2>
+	<h2>Nombre de orden: <span id="nombre"> <%= nombre_de_orden %></span></h2>
 	<script type="text/javascript">
 	 new Ajax.InPlaceEditor('nombre', '/javascripts/nombre_de_orden?<%= request_forgery_protection_token %>=<%= escape_javascript form_authenticity_token %>');
 	</script>
@@ -14,7 +14,7 @@
 		    <th>Color</th>	
 		    <th>Talla</th>
 			<th>Cantidad</th>
-			<th>Cantidad 2</th>
+			<th>Por sacar</th>
 		</tr>
 		<%= render :partial => 'application/cosas_por_sacar', :collection => @por_sacar %>
 	</table>

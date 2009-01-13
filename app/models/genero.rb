@@ -10,4 +10,8 @@ class Genero < ActiveRecord::Base
   def delete_cahce
     Rails.cache.delete('genero')
   end
+  
+  def self.detect_from_cached(id)
+    all_cached.detect{ |m| m['id'] == id }.descr rescue nil
+  end
 end

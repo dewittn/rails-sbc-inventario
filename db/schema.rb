@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20081216194227) do
+ActiveRecord::Schema.define(:version => 20090113163426) do
 
   create_table "colors", :force => true do |t|
     t.string "descr", :limit => 250
@@ -47,6 +47,7 @@ ActiveRecord::Schema.define(:version => 20081216194227) do
     t.integer  "inventario_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "color"
   end
 
   create_table "inventarios", :force => true do |t|

@@ -1,8 +1,8 @@
 class Inventario < ActiveRecord::Base  
   before_save :find_or_create_ubicacion, :find_or_create_factura
-  #after_create :create_history
+  after_create :create_history
   
-  validates_presence_of :talla_id, :color_id, :tipo_id, :marca_id, :estilo_id, :genero_id 
+  validates_presence_of :talla_id, :color_id, :tipo_id, :marca_id, :estilo_id, :genero_id, :cantidad
   
   has_one :historia
   
@@ -62,10 +62,10 @@ class Inventario < ActiveRecord::Base
   
   def create_history
     Historia.create(:cantidad => cantidad,:factura_id => factura_id, :inventario_id => id,
-                    :color => (Color.all_chached.detect{ |a| a['id'] == color_id }.descr rescue nil),
-                    :talla => (Talla.all_chached.detect{ |a| a['id'] == talla_id }.descr rescue nil),
-                    :marca => (Tipo.all_chached.detect{ |a| a['id'] == tipo_id }.descr rescue nil),
-                    :genetico => (Marca.all_chached.detect{ |a| a['id'] == marca_id }.descr rescue nil))
+                    :color => (Color.detect_from_cached(color_id)),
+                    :talla => (Talla.detect_from_cached(talla_id)),
+                    :marca => (Marca.detect_from_cached(marca_id)),
+                    :genetico => (Genero.detect_from_cached(genero_id))) unless factura_id.blank?
   end
   
 end

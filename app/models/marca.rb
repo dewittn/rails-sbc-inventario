@@ -12,6 +12,6 @@ class Marca < ActiveRecord::Base
   end
   
   def self.detect_from_cached(id)
-    all_cached.detect{ |m| m['id'] == id }.descr
+    all_cached.detect{ |m| m['id'] == id }.descr rescue nil
   end
 end
