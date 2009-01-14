@@ -1,0 +1,24 @@
+<% page_title "Hacer reinventario"%>
+
+<% unless @inventario.nil? %>
+<h2><%= yield :title %></h2>
+<center>
+	<p>Por favor coloque el paquete con c&oacute;digo <b><%= @inventario.id %></b> en:</p>
+	<table>
+		<tr align="center"><th>Fila</th><td>&nbsp;&nbsp;</td><th>Columna</th></tr>
+		<tr align="center"><td><%= @inventario.fila %></td><td>&nbsp;&nbsp;</td><td><%= @inventario.columna %></td></tr>		
+	</table>
+	<p><b>Detalles</b></p>
+	<table>
+		<tr>
+			<td><%= @inventario.cantidad %></td>
+			<%= detalles(@inventario) %>
+		</tr>
+	</table>
+</center>
+<% button_1("Reinventario",edit_reinventariar_path(params[:id]))%>
+<% button_2("Completo",sacar_index_path) %>
+<% else %>
+<p style="color: green;">Lo sentimos, hubo un error en el sistema, por favor notif&iacute;queselo a un encargado</p>
+<% button_2("Reiventariar",reinventariar_index_path)%>
+<% end %>

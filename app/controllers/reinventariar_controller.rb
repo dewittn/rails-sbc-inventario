@@ -12,6 +12,10 @@ class ReinventariarController < ApplicationController
     @inventarios = Inventario.find(id)
   end
   
+  def show
+  
+  end
+    
   def id
     params[:id]
   end
