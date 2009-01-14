@@ -54,6 +54,10 @@ module ApplicationHelper
     session[:nombre].blank? ? "(agregue el nombre)" : session[:nombre].titlecase
   end
   
+  def numero_de_orden
+    session[:numero].blank? ? "(agregue el numero)" : session[:numero].titlecase
+  end
+  
   def cantidad_txt_field
     text_field 'inventario', 'cantidad', {:size => 3, :maxlength => 3, :value => get_value(params[:cantidad]), :id => 'cantidad', :name => 'cantidad'}
   end

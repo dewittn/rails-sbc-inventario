@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090113163426) do
+ActiveRecord::Schema.define(:version => 20090114023932) do
 
   create_table "colors", :force => true do |t|
     t.string "descr", :limit => 250
@@ -68,6 +68,7 @@ ActiveRecord::Schema.define(:version => 20090113163426) do
     t.integer  "genero_id"
     t.integer  "ubicacion_id"
     t.integer  "factura_id"
+    t.string   "numero_de_orden"
   end
 
   add_index "inventarios", ["color_id"], :name => "index_inventarios_on_color_id"

@@ -25,6 +25,7 @@ module JavascriptMethods
    def clear_session
      session[:por_sacar] = []
      session[:nombre] = nil
+     session[:numero] = nil
    end
 
    def cantidad_por_sacar(id)
@@ -34,13 +35,15 @@ module JavascriptMethods
    def update
      if session[:nombre].blank? 
        @error = "La orden no tiene nombre"
+     elsif session[:numero].blank?
+       @error = "La orden no tiene numero"
      else
        session_por_sacar.each do |id|
          faltan << id  if cantidad_por_sacar(id).zero?
        end
        @error = "Codigo #{message} falta#{ "n" if faltan.size > 1} cantidad por sacar" unless faltan.blank? 
        session_por_sacar.each do |id|
-          Inventario.update(id, {"por_sacar" => cantidad_por_sacar(id), "tiene_por_sacar" => true, "nombre_de_orden" => session[:nombre]}) if faltan.blank?
+          Inventario.update(id, {"por_sacar" => cantidad_por_sacar(id), "tiene_por_sacar" => true, "nombre_de_orden" => session[:nombre], "numero_de_orden" => session[:numero]}) if faltan.blank?
         end
      end
      @error.blank?

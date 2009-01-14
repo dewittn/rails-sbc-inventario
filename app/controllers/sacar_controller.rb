@@ -10,8 +10,14 @@ class SacarController < ApplicationController
   end
   
   def update
-    Inventario.update(id, {"por_sacar" => 0, "tiene_por_sacar" => false, "nombre_de_orden" => nil,"necesita_reinventariarse" => true})
-    redirect_to edit_reinventariar_path(id)
+    if params[:cantidad].to_i <= 0
+      Inventario.delete(id)
+      redirect_to sacar_index_path
+    else
+      Inventario.update(id, {"cantidad" => params[:cantidad],"por_sacar" => 0, "tiene_por_sacar" => false, "nombre_de_orden" => nil,"necesita_reinventariarse" => true})
+      @inventario = Inventario.find(id)
+    end
+    #redirect_to edit_reinventariar_path(id)
   end
   
   def destroy
@@ -27,6 +33,10 @@ class SacarController < ApplicationController
     redirect_to sacar_index_path
   end
   
+  def show
+  
+  end
+    
   def id
     params[:id].to_i
   end

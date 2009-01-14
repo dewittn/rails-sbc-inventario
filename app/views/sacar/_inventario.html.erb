@@ -3,8 +3,8 @@
 		<%= fila_columna(inventario) %>
 	    <td><%=h inventario.cantidad %><%= cantidad_por_sacar(inventario) %></td>
 		<td><%=h inventario.nombre_de_orden %></td>
+		<td><%=h inventario.numero_de_orden %></td>
 		<%= detalles(inventario) %>		
 	    <td><%= link_to 'Devolver', edit_sacar_path(inventario) %></td>
-	    <td><%= link_to 'Reinventariar', sacar_path(inventario), :method => 'put' %></td>
-	    <td><%= link_to 'Eliminar', sacar_path(inventario), :confirm => "Est&aacute;s seguro?", :method => 'delete' %></td>
+	    <td><%= link_to 'Reinventariar', sacar_path(inventario) + "?cantidad=#{inventario.cantidad - inventario.por_sacar}", :method => 'put' %></td>
 	  </tr>

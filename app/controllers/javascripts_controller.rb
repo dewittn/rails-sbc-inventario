@@ -6,6 +6,11 @@ class JavascriptsController < ApplicationController
     render :text => (session[:nombre].blank? ? "(agregue el nombre)" : session[:nombre].titlecase)
   end
   
+  def numero_de_orden
+    session[:numero] = params[:value] unless params[:value].blank? 
+    render :text => (session[:numero].blank? ? "(agregue el numero)" : session[:numero].titlecase)
+  end
+  
   def agregar_otro_para_sacar
     session_por_sacar << id
     session_por_sacar.uniq!
