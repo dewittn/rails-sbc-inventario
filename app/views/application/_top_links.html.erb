@@ -1,11 +1,13 @@
 <% create_top_links ("Buscar","Sacar","Reinventariar") %>
+<% create_top_links ("Avanzado","Settings") if logged_in? %>
+<% create_logout %>
 <div id="top-bar">
 <div class="float-left">
 	<%= yield :top_link %>
 	<%= link_to "Nuevo", nuevo_path() %>
 </div>
 <div class="float-right">
-	<%= yield :log_out %>
+	<%= yield :logout %>
 </div>
 <div class="clear"></div>
 </div>
