@@ -1,4 +1,6 @@
 class TallasController < ApplicationController
+  before_filter :login_required
+  
   def index
     @attributes = model.all
     @attribute = model.new

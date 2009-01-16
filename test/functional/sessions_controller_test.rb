@@ -13,20 +13,20 @@ class SessionsControllerTest < ActionController::TestCase
 
   def test_should_login_and_redirect
     post :create, :login => 'quentin', :password => 'monkey'
-    assert session[:users_id]
+    assert session[:user_id]
     assert_response :redirect
   end
 
   def test_should_fail_login_and_not_redirect
     post :create, :login => 'quentin', :password => 'bad password'
-    assert_nil session[:users_id]
+    assert_nil session[:user_id]
     assert_response :success
   end
 
   def test_should_logout
     login_as :quentin
     get :destroy
-    assert_nil session[:users_id]
+    assert_nil session[:user_id]
     assert_response :redirect
   end
 
@@ -76,7 +76,7 @@ class SessionsControllerTest < ActionController::TestCase
       CGI::Cookie.new('name' => 'auth_token', 'value' => token)
     end
     
-    def cookie_for(users)
-      auth_token users(users).remember_token
+    def cookie_for(user)
+      auth_token users(user).remember_token
     end
 end

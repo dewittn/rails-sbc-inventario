@@ -1,4 +1,6 @@
 class AvanzadoController < ApplicationController
+  before_filter :login_required
+  
   def index
     redirect_to(avanzado_index_path) if params[:commit] == "Limpiar"
     @sql ||= build_sql(Color,Marca,Genero,Estilo,Tipo,Talla,:id,:fila,:columna)
