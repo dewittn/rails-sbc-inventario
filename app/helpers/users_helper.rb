@@ -23,33 +23,33 @@ module UsersHelper
   # By default, their login is used as link text and link title (tooltip)
   #
   # Takes options
-  # * :content_text => 'Content text in place of users.login', escaped with
+  # * :content_text => 'Content text in place of user.login', escaped with
   #   the standard h() function.
-  # * :content_method => :users_instance_method_to_call_for_content_text
-  # * :title_method => :users_instance_method_to_call_for_title_attribute
+  # * :content_method => :user_instance_method_to_call_for_content_text
+  # * :title_method => :user_instance_method_to_call_for_title_attribute
   # * as well as link_to()'s standard options
   #
   # Examples:
-  #   link_to_users @users
+  #   link_to_user @user
   #   # => <a href="/users/3" title="barmy">barmy</a>
   #
   #   # if you've added a .name attribute:
   #  content_tag :span, :class => :vcard do
-  #    (link_to_users users, :class => 'fn n', :title_method => :login, :content_method => :name) +
-  #          ': ' + (content_tag :span, users.email, :class => 'email')
+  #    (link_to_user user, :class => 'fn n', :title_method => :login, :content_method => :name) +
+  #          ': ' + (content_tag :span, user.email, :class => 'email')
   #   end
   #   # => <span class="vcard"><a href="/users/3" title="barmy" class="fn n">Cyril Fotheringay-Phipps</a>: <span class="email">barmy@blandings.com</span></span>
   #
-  #   link_to_users @users, :content_text => 'Your user page'
+  #   link_to_user @user, :content_text => 'Your user page'
   #   # => <a href="/users/3" title="barmy" class="nickname">Your user page</a>
   #
-  def link_to_users(users, options={})
-    raise "Invalid users" unless users
+  def link_to_user(user, options={})
+    raise "Invalid user" unless user
     options.reverse_merge! :content_method => :login, :title_method => :login, :class => :nickname
     content_text      = options.delete(:content_text)
-    content_text    ||= users.send(options.delete(:content_method))
-    options[:title] ||= users.send(options.delete(:title_method))
-    link_to h(content_text), user_path(users), options
+    content_text    ||= user.send(options.delete(:content_method))
+    options[:title] ||= user.send(options.delete(:title_method))
+    link_to h(content_text), user_path(user), options
   end
 
   #
@@ -76,15 +76,15 @@ module UsersHelper
   end
 
   #
-  # Link to the current user's page (using link_to_users) or to the login page
+  # Link to the current user's page (using link_to_user) or to the login page
   # (using link_to_login_with_IP).
   #
-  def link_to_current_users(options={})
-    if current_users
-      link_to_users current_users, options
+  def link_to_current_user(options={})
+    if current_user
+      link_to_user current_user, options
     else
       content_text = options.delete(:content_text) || 'not signed in'
-      # kill ignored options from link_to_users
+      # kill ignored options from link_to_user
       [:content_method, :title_method].each{|opt| options.delete(opt)} 
       link_to_login_with_IP content_text, options
     end
