@@ -11,7 +11,7 @@ class SacarController < ApplicationController
   
   def update
     if params[:cantidad].to_i <= 0
-      Inventario.delete(id)
+      Inventario.destroy(id)
       redirect_to sacar_index_path
     else
       Inventario.update(id, {"cantidad" => params[:cantidad],"por_sacar" => 0, "tiene_por_sacar" => false, "nombre_de_orden" => nil,"necesita_reinventariarse" => true})

@@ -1,5 +1,7 @@
 class Estilo < ActiveRecord::Base
-  after_save :delete_cache
+  after_save :delete_cached
+  after_destroy :delete_cached
+  validates_presence_of :descr
 
   def self.all_cached
     Rails.cache.fetch('estilo') { all }
@@ -7,7 +9,7 @@ class Estilo < ActiveRecord::Base
   
   private
   
-  def delete_cahce
+  def delete_cached
     Rails.cache.delete('estilo')
   end
 end

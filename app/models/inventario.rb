@@ -1,6 +1,8 @@
 class Inventario < ActiveRecord::Base  
   before_save :find_or_create_ubicacion, :find_or_create_factura
   after_create :create_history
+  before_update :record_orden_history
+  before_destroy :record_orden_history_delete
   
   validates_presence_of :talla_id, :color_id, :tipo_id, :marca_id, :estilo_id, :genero_id, :cantidad
   
@@ -66,6 +68,24 @@ class Inventario < ActiveRecord::Base
                     :talla => (Talla.detect_from_cached(talla_id)),
                     :marca => (Marca.detect_from_cached(marca_id)),
                     :genetico => (Genero.detect_from_cached(genero_id))) unless factura_id.blank?
+  end
+  
+  def record_orden_history
+    if historia_find && nombre_de_orden_was && numero_de_orden_was
+      historia_find.cambios.create(:cambio => (cantidad - cantidad_was), :cantidad => cantidad, :orden_id => orden_find_or_create(nombre_de_orden_was,numero_de_orden_was))
+    end
+  end
+  
+  def record_orden_history_delete
+    historia_find.cambios.create(:cambio => (0 - cantidad), :cantidad => 0, :orden_id => orden_find_or_create(nombre_de_orden,numero_de_orden)) if historia_find
+  end
+  
+  def historia_find
+    @historia ||= Historia.find_by_inventario_id(id)
+  end
+  
+  def orden_find_or_create(nombre,numero)
+    Orden.find_or_create(:nombre => nombre,:numero => numero).id
   end
   
 end

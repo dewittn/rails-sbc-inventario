@@ -9,7 +9,16 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090114023932) do
+ActiveRecord::Schema.define(:version => 20090116154515) do
+
+  create_table "cambios", :force => true do |t|
+    t.integer  "cambio"
+    t.integer  "cantidad"
+    t.integer  "historia_id"
+    t.integer  "orden_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "colors", :force => true do |t|
     t.string "descr", :limit => 250
@@ -50,6 +59,13 @@ ActiveRecord::Schema.define(:version => 20090114023932) do
     t.string   "color"
   end
 
+  create_table "historias_ordens", :force => true do |t|
+    t.integer  "historia_id"
+    t.integer  "orden_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "inventarios", :force => true do |t|
     t.integer  "tipo_id",                                     :null => false
     t.integer  "color_id",                                    :null => false
@@ -82,6 +98,13 @@ ActiveRecord::Schema.define(:version => 20090114023932) do
     t.string "descr", :limit => 250
   end
 
+  create_table "ordens", :force => true do |t|
+    t.string   "nombre"
+    t.string   "numero"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "tallas", :force => true do |t|
     t.string "descr", :limit => 250
   end
@@ -97,5 +120,19 @@ ActiveRecord::Schema.define(:version => 20090114023932) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "users", :force => true do |t|
+    t.string   "login",                     :limit => 40
+    t.string   "name",                      :limit => 100, :default => ""
+    t.string   "email",                     :limit => 100
+    t.string   "crypted_password",          :limit => 40
+    t.string   "salt",                      :limit => 40
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "remember_token",            :limit => 40
+    t.datetime "remember_token_expires_at"
+  end
+
+  add_index "users", ["login"], :name => "index_users_on_login", :unique => true
 
 end
