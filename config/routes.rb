@@ -5,7 +5,7 @@ ActionController::Routing::Routes.draw do |map|
   # map.signup '/signup', :controller => 'users', :action => 'new'
   map.resources :users
 
-  map.resource :session
+  map.resource :sessions
 
   map.resources :reinventariar, :avanzado, :buscar, :marcas, :colores, :tipos, :tallas, :estilos, :generos, :settings
   map.resources :sacar, :collection => {:sacar_temporal => :put}
