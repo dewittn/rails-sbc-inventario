@@ -14,10 +14,8 @@ class SacarController < ApplicationController
       Inventario.destroy(id)
       redirect_to sacar_index_path
     else
-      Inventario.update(id, {"cantidad" => params[:cantidad],"por_sacar" => 0, "tiene_por_sacar" => false, "nombre_de_orden" => nil,"necesita_reinventariarse" => false})
-      @inventario = Inventario.find(id)
+      @inventario = Inventario.update(id, {"cantidad" => params[:cantidad],"por_sacar" => 0, "tiene_por_sacar" => false, "nombre_de_orden" => nil,"necesita_reinventariarse" => false})
     end
-    #redirect_to edit_reinventariar_path(id)
   end
   
   def destroy
