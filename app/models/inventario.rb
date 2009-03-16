@@ -30,8 +30,6 @@ class Inventario < ActiveRecord::Base
     scope.paginate :per_page => per_page, :page => page, :order => order
   end
   
-<<<<<<< HEAD
-=======
   def capitalize
   	self.row.upcase! rescue nil
   end
@@ -40,17 +38,36 @@ class Inventario < ActiveRecord::Base
     (@columna == Ubicacion.all_cached.detect{ |u| u['id'] == ubicacion_id }.columna) rescue false
   end
   
->>>>>>> 8d3dd2c (Force upcase of row values.)
   def columna_required?
     not columna.blank?
   end
   
   def self.por_sacar(page)
+<<<<<<< HEAD
     paginate :per_page => 10, :page => page, :conditions => "por_sacar > 0", :order => "nombre_de_orden ASC"
   end
   
   def self.count_camisas(conditions)
+    sum(:cantidad,:conditions => conditions, :joins => :ubicacion)
+=======
+    paginate :per_page => 10,:page => page, :conditions => "tiene_por_sacar = 'true' AND eliminado = 'false'", :order => "nombre_de_orden ASC"
+  end
+  
+  def self.reinventario(page)
+    paginate :per_page => 10,:page => page, :conditions => "necesita_reinventariarse = 'true' AND eliminado = 'false'"
+  end
+  
+  def self.count_camisas(conditions)
     sum(:cantidad,:conditions => conditions)
+  end
+  
+  def self.temporal
+    search("por_sacar > 0 and tiene_por_sacar = 'false'")
+  end
+  
+  def find_or_create_ubicacion
+    self.ubicacion_id = Ubicacion.find_or_create(:fila => fila, :columna => columna).id if (fila && columna)
+>>>>>>> 459d62d (Chmod changes before updating to Rails 2.3.2)
   end
   
   def find_or_create_factura
