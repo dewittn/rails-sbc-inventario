@@ -11,7 +11,7 @@ class ApplicationController < ActionController::Base
   include CotoSearch
   
   def search_vars
-    @sql = custom_condition(@sql,"eliminado = false")
+    @sql = custom_condition(@sql,"eliminado = 'false'")
     @por_sacar ||= Inventario.find(session[:por_sacar]) unless session[:por_sacar].blank?
     @inventarios ||= Inventario.pag_search(params[:page], @sql)
     @total ||= Inventario.count_camisas(@sql) 
