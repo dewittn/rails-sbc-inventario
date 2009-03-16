@@ -141,7 +141,7 @@ module NewrelicHelper
   end
   
   def line_wrap_sql(sql)
-    sql.gsub(/\,/,', ').squeeze(' ') if sql
+    h(sql.gsub(/\,/,', ').squeeze(' ')) if sql
   end
   
   def render_sample_details(sample)
@@ -275,11 +275,11 @@ private
   def mime_type_from_extension(extension)
     extension = extension[/[^.]*$/].downcase
     case extension
-      when 'png': 'image/png'
-      when 'gif': 'image/gif'
-      when 'jpg': 'image/jpg'
-      when 'css': 'text/css'
-      when 'js': 'text/javascript'
+      when 'png'; 'image/png'
+      when 'gif'; 'image/gif'
+      when 'jpg'; 'image/jpg'
+      when 'css'; 'text/css'
+      when 'js'; 'text/javascript'
       else 'text/plain'
     end
   end
