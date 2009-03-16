@@ -6,10 +6,6 @@ require 'singleton'
 require 'zlib'
 require 'stringio'
 
-
-# This must be turned off before we ship
-VALIDATE_BACKGROUND_THREAD_LOADING = false
-
 # The NewRelic Agent collects performance data from ruby applications in realtime as the
 # application runs, and periodically sends that data to the NewRelic server.
 module NewRelic::Agent
@@ -24,6 +20,8 @@ module NewRelic::Agent
   # Reserved for future use
   class ServerError < StandardError; end
   
+  class BackgroundLoadingError < StandardError; end
+
   # add some convenience methods for easy access to the Agent singleton.
   # the following static methods all point to the same Agent instance:
   #
@@ -149,8 +147,6 @@ module NewRelic::Agent
     attr_reader :error_collector
     attr_reader :worker_loop
     attr_reader :license_key
-    attr_reader :remote_host
-    attr_reader :remote_port
     attr_reader :record_sql
     attr_reader :identifier
     
@@ -173,13 +169,15 @@ module NewRelic::Agent
     def start(environment, identifier, force=false)
       
       if @started
-        log! "Agent Started Already!"
+        config.log! "Agent Started Already!"
         return
       end
       @environment = environment
       @identifier = identifier && identifier.to_s
       if @identifier
         start_reporting(force)
+        config.log! "New Relic RPM Agent #{NewRelic::VERSION::STRING} Initialized: pid = #{$$}"
+        config.log! "Agent Log is found in #{NewRelic::Config.instance.log_file}"
         return true
       else
         return false
@@ -306,7 +304,7 @@ module NewRelic::Agent
     end
     
     def apdex_t
-      @apdex_t ||= (config['apdex_t'] || 2.0).to_f
+      @apdex_t ||= config['apdex_t'].to_f
     end    
         
     private
@@ -325,7 +323,7 @@ module NewRelic::Agent
           # note if the agent attempts to report more frequently than the specified
           # report data, then it will be ignored.
           
-          log! "Reporting performance data every #{@report_period} seconds"        
+          config.log! "Reporting performance data every #{@report_period} seconds"        
           @worker_loop.add_task(@report_period) do 
             harvest_and_send_timeslice_data
           end
@@ -360,22 +358,21 @@ module NewRelic::Agent
       
       @worker_loop = WorkerLoop.new(log)
       
-      if VALIDATE_BACKGROUND_THREAD_LOADING
+      if config['check_bg_loading']
         require 'new_relic/agent/patch_const_missing'
-        self.class.newrelic_enable_warning
+        log.warn "Agent background loading checking turned on"
+        ClassLoadingWatcher.enable_warning
       end
       
       @worker_thread = Thread.new do
         begin
-          if VALIDATE_BACKGROUND_THREAD_LOADING
-            self.class.newrelic_set_agent_thread(Thread.current)
-          end          
+          ClassLoadingWatcher.set_background_thread(Thread.current) if config['check_bg_loading']
           run_worker_loop
         rescue IgnoreSilentlyException
-          log! "Unable to establish connection with the server.  Run with log level set to debug for more information."
+          config.log! "Unable to establish connection with the server.  Run with log level set to debug for more information."
         rescue StandardError => e
-          log! e
-          log! e.backtrace.join("\n")
+          config.log! e
+          config.log! e.backtrace.join("\n")
         end
       end
       
@@ -383,7 +380,7 @@ module NewRelic::Agent
       # by stopping the foreground thread after the background thread is created. Turn on dependency loading logging
       # and make sure that no loading occurs.
       #
-      #      log! "FINISHED AGENT INIT"
+      #      config.log! "FINISHED AGENT INIT"
       #      while true
       #        sleep 1
       #      end
@@ -415,7 +412,6 @@ module NewRelic::Agent
       
       @error_collector.ignore(ignore_errors)
       
-      
       @capture_params = config.fetch('capture_params', false)
       
       sampler_config = config.fetch('transaction_tracer', {})
@@ -430,17 +426,6 @@ module NewRelic::Agent
       log.info "Transaction tracing is enabled in agent config" if @use_transaction_sampler
       log.warn "Agent is configured to send raw SQL to RPM service" if @record_sql == :raw
       
-      @use_ssl = config.fetch('ssl', false)
-      default_port = @use_ssl ? 443 : 80
-      
-      @remote_host = config.fetch('host', 'collector.newrelic.com')
-      @remote_port = config.fetch('port', default_port)
-      
-      @proxy_host = config.fetch('proxy_host', nil)
-      @proxy_port = config.fetch('proxy_port', nil)
-      @proxy_user = config.fetch('proxy_user', nil)
-      @proxy_pass = config.fetch('proxy_pass', nil)
-      
       @prod_mode_enabled = force_enable || config['enabled']
       
       # Initialize transaction sampler
@@ -452,7 +437,7 @@ module NewRelic::Agent
       # make sure the license key exists and is likely to be really a license key
       # by checking it's string length (license keys are 40 character strings.)
       if @prod_mode_enabled && (!@license_key || @license_key.length != 40)
-        log! "No license key found.  Please edit your newrelic.yml file and insert your license key"
+        config.log! "No license key found.  Please edit your newrelic.yml file and insert your license key"
         return
       end
       
@@ -481,7 +466,7 @@ module NewRelic::Agent
       @transaction_sampler = NewRelic::Agent::TransactionSampler.new(self)
       @error_collector = NewRelic::Agent::ErrorCollector.new(self)
       
-      @request_timeout = 15 * 60
+      @request_timeout = NewRelic::Config.instance.fetch('timeout', 2 * 60)
       
       @invalid_license = false
       
@@ -518,7 +503,7 @@ module NewRelic::Agent
             config.settings
         @report_period = invoke_remote :get_data_report_period, @agent_id
  
-        log! "Connected to NewRelic Service at #{@remote_host}:#{@remote_port}."
+        config.log! "Connected to NewRelic Service at #{config.server}"
         log.debug "Agent ID = #{@agent_id}."
         
         # Ask the server for permission to send transaction samples.  determined by subscription license.
@@ -533,13 +518,13 @@ module NewRelic::Agent
         @connected = true
         
       rescue LicenseException => e
-        log! e.message, :error
-        log! "Visit NewRelic.com to obtain a valid license key, or to upgrade your account."
+        config.log! e.message, :error
+        config.log! "Visit NewRelic.com to obtain a valid license key, or to upgrade your account."
         @invalid_license = true
         return false
         
       rescue Timeout::Error, StandardError => e
-        log.info "Unable to establish connection with New Relic RPM Service at #{@remote_host}:#{@remote_port}"
+        log.info "Unable to establish connection with New Relic RPM Service at #{config.server}"
         unless e.instance_of? IgnoreSilentlyException
           log.error e.message
           log.debug e.backtrace.join("\n")
@@ -590,12 +575,12 @@ module NewRelic::Agent
       @harvest_thread ||= Thread.current
       
       if @harvest_thread != Thread.current
-        log! "ERROR - two harvest threads are running (current=#{Thread.current}, havest=#{@harvest_thread}"
+        config.log! "ERROR - two harvest threads are running (current=#{Thread.current}, havest=#{@harvest_thread}"
         @harvest_thread = Thread.current
       end
       
       # Fixme: remove this check
-      log! "Agent sending data too frequently - #{now - @last_harvest_time} seconds" if (now.to_f - @last_harvest_time.to_f) < 45
+      config.log! "Agent sending data too frequently - #{now - @last_harvest_time} seconds" if (now.to_f - @last_harvest_time.to_f) < 45
       
       @unsent_timeslice_data ||= {}
       @unsent_timeslice_data = @stats_engine.harvest_timeslice_data(@unsent_timeslice_data, @metric_ids)
@@ -674,14 +659,7 @@ module NewRelic::Agent
       # to go for higher compression instead, we could use Zlib::BEST_COMPRESSION and 
       # pay a little more CPU.
       post_data = Zlib::Deflate.deflate(Marshal.dump(args), Zlib::BEST_SPEED)
-      
-      # Proxy returns regular HTTP if @proxy_host is nil (the default)
-      http = Net::HTTP::Proxy(@proxy_host, @proxy_port, @proxy_user, @proxy_pass).new(@remote_host, @remote_port.to_i)
-      if @use_ssl
-        http.use_ssl = true 
-        http.verify_mode = OpenSSL::SSL::VERIFY_NONE
-      end
-      
+      http = config.http_connection
       http.read_timeout = @request_timeout
       
       # params = {:method => method, :license_key => license_key, :protocol_version => PROTOCOL_VERSION }
@@ -718,9 +696,9 @@ module NewRelic::Agent
         raise IgnoreSilentlyException
       end 
     rescue ForceDisconnectException => e
-      log! "RPM forced this agent to disconnect", :error
-      log! e.message, :error
-      log! "Restart this process to resume RPM's agent communication with NewRelic.com"
+      config.log! "RPM forced this agent to disconnect", :error
+      config.log! e.message, :error
+      config.log! "Restart this process to resume RPM's agent communication with NewRelic.com"
       # when a disconnect is requested, stop the current thread, which is the worker thread that 
       # gathers data and talks to the server. 
       @connected = false
@@ -731,18 +709,10 @@ module NewRelic::Agent
       raise IgnoreSilentlyException
     end
     
-    # send the given message to STDERR as well as the agent log, so that it shows
-    # up in the console.  This should be used for important informational messages at boot
-    def log!(msg, level = :info)
-      # only log to stderr when we are running as a mongrel process, so it doesn't
-      # muck with daemons and the like.
-      config.log!(msg, level)
-    end
-    
     def graceful_disconnect
-      if @connected && !(remote_host == "localhost" && @identifier == '3000')
+      if @connected && !(config.server.host == "localhost" && @identifier == '3000')
         begin
-          log.debug "Sending graceful shutdown message to #{remote_host}:#{remote_port}"
+          log.debug "Sending graceful shutdown message to #{config.server}"
           
           @request_timeout = 5
           

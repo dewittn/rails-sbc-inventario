@@ -3,14 +3,43 @@ module NewRelic
   module VERSION #:nodoc:
   MAJOR = 2
   MINOR = 8
-  TINY  = 0
+  TINY  = 5
   STRING = [MAJOR, MINOR, TINY].join('.')
   def self.changes
-    puts "NewRelic RPM Plugin Version: #{NewRelic::VERSION}"
+    puts "NewRelic RPM Plugin Version: #{NewRelic::VERSION::STRING}"
     puts CHANGELOG
   end
 
   CHANGELOG = <<EOF
+2009-02-22 version 2.8.5
+  * fix reference to CommandError which was breaking some cap scripts
+  * fix incompatibility with Rails 2.0 in the server API
+  * fix problem with litespeed with Lite accounts
+  * fix problem when ActiveRecord is disabled
+  * moved merb instrumentation to Merb::Controller instead of 
+    AbstractController to address incompatibility with MailController
+  * fix problem in devmode displaying sql with embedded urls
+2009-02-17 version 2.8.4
+  * fix bug detecting Phusion Passenger v 2.1.0
+  * fix bug in capistrano recipe causing cap commands to fail with error
+    about not finding Version class
+2009-02-10 version 2.8.3
+  * refactor unit tests so they will run in a generic rails environment
+  * require classes in advance to avoid autoloading.  this is to address
+    incompatibilities with desert as well as more flexibility in gem 
+    initialization
+  * fixed newrelic_helper.rb 1.9 incompatibility
+2009-02-07 version 2.8.2
+  * fix Ruby 1.9 syntax compatibility errors
+  * update the class loading sanity check, will notify server of errors
+  * fix agent output on script and rake task execution
+2009-01-27 version 2.8.1
+  * Convert the deployment information upload script to an executable
+    and put in the bin directory.  When installed as a gem this command
+    is symlinked to /usr/bin.  Usage: newrelic_cmd deployments --help
+  * Fix issue invoking api when host is not set in newrelic.yml
+  * Fix deployments api so it will work from a gem
+  * Fix thin incompatibility in developer mode 
 2008-12-18 version 2.8.0
   * add beta of api in new_relic_api.rb
   * instrumented dynamic finders in ActiveRecord
