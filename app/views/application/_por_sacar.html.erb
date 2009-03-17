@@ -3,11 +3,11 @@
 	<div id="por_sacar_error"><%= @error unless @error.blank? %></div>
 	<h2>Nombre de orden: <span id="nombre"> <%= nombre_de_orden %></span></h2>
 	<script type="text/javascript">
-	 new Ajax.InPlaceEditor('nombre', '/javascripts/nombre_de_orden?<%= request_forgery_protection_token %>=<%= escape_javascript form_authenticity_token %>');
+	 new Ajax.InPlaceEditor('nombre', '/javascripts/nombre_de_orden');
 	</script>
 	<h2>Numero de orden: <span id="numero"> <%= numero_de_orden %></span></h2>
 	<script type="text/javascript">
-	 new Ajax.InPlaceEditor('numero', '/javascripts/numero_de_orden?<%= request_forgery_protection_token %>=<%= escape_javascript form_authenticity_token %>');
+	 new Ajax.InPlaceEditor('numero', '/javascripts/numero_de_orden');
 	</script>
   	<table class="results" id="t_por_sacar">
 		<tr class="title">
