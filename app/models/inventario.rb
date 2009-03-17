@@ -39,11 +39,11 @@ class Inventario < ActiveRecord::Base
   end
   
   def self.por_sacar(page)
-    paginate :per_page => 10,:page => page, :conditions => "tiene_por_sacar = 'true' AND eliminado = 'false'", :order => "nombre_de_orden ASC"
+    paginate :per_page => 10,:page => page, :conditions => { :tiene_por_sacar => true, :eliminado => false } , :order => "nombre_de_orden ASC"
   end
   
   def self.reinventario(page)
-    paginate :per_page => 10,:page => page, :conditions => "necesita_reinventariarse = 'true' AND eliminado = 'false'"
+    paginate :per_page => 10,:page => page, :conditions => { :necesita_reinventariarse => true, :eliminado => false }
   end
   
   def self.count_camisas(conditions)
@@ -51,7 +51,7 @@ class Inventario < ActiveRecord::Base
   end
   
   def self.temporal
-    search("por_sacar > 0 and tiene_por_sacar = 'false'")
+    search( ["por_sacar > 0", {:tiene_por_sacar => false}] )
   end
   
   def find_or_create_ubicacion
