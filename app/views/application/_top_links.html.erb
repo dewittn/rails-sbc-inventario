@@ -1,5 +1,4 @@
 <% create_top_links ("Buscar","Sacar","Reinventariar") %>
-<% create_top_links ("Avanzado","Settings") if logged_in? %>
 <% create_logout %>
 <div id="top-bar">
 <div class="float-left">
@@ -7,7 +6,7 @@
 	<%= link_to "Nuevo", nuevo_path() %>
 </div>
 <div class="float-right">
-	<%= yield :logout %>
+	<%= yield :admin %>
 </div>
 <div class="clear"></div>
 </div>

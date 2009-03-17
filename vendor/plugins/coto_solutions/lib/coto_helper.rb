@@ -30,15 +30,9 @@ module CotoHelper
 
    #Create Logout on right side of top bar
    def create_logout
-     if logged_in?
-       content_for :logout do
-         link_to "Logout", logout_path
+       content_for :admin do
+         link_to "Admin", admin_index_path
        end
-     else
-       content_for :logout do
-         link_to "Login", login_path
-       end
-    end
    end 
    
    #Creates searchable dropdowns from array of tables

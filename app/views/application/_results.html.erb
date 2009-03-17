@@ -1,5 +1,5 @@
+<div class="content">
 <% unless @inventarios.empty? %>
-	<div class="content">
 		<div class="float-left">
 			<table class="results">
 			  <tr class="title">
@@ -16,11 +16,13 @@
 		<div class="float-right"><%= location %></div>
 		<div class="clear"></div>
 		<div class="pagination"><%= will_paginate @inventarios %></div>
-		<% form_remote_tag(:url => por_sacar_javascripts_path) do %>
-			<div id="por_sacar"><%= render :partial => 'application/por_sacar' %></div>
-		<% end %>
-		<%= make_dragable %>		
-	</div>
 <% else %>
 	<p style="color: green"><%= "No se encontraron registros" %></p>
 <% end %>
+</div>
+<div class="por_sacar">
+	<% form_remote_tag(:url => por_sacar_javascripts_path) do %>
+		<div id="por_sacar"><%= render :partial => 'application/por_sacar' %></div>
+	<% end %>
+</div>
+<%= make_dragable %>

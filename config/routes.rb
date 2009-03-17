@@ -13,6 +13,7 @@ ActionController::Routing::Routes.draw do |map|
 
   map.resource :session, :only => [:new,:create,:destroy]
 
+  map.resources :admin, :only => [:index]
   map.resources :settings, :only => [:index]
   map.resources :marcas, :colores, :tipos, :tallas, :estilos, :generos, :except => [:show]
 
