@@ -39,11 +39,11 @@ class Inventario < ActiveRecord::Base
   end
   
   def self.por_sacar(page)
-    paginate :per_page => 10,:page => page, :conditions => { :tiene_por_sacar => true, :eliminado => false } , :order => "nombre_de_orden ASC"
+    paginate :per_page => 10,:page => page, :conditions => { :tiene_por_sacar => true } , :order => "nombre_de_orden ASC"
   end
   
   def self.reinventario(page)
-    paginate :per_page => 10,:page => page, :conditions => { :necesita_reinventariarse => true, :eliminado => false }
+    paginate :per_page => 10,:page => page, :conditions => { :necesita_reinventariarse => true }
   end
   
   def self.count_camisas(conditions)
