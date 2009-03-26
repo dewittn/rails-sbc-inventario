@@ -15,10 +15,12 @@ class SessionsController < ApplicationController
       # protection if user resubmits an earlier form using back
       # button. Uncomment if you understand the tradeoffs.
       # reset_session
+      # session[:user_id] = user ? user.id : nil
+      # @current_user = user || false
       self.current_user = user
       new_cookie_flag = (params[:remember_me] == "1")
       handle_remember_cookie! new_cookie_flag
-      redirect_to(admin_index_path)
+      # redirect_back_or_default(admin_index_path)
       flash[:notice] = "Logged in successfully"
     else
       note_failed_signin
@@ -30,6 +32,7 @@ class SessionsController < ApplicationController
 
   def destroy
     logout_killing_session!
+    # session[:user_id] = nil
     flash[:notice] = "You have been logged out."
     redirect_back_or_default('/')
   end

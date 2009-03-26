@@ -14,7 +14,7 @@ module AuthenticatedSystem
 
     # Store the given user id in the session.
     def current_user=(new_user)
-      session[:user_id] = new_user ? new_user.id : nil
+      cookies[:user_id] = new_user ? new_user.id : nil
       @current_user = new_user || false
     end
 
@@ -105,7 +105,7 @@ module AuthenticatedSystem
 
     # Called from #current_user.  First attempt to login by the user id stored in the session.
     def login_from_session
-      self.current_user = User.find_by_id(session[:user_id]) if session[:user_id]
+      self.current_user = User.find_by_id(cookies[:user_id]) if cookies[:user_id]
     end
 
     # Called from #current_user.  Now, attempt to login by basic authentication information.
@@ -138,7 +138,7 @@ module AuthenticatedSystem
       @current_user.forget_me if @current_user.is_a? User
       @current_user = false     # not logged in, and don't do it for me
       kill_remember_cookie!     # Kill client-side auth cookie
-      session[:user_id] = nil   # keeps the session but kill our variable
+      cookies.delete :user_id   # keeps the session but kill our variable
       # explicitly kill any other session variables you set
     end
 

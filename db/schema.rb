@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090117172131) do
+ActiveRecord::Schema.define(:version => 20090326163910) do
 
   create_table "cambios", :force => true do |t|
     t.integer  "cambio"

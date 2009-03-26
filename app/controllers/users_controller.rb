@@ -5,8 +5,7 @@ class UsersController < ApplicationController
 
   # render new.rhtml
   def new
-    redirect_to(buscar_index_path())
-    #@user = User.new
+    @user = User.new
   end
  
   def create
