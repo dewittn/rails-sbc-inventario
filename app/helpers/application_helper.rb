@@ -66,8 +66,6 @@ module ApplicationHelper
     value.blank?  ? '' : value
   end
   
-  ### New methods
-  
   def draggable(inventario)
     draggable_element("inventario_#{inventario.id}",:revert => true,:ghosting => true)
   end
@@ -90,7 +88,7 @@ module ApplicationHelper
   end
   
   def total_camisas
-    "<p><b>Total:</b> #{(@total.blank?) ? "0": @total } camisas, en #{(@inventarios.total_entries.blank?) ? "0": @inventarios.total_entries} paquetes.</p>"
+    "<p><b>Total:</b> #{(@total.blank?) ? "0": @total } camisas, en #{(@inventarios.total_entries.blank?) ? "0": @inventarios.total_entries} paquetes.</p>" unless @total.blank?
   end
   
   def fila_columna(inventario)
