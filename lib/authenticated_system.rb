@@ -14,7 +14,7 @@ module AuthenticatedSystem
 
     # Store the given user id in the session.
     def current_user=(new_user)
-      cookies[:user_id] = new_user ? new_user.id : nil
+      session[:user_id] = new_user ? new_user.id : nil
       @current_user = new_user || false
     end
 
@@ -138,7 +138,7 @@ module AuthenticatedSystem
       @current_user.forget_me if @current_user.is_a? User
       @current_user = false     # not logged in, and don't do it for me
       kill_remember_cookie!     # Kill client-side auth cookie
-      cookies.delete :user_id   # keeps the session but kill our variable
+      session[:user_id] = nil   # keeps the session but kill our variable
       # explicitly kill any other session variables you set
     end
 
