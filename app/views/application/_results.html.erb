@@ -1,5 +1,5 @@
 <div class="content">
-<% unless @inventarios.empty? %>
+<% unless @inventarios.blank? %>
 		<div class="float-left">
 			<table class="results">
 			  <tr class="title">
@@ -17,7 +17,7 @@
 		<div class="clear"></div>
 		<div class="pagination"><%= will_paginate @inventarios %></div>
 <% else %>
-	<p style="color: green"><%= "No se encontraron registros" %></p>
+	<p class="busque"><%= "Porfavor busque los productos." %></p>
 <% end %>
 </div>
 <div class="por_sacar">
