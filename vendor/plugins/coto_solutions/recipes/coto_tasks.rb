@@ -42,7 +42,7 @@ before "deploy", "update_repo"
 before "deploy:cold", "update_repo"
 before "deploy:migrations", "update_repo"
 task :update_repo do
-  system "git push coto"
+  system "git push nelson"
 end
 
 task :pro_log do
