@@ -44,3 +44,7 @@ before "deploy:migrations", "update_repo"
 task :update_repo do
   system "git push nelson"
 end
+
+task :pro_log do
+  stream "tail -f #{deploy_to}/current/log/production.log"
+end
