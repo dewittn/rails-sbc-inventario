@@ -40,7 +40,9 @@ Rails::Initializer.run do |config|
     :session_key => '_inventario2.0_session',
     :secret      => '***REMOVED***'
   }
-
+  
+  config.gem "mislav-will_paginate", :lib => "will_paginate"
+  
   # Use the database for sessions instead of the cookie-based default,
   # which shouldn't be used to store highly confidential information
   # (create the session table with 'rake db:sessions:create')
@@ -57,4 +59,3 @@ Rails::Initializer.run do |config|
   # Make Active Record use UTC-base instead of local time
   # config.active_record.default_timezone = :utc
 end
-#require 'mysql'
