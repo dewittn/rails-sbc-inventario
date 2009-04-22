@@ -1,0 +1,23 @@
+%br
+%center
+  %h1 Inventario
+  %table
+    %tr{ :align => "center" }
+      %td
+        %a{ :href => "/inventario/buscar" }
+        .three
+          Buscar
+        </a>
+      %td
+        %a{ :href => "/inventario/sacar" }
+        .three
+          Sacar
+        </a>
+      %td
+        %a{ :href => "/inventario/reinventariar" }
+        .three
+          Reinventariar
+        </a>
+    %tr
+      %td{ :align => "center", :colspan => "3" }
+        = link_to "Avanzado", :controller => "inventario", :action => "list"

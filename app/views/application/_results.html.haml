@@ -1,0 +1,23 @@
+.content
+  - if @inventarios
+    .float-left
+      %table.results
+        %tr.title
+          %th Cantidad
+          %th Marca
+          %th Tipo
+          %th Color
+          %th Talla
+          = yield :avanzado_results_label
+        = render :partial => 'application/inventario', :collection => @inventarios
+    .float-right= location
+    .clear
+    .pagination
+      = will_paginate @inventarios
+  - else
+    %p.busque= "Por favor busque los productos."
+.por_sacar
+  - form_remote_tag(:url => por_sacar_javascripts_path) do
+    #por_sacar
+      = render :partial => 'application/por_sacar'
+= make_dragable
