@@ -1,7 +1,11 @@
+- javascripts "buscar"
 - page_title "Buscar"
 = render :partial => 'application/search_boxes'
 = solicitadas
-= render :partial => 'application/results'
+#search_results= render :partial => 'application/results'
+.por_sacar
+  #por_sacar= render :partial => 'application/por_sacar'
+= make_dragable
 = total_camisas
 - button_2("Limpiar", '#', :onclick => "limpar_submit()")
 - button_2("Sacar =>", '#', :onclick => "sacar_submit()")
