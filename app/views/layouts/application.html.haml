@@ -1,0 +1,23 @@
+!!!
+%html{ "xml:lang" => "en", :lang => "en", :xmlns => "http://www.w3.org/1999/xhtml" }
+  %head
+    %title
+      Inventario:
+      = yield(:title) || "Benvinido"
+    = stylesheet_link_tag 'inventario', :cache => true
+    = javascript_include_tag :defaults, :unobtrusive,  :cache => "all_with_unobtrusive"
+    = yield :stylesheets
+    = yield :javascripts
+  %body
+    .wrapper
+      = render :partial => 'application/top_links'
+      %p{ :style => "color: green" }
+        = flash[:notice]
+      = yield
+      %table
+        %tr
+          = yield :button1
+          %td= link_to "<div class='three'><center>Inicio</center></div>", root_path, :class => "three"
+          = yield :button2
+      .push
+    .footer= render :partial => 'application/footer'
