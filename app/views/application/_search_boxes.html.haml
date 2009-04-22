@@ -1,0 +1,15 @@
+- form_tag({},{:method => 'get'}) do
+  - searchables(Marca,Tipo,Genero,Estilo,Color,Talla)
+  %table#search-results
+    %tr
+      %th Cantidad
+      = yield :searchable_label
+      = yield :avanzado_search_labels
+    %tr
+      %td= text_field_tag ""
+      = yield :searchable
+      = yield :avanzado_search
+      %td
+      %td
+        = submit_tag 'Buscar'
+        = submit_tag 'Limpiar'
