@@ -1,0 +1,1 @@
+page[:search_results].replace_html :partial => 'application/results'

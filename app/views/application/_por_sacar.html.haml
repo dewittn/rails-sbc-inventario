@@ -1,26 +1,27 @@
 - if @por_sacar
-  #por_sacar_error
-    = @error if @error
-  %h2
-    Nombre de orden:
-    %span#nombre= nombre_de_orden
-  %script{ :type => "text/javascript" }
-    new Ajax.InPlaceEditor("nombre", "/javascripts/nombre_de_orden");
-  %h2
-    Numero de orden:
-    %span#numero= numero_de_orden
-  %script{ :type => "text/javascript" }
-    new Ajax.InPlaceEditor("numero", "/javascripts/numero_de_orden");
-  %table#t_por_sacar.results
-    %tr.title
-      %th Codigo
-      %th
-      %th Marca
-      %th Tipo
-      %th Color
-      %th Talla
-      %th Cantidad
-      %th Por sacar
-    = render :partial => 'application/cosas_por_sacar', :collection => @por_sacar
+  - form_remote_tag(:url => por_sacar_javascripts_path) do
+    #por_sacar_error
+      = @error if @error
+    %h2
+      Nombre de orden:
+      %span#nombre= nombre_de_orden
+    %script{ :type => "text/javascript" }
+      new Ajax.InPlaceEditor("nombre", "/javascripts/nombre_de_orden");
+    %h2
+      Numero de orden:
+      %span#numero= numero_de_orden
+    %script{ :type => "text/javascript" }
+      new Ajax.InPlaceEditor("numero", "/javascripts/numero_de_orden");
+    %table#t_por_sacar.results
+      %tr.title
+        %th Codigo
+        %th
+        %th Marca
+        %th Tipo
+        %th Color
+        %th Talla
+        %th Cantidad
+        %th Por sacar
+      = render :partial => 'application/cosas_por_sacar', :collection => @por_sacar
 - else
   %div Por Sacar

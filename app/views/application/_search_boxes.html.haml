@@ -1,4 +1,4 @@
-- form_tag({},{:method => 'get'}) do
+- form_tag({},{:method => 'get', :id => "search_form"}) do
   - searchables(Marca,Tipo,Genero,Estilo,Color,Talla)
   %table#search-results
     %tr
@@ -12,4 +12,4 @@
       %td
       %td
         = submit_tag 'Buscar'
-        = submit_tag 'Limpiar'
+        = submit_tag 'Limpiar', :name => "limpiar"

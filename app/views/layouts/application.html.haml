@@ -5,8 +5,8 @@
       Inventario:
       = yield(:title) || "Benvinido"
     = stylesheet_link_tag 'inventario', :cache => true
-    = javascript_include_tag :defaults, :unobtrusive,  :cache => "all_with_unobtrusive"
     = yield :stylesheets
+    = javascript_include_tag :defaults, :unobtrusive,  :cache => "all_with_unobtrusive"
     = yield :javascripts
   %body
     .wrapper
