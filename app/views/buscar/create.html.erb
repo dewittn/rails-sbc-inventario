@@ -1,7 +1,0 @@
-<% page_title "Localizacion" %>
-
-<% form_tag(buscar_path(@inventario),:method => :put) do %>
-<p style="color: navy;">Por favor, escriba <big><b><%= @inventario.id %></b></big> en las camisas y especifique la posici&oacute;n del paquete que acaba de ingresar</p>
-<%= render :partial => 'application/location' %>
-<% end %>
-<% button_2("Guardar",'#', :onclick => 'document.forms[0].submit()')%>
