@@ -1,5 +1,5 @@
 - avanzado_results(inventario)
-%tr{ :class => cycle :odd,:even, :id => "inventario_#{inventario.id}" }
+%tr{ :class => cycle(:odd,:even), :id => "inventario_#{inventario.id}" }
   %td
     = h(inventario.cantidad)
     = cantidad_por_sacar(inventario)
