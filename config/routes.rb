@@ -21,5 +21,5 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :admin, :only => [:index]
   map.resources :settings, :only => [:index]
   map.resources :marcas, :colores, :tipos, :tallas, :estilos, :generos, :except => [:show]
-
+  map.root :controller => 'buscar'
 end
