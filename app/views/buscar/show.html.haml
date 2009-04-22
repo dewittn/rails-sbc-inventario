@@ -1,0 +1,37 @@
+- page_title "Mostrar"
+%h1
+  Codigo:
+  = h @inventario.id
+%table.show-item
+  %tr
+    %td Cantidad:
+    %td
+  %tr
+    %td= h @inventario.cantidad
+    %td
+  %tr
+    %td Fila:
+    %td Columna:
+  %tr
+    %td= h @inventario.fila
+    %td= h @inventario.columna
+  %tr
+    %td Marca:
+    %td Tipo:
+  %tr
+    %td= h @inventario.marca.descr
+    %td= h @inventario.tipo.descr
+  %tr
+    %td Color:
+    %td Talla:
+  %tr
+    %td= h @inventario.color.descr
+    %td= h @inventario.talla.descr
+  %tr
+    %td Inventariado:
+    %td Actualizado:
+  %tr
+    %td= h @inventario.created_at.strftime("%d/%m/%Y, %I:%M%p")
+    %td= updated_at(@inventario)
+- button_1("Inventario",buscar_index_path)
+- button_2("Nuevo",nuevo_path)

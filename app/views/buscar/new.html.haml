@@ -1,0 +1,19 @@
+- page_title "Nuevo"
+%h1= yield :title
+- form_tag(:action => "create") do
+  #new.results
+    %h2
+      Factura:
+      %span#factura
+        = hidden_field :inventario, :numero_de_factura, :value => factura
+        = factura
+    %script{ :type => "text/javascript" }
+      new Ajax.InPlaceEditor('factura', '/javascripts/factura');
+  %br
+  #new.results
+    = render :partial => 'application/cantidad'
+    = render :partial => 'application/attributes'
+%br
+- button_1("<= Atras",buscar_index_path)
+- button_2("Crear =>","#", :onclick => 'document.forms[0].submit()')
+

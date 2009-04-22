@@ -17,4 +17,8 @@ module BuscarHelper
     session[:factura] || Time.now.strftime("%d-%m-%Y")
   end
 
+  def updated_at(inventario)
+    h(@inventario.updated_at.strftime("%d/%m/%Y, %I:%M%p")) unless @inventario.updated_at.blank?
+  end
+
 end
