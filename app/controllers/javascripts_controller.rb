@@ -1,8 +1,12 @@
 class JavascriptsController < ApplicationController
   include JavascriptMethods
   
+  def cantidad_update
+    Inventario.update(params[:id], :por_sacar => params[:por_sacar])
+  end
+  
   def nombre_de_orden
-    session[:nombre] = params[:value] unless params[:value].blank? 
+    session[:nombre] = params[:value] unless params[:value].blank?
     render :text => (session[:nombre].blank? ? "(agregue el nombre)" : session[:nombre].titlecase)
   end
   
@@ -12,15 +16,25 @@ class JavascriptsController < ApplicationController
   end
   
   def agregar_otro_para_sacar
-    session_por_sacar << id
-    session_por_sacar.uniq!
-    Inventario.update(id, {"por_sacar" => params[:cantidad].to_i}) unless params[:cantidad].blank?
-    @sacar ||= Inventario.find(id)
+    if id
+      session_por_sacar << id
+      session_por_sacar.uniq!
+      Inventario.update(id, {"por_sacar" => params[:cantidad].to_i}) unless params[:cantidad].blank?
+      @sacar ||= Inventario.find(id)
+    end
     find_por_sacar
   end
   
   def por_sacar
-    (button_push == "Sacar" ? sacar : limpiar) unless session[:por_sacar].blank?
+    update_inventario({:tiene_por_sacar => true, :nombre_de_orden => session[:nombre], :numero_de_orden => session[:numero]})
+    clear_session
+  end
+  
+  def limpiar
+    unless session[:por_sacar].blank?
+      update_inventario({:por_sacar => 0})
+      clear_session
+    end
   end
   
   def factura

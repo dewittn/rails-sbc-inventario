@@ -55,11 +55,11 @@ class Inventario < ActiveRecord::Base
   end
   
   def find_or_create_ubicacion
-    self.ubicacion_id = Ubicacion.find_or_create(:fila => fila, :columna => columna).id if (fila && columna)
+    self.ubicacion_id = Ubicacion.find_or_create(:fila => fila, :columna => columna).id unless ubicacion_id || fila.blank? || columna.blank?
   end
   
   def find_or_create_factura
-    self.factura_id = Factura.find_or_create(:descr => numero_de_factura, :fecha => fecha).id if (numero_de_factura || fecha)
+    self.factura_id = Factura.find_or_create(:descr => numero_de_factura, :fecha => (fecha || Time.now.strftime("%d-%m-%Y"))).id unless factura_id
   end
   
   def create_history
@@ -87,5 +87,4 @@ class Inventario < ActiveRecord::Base
   def orden_find_or_create(nombre,numero)
     Orden.find_or_create(:nombre => nombre,:numero => numero).id
   end
-  
 end

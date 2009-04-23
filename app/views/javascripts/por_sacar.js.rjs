@@ -1,5 +1,1 @@
-  if @button_push == "Sacar" && @error.blank?
-    page.redirect_to(sacar_index_path)
-  else
-    page.replace_html :por_sacar, :partial => 'application/por_sacar'
-  end
+page.redirect_to(sacar_index_path)
