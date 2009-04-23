@@ -70,7 +70,6 @@ module ApplicationHelper
     draggable_element("inventario_#{inventario.id}",:revert => true,:ghosting => true)
   end
   
-  
   def descr_from_cashed_values(model,id)
     model.detect_from_cached(id)
   end
@@ -94,5 +93,4 @@ module ApplicationHelper
   def fila_columna(inventario)
     render :partial => 'application/fila_columna', :locals => {:inventario => inventario}
   end
-  
 end

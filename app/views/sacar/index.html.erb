@@ -22,22 +22,4 @@
 <% else %>
 	<p style="color: green"><%= "No se encontraron registros" %></p>
 <% end %>
-<div name='temporal'>
-<% unless @temporal.empty? %>
-<h1>Temporal</h1>
-	<table class="results">
-	  <tr class="title">
-	  	<th>C&oacute;digo</th>	
-	    <th>Fila</th>
-	    <th>Columna</th>		
-	    <th>Cantidad</th>
-	    <th>Marca</th>	
-	    <th>Tipo</th>	
-	    <th>Color</th>	
-	    <th>Talla</th>
-	  </tr>
-	<%= render :partial => 'temporal', :collection => @temporal %>
-	</table>
-	<% button_2("Limpiar",sacar_temporal_sacar_path, :method => :put) %>
-<% end %>
-<div>
+
