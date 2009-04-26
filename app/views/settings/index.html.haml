@@ -1,0 +1,16 @@
+- page_title "Settings"
+%h2= yield :title
+%table.results
+  %tr
+    %td= link_to "Marcas", marcas_path()
+  %tr
+    %td= link_to "Colores", colores_path()
+  %tr
+    %td= link_to "Tipos", tipos_path()
+  %tr
+    %td= link_to "Tallas", tallas_path()
+  %tr
+    %td= link_to "Estilos", estilos_path()
+  %tr
+    %td= link_to "Genros", generos_path()
+%br

@@ -1,0 +1,44 @@
+- page_title "Mostrar"
+%h1
+  Codigo:
+  = h @inventario.id
+%table.show-item
+  %tr
+    %td Cantidad:
+    %td
+  %tr
+    %td= h @inventario.cantidad
+    %td
+  %tr
+    %td Fila:
+    %td Columna:
+  %tr
+    %td= h @inventario.fila
+    %td= h @inventario.columna
+  %tr
+    %td Marca:
+    %td Tipo:
+  %tr
+    %td= h @inventario.marca.descr
+    %td= h @inventario.tipo.descr
+  %tr
+    %td Color:
+    %td Talla:
+  %tr
+    %td= h @inventario.color.descr
+    %td= h @inventario.talla.descr
+  %tr
+    %td Inventariado:
+    %td Actualizado:
+  %tr
+    %td= h @inventario.created_at.strftime("%d/%m/%Y, %I:%M%p")
+    %td
+      - if !@inventario.updated_at.nil?
+      = h @inventario.updated_at.strftime("%d/%m/%Y, %I:%M%p")
+      - end
+- if @inventario.necesita_reinventariarse == true
+  %p{ :style => "color: red" }
+    Necesita Reinventariarse
+- button_1("Inventario",avanzado_index_path)
+- button_2("Editar",edit_avanzado_path(@inventario))
+- button_2("Nuevo",new_avanzado_path)
