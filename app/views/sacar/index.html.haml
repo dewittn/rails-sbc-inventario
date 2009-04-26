@@ -1,0 +1,22 @@
+- page_title "Para Sacar"
+%h1= yield :title
+- unless @inventarios.empty?
+  %table.results
+    %tr.title
+      %th C&oacute;digo
+      %th Fila
+      %th Columna
+      %th Cantidad
+      %th Nombre
+      %th Numero
+      %th Marca
+      %th Tipo
+      %th Color
+      %th Talla
+      %th
+      %th
+    = render :partial => 'inventario', :collection => @inventarios
+  = will_paginate @inventarios
+- else
+  %p{ :style => "color: green" }
+    = "No se encontraron registros"

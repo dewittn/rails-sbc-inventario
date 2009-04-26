@@ -1,0 +1,17 @@
+- page_title "Reinventariar"
+%h1= yield :title
+%br
+- form_tag({},:method => :get) do
+  Codigo:
+  = text_field_tag :id,{}, :size => 5
+- unless @inventarios.nil? or @inventarios.empty?
+  %h2 O
+  %table.results
+    %tr.title
+      %th C&oacute;digo
+      %th
+    = render :partial => 'inventario', :collection => @inventarios
+- else
+  %p{ :style => "color: green;" }
+    No se encontraron registros a Reinventariar
+- button_2("Reinventariar",'#',:onclick => "document.forms[0].submit()")

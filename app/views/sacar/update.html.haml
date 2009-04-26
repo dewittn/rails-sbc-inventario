@@ -1,0 +1,29 @@
+- page_title "Hacer reinventario"
+- unless @inventario.nil?
+  %h2= yield :title
+  %center
+    %p
+      Por favor coloque el paquete con c&oacute;digo
+      %b= @inventario.id
+      en:
+    %table
+      %tr{ :align => "center" }
+        %th Fila
+        %td \&nbsp;&nbsp;
+        %th Columna
+      %tr{ :align => "center" }
+        %td= @inventario.fila
+        %td \&nbsp;&nbsp;
+        %td= @inventario.columna
+    %p
+      %b Detalles
+    %table
+      %tr
+        %td= @inventario.cantidad
+        = detalles(@inventario)
+  - button_1("Reinventario",edit_reinventariar_path(params[:id]))
+  - button_2("Completo",sacar_index_path)
+- else
+  %p{ :style => "color: green;" }
+    Lo sentimos, hubo un error en el sistema, por favor notif&iacute;queselo a un encargado
+  - button_2("Reiventariar",reinventariar_index_path)
