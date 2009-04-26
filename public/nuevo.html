@@ -1,0 +1,123 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html lang='en' xml:lang='en' xmlns='http://www.w3.org/1999/xhtml'>
+  <head>
+    <title>
+      Inventario:
+      Nuevo
+    </title>
+    <link href="/stylesheets/all.css?1240430039" media="screen" rel="stylesheet" type="text/css" />
+    
+    <script src="/javascripts/all_with_unobtrusive.js?1240699085" type="text/javascript"></script>
+    <script src="/javascripts/buscar_nuevo.js?1240693659" type="text/javascript"></script>
+  </head>
+  <body>
+    <div class='wrapper'>
+      <div id='top-bar'>
+        <div class='float-left'>
+          <b>Buscar</b>&nbsp;<a href="/sacar">Sacar</a>&nbsp;<a href="/reinventariar">Reinventariar</a>&nbsp;
+          <a href="/nuevo">Nuevo</a>
+        </div>
+        <div class='float-right'><a href="/admin">Admin</a></div>
+        <div class='clear'></div>
+      </div>
+      <p style='color: green'>
+        
+      </p>
+      <h1>Nuevo</h1>
+      <form action="/buscar" method="post">
+        <div class='results' id='new'>
+          <h2>
+            Factura:
+            <span id='factura'>
+              <input id="inventario_numero_de_factura" name="inventario[numero_de_factura]" type="hidden" value="1123" />
+              1123
+            </span>
+          </h2>
+        </div>
+        <br />
+        <div class='results' id='new'>
+          <p>
+            <label for='inventario_cantidad'>
+              Cantidad
+            </label>
+            <input id="inventario_cantidad" maxlength="3" name="inventario[cantidad]" size="3" type="text" />
+          </p>
+          <table>
+            <tr>
+              <td>
+                <p>
+                  <label for='inventario_#{selects.name.downcase}_id'>
+                    Marca
+                  </label>
+                  <br />
+                  <select id="inventario_marca_id" name="inventario[marca_id]"><option value="1">Jonny</option></select>
+                </p>
+              </td>
+              <td>
+                <p>
+                  <label for='inventario_#{selects.name.downcase}_id'>
+                    Tipo
+                  </label>
+                  <br />
+                  <select id="inventario_tipo_id" name="inventario[tipo_id]"><option value="1">Polo</option></select>
+                </p>
+              </td>
+              <td>
+                <p>
+                  <label for='inventario_#{selects.name.downcase}_id'>
+                    Genero
+                  </label>
+                  <br />
+                  <select id="inventario_genero_id" name="inventario[genero_id]"><option value="1">Humbre</option></select>
+                </p>
+              </td>
+              <td>
+                <p>
+                  <label for='inventario_#{selects.name.downcase}_id'>
+                    Estilo
+                  </label>
+                  <br />
+                  <select id="inventario_estilo_id" name="inventario[estilo_id]"><option value="1">Normal</option></select>
+                </p>
+              </td>
+              <td>
+                <p>
+                  <label for='inventario_#{selects.name.downcase}_id'>
+                    Color
+                  </label>
+                  <br />
+                  <select id="inventario_color_id" name="inventario[color_id]"><option value="1">Rojo</option></select>
+                </p>
+              </td>
+              <td>
+                <p>
+                  <label for='inventario_#{selects.name.downcase}_id'>
+                    Talla
+                  </label>
+                  <br />
+                  <select id="inventario_talla_id" name="inventario[talla_id]"><option value="1">XL</option></select>
+                </p>
+              </td>
+            </tr>
+          </table>
+        </div>
+      </form>
+      <br />
+      <table>
+        <tr>
+          <td><a href="/buscar"><div class='three'><center><= Atras</center></div></a></td>
+          <td><a href="/"><div class='three'><center>Inicio</center></div></a></td>
+          <td><a href="#" onclick="document.forms[0].submit()"><div class='three'><center>Crear =></center></div></a></td>
+        </tr>
+      </table>
+      <div class='push'></div>
+    </div>
+    <div class='footer'>
+      &copy;
+      <a href='http://www.cotosolutions.com' target='_blank'>
+        Coto Solutions
+      </a>
+      2009
+    </div>
+  </body>
+</html>

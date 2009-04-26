@@ -1,0 +1,12 @@
+- page_title "Admin Settings"
+%h1= yield :title
+%table.results
+  %tr
+    %th Settings
+  %tr
+    %td= link_to "Ananzado", avanzado_index_path
+  %tr
+    %td= link_to "Settings", settings_path
+  %tr
+    %td= link_to "Logout", logout_path
+%br

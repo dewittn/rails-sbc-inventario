@@ -1,0 +1,17 @@
+- page_title @model.name + "s"
+%h2= yield :title
+- form_for @attribute do |f|
+  = f.text_field :descr
+  = f.submit "Nuevo", :disable_with => 'Espera...'
+%table.results
+  %tr.title
+    %th= @model.name
+    %th
+    %th
+  - @attributes.each do |attribute|
+    %tr{ :class => cycle(:odd, :even) }
+      %td= attribute.descr
+      %td= link_to "Editar", edit_estilo_path(attribute)
+      %td= link_to "Eliminar", estilo_path(attribute), :method => :delete
+%br
+- button_1("Settings",settings_path)
