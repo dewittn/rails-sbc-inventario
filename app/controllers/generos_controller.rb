@@ -1,4 +1,7 @@
 class GenerosController < ApplicationController
+  cache_sweeper :genero_sweeper, :only => [:update, :create, :destory]
+  before_filter :login_required
+  
   def index
     @attributes = model.all
     @attribute = model.new

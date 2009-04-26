@@ -59,7 +59,9 @@ class Inventario < ActiveRecord::Base
   end
   
   def find_or_create_factura
-    self.factura_id = Factura.find_or_create(:descr => numero_de_factura, :fecha => (fecha || Time.now.strftime("%d-%m-%Y"))).id unless factura_id
+    unless factura_id
+      self.factura_id = (Factura.find_or_create_by_descr(:descr => numero_de_factura, :fecha => (fecha || Time.now.strftime("%d-%m-%Y"))).id rescue nil)
+    end
   end
   
   def create_history

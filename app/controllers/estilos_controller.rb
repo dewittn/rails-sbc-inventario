@@ -1,4 +1,5 @@
 class EstilosController < ApplicationController
+  cache_sweeper :estilo_sweeper, :only => [:update, :create, :destory]
   before_filter :login_required
   
   def index

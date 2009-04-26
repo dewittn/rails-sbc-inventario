@@ -1,4 +1,5 @@
 class TiposController < ApplicationController
+  cache_sweeper :tipo_sweeper, :only => [:update, :create, :destory]
   before_filter :login_required
   
   def index
