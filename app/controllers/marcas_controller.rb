@@ -1,4 +1,5 @@
 class MarcasController < ApplicationController
+  cache_sweeper :marca_sweeper, :only => [:update, :create, :destory]
   before_filter :login_required
   
   def index

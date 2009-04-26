@@ -1,5 +1,8 @@
-class BuscarController < ApplicationController
+class BuscarController < ApplicationController  
+  caches_page :index, :new, :if => Proc.new { |c| !c.request.format.js? }
+  
   def index
+    expires_in 1.hour
     @sql ||= build_sql(Color,Marca,Genero,Estilo,Tipo,Talla,:codigo_id) 
     search_vars if params[:commit]
   end

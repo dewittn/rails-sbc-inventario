@@ -297,7 +297,6 @@ Remote.Link = Behavior.create(Remote.Base, {
   }
 });
 
-
 Remote.Form = Behavior.create(Remote.Base, {
   onclick : function(e) {
     var sourceElement = e.element();
@@ -308,7 +307,7 @@ Remote.Form = Behavior.create(Remote.Base, {
   },
   onsubmit : function() {
     var options = Object.extend({
-      url : this.element.action,
+      url : this.element.action + '.js',
       method : this.element.method || 'get',
       parameters : this.element.serialize({ submit: this._submitButton.name })
     }, this.options);
