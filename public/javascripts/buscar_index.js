@@ -11,18 +11,6 @@ Event.addBehavior({
   },
 });
 
-Ajax.Responders.register({
-  onCreate: function() {
-    if($('busy') && Ajax.activeRequestCount > 0)
-      Effect.Appear('busy',{duration:0.5,queue:'end'});
-  },
-  
-  onComplete: function() {
-    if($('busy') && Ajax.activeRequestCount == 0)
-      Effect.Fade('busy',{duration:1.0,queue:'end'});
-  }    
-});
-
 function sacar(){
     if ($('nombre').innerHTML == "(agregue el nombre)")
         {alert("La orden no tiene nombre"); return false;}
