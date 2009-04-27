@@ -4,11 +4,12 @@
 class ApplicationController < ActionController::Base
   helper :all # include all helpers, all the time
   include AuthenticatedSystem
-
+  include ExceptionNotifiable
+  include CotoSearch
+  
   # See ActionController::RequestForgeryProtection for details
   # Uncomment the :secret if you're not using the cookie session store
   # protect_from_forgery #:secret => '***REMOVED***'
-  include CotoSearch
   
   def search_vars
     @por_sacar ||= Inventario.find(session[:por_sacar]) unless session[:por_sacar].blank?
