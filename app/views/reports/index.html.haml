@@ -1,0 +1,25 @@
+- @facturas.each do |factura|
+  %h2= factura.descr
+  %table
+    %tr
+      %th Codigo
+      %th Talla
+      %th Genetico
+      %th Color
+      %th Cantidad
+    - factura.historias.each do |historia|
+      %tr
+        %td= historia.inventario_id
+        %td= historia.talla
+        %td= historia.genetico
+        %td= historia.color
+        %td= historia.cantidad
+      -historia.cambios.each do |cambio|
+        %tr
+          %td
+            Nuevo Cantidad:
+            = cambio.cantidad
+          %td
+            Cambio: 
+            = cambio.cambio
+          %td= cambio.created_at
