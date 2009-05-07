@@ -1,7 +1,7 @@
 class Inventario < ActiveRecord::Base  
   before_save :find_or_create_ubicacion, :find_or_create_factura
   after_create :create_history
-  before_update :record_orden_history
+  before_update :record_orden_history, :if => Proc.new { |i| i.record_historia == true }
   before_destroy :record_orden_history_delete
   
   validates_presence_of :talla_id, :color_id, :tipo_id, :marca_id, :estilo_id, :genero_id, :cantidad
@@ -16,7 +16,7 @@ class Inventario < ActiveRecord::Base
   belongs_to :factura
   belongs_to :ubicacion
   
-  attr_accessor :numero_de_factura, :fecha
+  attr_accessor :numero_de_factura, :fecha, :record_historia
   
   def fila
     @fila ||= ubicacion_id ? Ubicacion.all_cached.detect{ |u| u['id'] == ubicacion_id }.fila : nil

@@ -14,7 +14,7 @@ class SacarController < ApplicationController
       Inventario.destroy(id)
       redirect_to sacar_index_path
     else
-      @inventario = Inventario.update(id, {"cantidad" => params[:cantidad],"por_sacar" => 0, "tiene_por_sacar" => false, "nombre_de_orden" => nil,"necesita_reinventariarse" => false})
+      @inventario = Inventario.update(id, {:cantidad => params[:cantidad], :por_sacar => 0, :tiene_por_sacar => false, :nombre_de_orden => nil,:necesita_reinventariarse => false, :record_historia => true})
     end
   end
   
