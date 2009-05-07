@@ -1,5 +1,4 @@
 ActionController::Routing::Routes.draw do |map|
-
   map.resources :reinventariar, :avanzado, :buscar
   map.resources :sacar, :collection => {:sacar_temporal => :put}
   map.resources :javascripts, :collection => { :nombre_de_orden => :post, 
@@ -17,7 +16,7 @@ ActionController::Routing::Routes.draw do |map|
   map.signup '/signup', :controller => 'users', :action => 'new'
   map.resources :users, :only => [:new,:create]
   map.resource :session, :only => [:new,:create,:destroy]
-  map.resources :admin, :only => [:index]
+  map.resources :admin, :reports, :only => [:index]
   map.resources :settings, :only => [:index]
   map.resources :marcas, :colores, :tipos, :tallas, :estilos, :generos, :except => [:show]
   map.root :controller => 'buscar'
