@@ -7,7 +7,7 @@
       %th Genetico
       %th Color
       %th Cantidad
-    - factura.historias.each do |historia|
+    - factura.historia_por_report(@historias).each do |historia|
       %tr
         %td= historia.inventario_id
         %td= historia.talla
