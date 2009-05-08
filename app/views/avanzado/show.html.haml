@@ -34,8 +34,7 @@
     %td= h @inventario.created_at.strftime("%d/%m/%Y, %I:%M%p")
     %td
       - if !@inventario.updated_at.nil?
-      = h @inventario.updated_at.strftime("%d/%m/%Y, %I:%M%p")
-      - end
+        = h @inventario.updated_at.strftime("%d/%m/%Y, %I:%M%p")
 - if @inventario.necesita_reinventariarse == true
   %p{ :style => "color: red" }
     Necesita Reinventariarse
