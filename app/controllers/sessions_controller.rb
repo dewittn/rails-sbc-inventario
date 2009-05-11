@@ -2,7 +2,7 @@
 class SessionsController < ApplicationController
   # Be sure to include AuthenticationSystem in Application Controller instead
   include AuthenticatedSystem
-  caches_page :new
+  #caches_page :new
 
   # render new.rhtml
   def new
