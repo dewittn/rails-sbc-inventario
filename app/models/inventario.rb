@@ -1,5 +1,5 @@
 class Inventario < ActiveRecord::Base  
-  before_save :find_or_create_ubicacion, :find_or_create_factura
+  before_save :find_or_create_ubicacion, :find_or_create_factura, :if  => :update_ids#Proc.new { |i| i.update_ids == true }
   after_create :create_history
   before_update :record_orden_history, :if => Proc.new { |i| i.record_historia == true }
   before_destroy :record_orden_history_delete
@@ -16,7 +16,7 @@ class Inventario < ActiveRecord::Base
   belongs_to :factura
   belongs_to :ubicacion
   
-  attr_accessor :numero_de_factura, :fecha, :record_historia
+  attr_accessor :numero_de_factura, :fecha, :record_historia, :update_ids
   
   def fila
     @fila ||= ubicacion_id ? Ubicacion.all_cached.detect{ |u| u['id'] == ubicacion_id }.fila : nil
@@ -32,6 +32,10 @@ class Inventario < ActiveRecord::Base
   
   def columna=(value)
     @columna = value
+  end
+  
+  def columna_changed?
+    (@columna == Ubicacion.all_cached.detect{ |u| u['id'] == ubicacion_id }.columna) rescue false
   end
   
   def columna_required?
@@ -55,7 +59,7 @@ class Inventario < ActiveRecord::Base
   end
   
   def find_or_create_ubicacion
-    self.ubicacion_id = Ubicacion.find_or_create(:fila => fila, :columna => columna).id unless ubicacion_id || fila.blank? || columna.blank?
+    self.ubicacion_id = Ubicacion.find_or_create(:fila => fila, :columna => columna).id rescue nil
   end
   
   def find_or_create_factura
