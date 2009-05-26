@@ -6,12 +6,12 @@
       Nombre de orden:
       %span#nombre= nombre_de_orden
     %script{ :type => "text/javascript" }
-      new Ajax.InPlaceEditor("nombre", "/javascripts/nombre_de_orden");
+      new Ajax.InPlaceEditor("nombre", path_prefix + "/javascripts/nombre_de_orden");
     %h2
       Numero de orden:
       %span#numero= numero_de_orden
     %script{ :type => "text/javascript" }
-      new Ajax.InPlaceEditor("numero", "/javascripts/numero_de_orden");
+      new Ajax.InPlaceEditor("numero", path_prefix + "/javascripts/numero_de_orden");
     %table#t_por_sacar.results
       %tr.title
         %th Codigo
