@@ -7,7 +7,7 @@ Event.addBehavior({
   'body': function(){
       var busy = $div({id:'busy',style: "display:none;"}, "Loading...");
       document.body.appendChild(busy);
-      new Ajax.Request('/inventario/javascripts/agregar_otro_para_sacar', {evalScripts:true});
+      new Ajax.Request(path_prefix + '/javascripts/agregar_otro_para_sacar', {evalScripts:true});
   },
 });
 
@@ -25,9 +25,9 @@ function sacar(){
     };
     if (faltan != 0)
         { alert("Faltan cantidad");return false; }
-    new Ajax.Request('/inventario/javascripts/por_sacar', {evalScripts:true})
+    new Ajax.Request(path_prefix + '/javascripts/por_sacar', {evalScripts:true})
 } 
 
 function limpiar(){
-    new Ajax.Request('/inventario/javascripts/limpiar', {evalScripts:true})
+    new Ajax.Request(path_prefix + '/javascripts/limpiar', {evalScripts:true})
 }

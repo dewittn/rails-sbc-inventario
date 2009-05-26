@@ -23,7 +23,20 @@ namespace :deploy do
   
   task :create_db do
     rake_setup
-    run "cd #{@directory}; #{@rake} RAILS_ENV=#{@rails_env} #{@migrate_env} db:create"
+    run "cd #{@directory}; sudo #{@rake} RAILS_ENV=#{@rails_env} #{@migrate_env} db:schema:load"
+  end
+  
+  def rake_setup
+    @rake = fetch(:rake, "rake")
+    @rails_env = fetch(:rails_env, "production")
+    @migrate_env = fetch(:migrate_env, "")
+    @migrate_target = fetch(:migrate_target, :latest)
+
+    @directory = case @migrate_target.to_sym
+      when :current then current_path
+      when :latest  then current_release
+      else raise ArgumentError, "unknown migration target #{@migrate_target.inspect}"
+      end
   end
   
 end
@@ -35,17 +48,31 @@ task :update_repo do
   system "git push coto"
 end
 
+after "deploy", "gem_install"
+before "deploy:create_db", "gem_install"
+after "deploy:migrations", "gem_install"
+task :gem_install do
+  rake_setup
+  run "cd #{@directory}; sudo #{@rake} RAILS_ENV=#{@rails_env} #{@migrate_env} gems:install"
+end
+
 task :pro_log do
   stream "tail -f #{deploy_to}/current/log/production.log"
 end
 
-after "deploy", "gem_install"
-after "deploy:cold", "gem_install"
-after "deploy:migrations", "gem_install"
-
-task :gem_install do
+task :ts_index do
   rake_setup
-  run "cd #{@directory}; #{@rake} RAILS_ENV=#{@rails_env} #{@migrate_env} gems:install"
+  run "cd #{@directory}; sudo #{@rake} RAILS_ENV=#{@rails_env} #{@migrate_env} ts:in"
+end
+
+task :ts_stop do
+  rake_setup
+  run "cd #{@directory}; sudo #{@rake} RAILS_ENV=#{@rails_env} #{@migrate_env} ts:stop"
+end
+
+task :ts_start do
+  rake_setup
+  run "cd #{@directory}; sudo #{@rake} RAILS_ENV=#{@rails_env} #{@migrate_env} ts:start"
 end
 
 def rake_setup

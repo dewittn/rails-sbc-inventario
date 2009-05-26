@@ -1,23 +1,30 @@
 module CotoHelper
   ## Default App Helpers ##
-   #returns srting for the page title
-   def page_title(title)
-     content_for(:title) { title }
-   end
-
+  def page_title(title=APP_CONFIG['page_title'])
+    content_for(:title) { title }
+  end
+  
+  def app_title(title=APP_CONFIG['app_title'])
+    content_for(:app_title) { title }
+  end
+  
+  def defualt_title
+   APP_CONFIG['page_title']
+  end
+  
    #Renders button 1 on left of Home button
    def button_1(text,path,options={})
      content_for(:button1) do
        "<td>#{link_to "<div class='three'><center>#{text}</center></div>", path, options }</td>"
-   	end
-   end
+       end
+     end
 
    #Renders button 1 on left of Home button
    def button_2(text,path,options={})
      content_for(:button2) do
        "<td>#{link_to "<div class='three'><center>#{text}</center></div>", path, options }</td>"
-   	end
-   end
+       end
+     end
 
    #Generates links accross left side of top bar
    def create_top_links(*controllers)
@@ -30,18 +37,24 @@ module CotoHelper
 
    #Create Logout on right side of top bar
    def create_logout
-       content_for :admin do
-         link_to "Admin", admin_index_path
+     if logged_in?
+       content_for :logout do
+         link_to "Logout", logout_path
        end
+     else
+       content_for :logout do
+         link_to "Login", login_path
+       end
+    end
    end 
    
-   def javascripts(file)
+   def javascripts(*file)
     content_for :javascripts do
       javascript_include_tag file
     end
    end
    
-   def stylesheets(file)
+   def stylesheets(*file)
      content_for :stylesheets do
        stylesheet_link_tag file
      end
