@@ -13,7 +13,7 @@ class ApplicationController < ActionController::Base
   
   def search_vars
     @por_sacar ||= Inventario.find(session[:por_sacar]) unless session[:por_sacar].blank?
-    @inventarios ||= Inventario.pag_search(params[:page], @sql)
+    @inventarios ||= params[:updated_at] ? Inventario.pag_search(params[:page], @sql, "updated_at") :  Inventario.pag_search(params[:page], @sql)
     @total ||= Inventario.count_camisas(@sql) 
     @solicitadas ||= params[:cantidad].to_i unless params[:cantidad].blank?
     @ubicaciones = Ubicacion.all_cached

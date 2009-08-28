@@ -13,7 +13,7 @@ module CotoSearch
     sql.empty? ? sql = [condition] : sql[0] = sql[0] + " AND #{condition}" 
     sql
   end
-  
+
   def add_condition(c_arry,c_add,c_table)
         unless c_add.blank?
           if c_arry.empty?
