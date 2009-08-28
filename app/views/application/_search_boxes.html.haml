@@ -5,8 +5,9 @@
       %th Cantidad
       = yield :searchable_label
       = yield :avanzado_search_labels
+      %th= Orden 
     %tr
-      %td= text_field_tag ""
+      %td= text_field_tag "", params[:cantidad],:size => 2
       = yield :searchable
       = yield :avanzado_search
       %td= check_box_tag :updated_at, value = true 
