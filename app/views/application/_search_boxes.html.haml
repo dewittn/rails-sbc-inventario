@@ -9,7 +9,7 @@
       %td= text_field_tag ""
       = yield :searchable
       = yield :avanzado_search
-      %td
+      %td= check_box_tag :updated_at, value = true 
       %td
         = submit_tag 'Buscar'
         = submit_tag 'Limpiar', :name => "limpiar"
