@@ -93,4 +93,8 @@ module ApplicationHelper
   def fila_columna(inventario)
     render :partial => 'application/fila_columna', :locals => {:inventario => inventario}
   end
+
+  def no_cambio(inventario)
+    ((Time.now - inventario.updated_at)).to_i / 2592000 rescue "?"
+  end
 end
