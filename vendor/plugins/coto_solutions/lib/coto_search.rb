@@ -34,7 +34,7 @@ module Searches
   end
   
   def pag_search(page,condistions={},order='id')
-    paginate :per_page => 10, :conditions => condistions,:order => order, :page => page     
+    paginate :per_page => 10, :conditions => condistions,:order => order, :page => page, :joins => :ubicacion    
   end
   
   def search_xml(condistions ={})

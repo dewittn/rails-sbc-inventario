@@ -17,6 +17,8 @@ class AvanzadoController < ApplicationController
   
   def update
     @inventario ||= Inventario.find(params[:id])
+    @inventario.record_historia = true
+    @inventario.admin_changed = true
     respond_to do |format| 
       if @inventario.update_attributes(params[:inventario])
         flash[:notice] = 'Chapter was successfully updated.'

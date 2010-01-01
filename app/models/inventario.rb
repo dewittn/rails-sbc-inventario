@@ -16,7 +16,7 @@ class Inventario < ActiveRecord::Base
   belongs_to :factura
   belongs_to :ubicacion
   
-  attr_accessor :numero_de_factura, :fecha, :record_historia, :update_ids
+  attr_accessor :numero_de_factura, :fecha, :record_historia, :update_ids, :admin_changed
   
   def fila
     @fila ||= ubicacion_id ? Ubicacion.all_cached.detect{ |u| u['id'] == ubicacion_id }.fila : nil
@@ -51,7 +51,7 @@ class Inventario < ActiveRecord::Base
   end
   
   def self.count_camisas(conditions)
-    sum(:cantidad,:conditions => conditions)
+    sum(:cantidad,:conditions => conditions, :joins => :ubicacion)
   end
   
   def self.temporal
@@ -77,9 +77,18 @@ class Inventario < ActiveRecord::Base
   end
   
   def record_orden_history
-    if historia_find && nombre_de_orden_was && numero_de_orden_was
-      historia_find.cambios.create(:cambio => (cantidad - cantidad_was), :cantidad => cantidad, :orden_id => orden_find_or_create(nombre_de_orden_was,numero_de_orden_was))
+    if historia_find
+      historia_find.cambios.create(:cambio => (cantidad - cantidad_was), :cantidad => cantidad, :orden_id => orden_find_or_create(name_for_history, number_for_history))
     end
+  end
+  
+  #If there is no name on the order (when an admin edits) set the same to "admin"
+  def name_for_history
+  	nombre_de_orden_was || "admin"
+  end
+  
+  def number_for_history
+  	name_for_history != "admin" ? numero_de_orden_was : 0
   end
   
   def record_orden_history_delete
