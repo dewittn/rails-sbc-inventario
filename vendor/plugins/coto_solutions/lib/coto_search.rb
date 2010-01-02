@@ -3,10 +3,18 @@ module CotoSearch
   def build_sql(*arry)
     arry.each do |a| 
       @conditions = [] unless not @conditions.nil? 
-      a.class == Class ? id = (a.name.downcase + "_id").to_sym : id = a
-      @conditions = add_condition(@conditions,params[id],id.id2name) unless params[id].empty? unless params[id].blank? 
+      if a.class == Class 
+       id = (a.name.downcase + "_id").to_sym
+      else 
+       id = a
+      end 
+      @conditions = add_condition(@conditions,params[id],id_to_name(id)) unless params[id].empty? unless params[id].blank? 
     end
     @conditions
+  end
+  
+  def id_to_name(id)
+  	id == :id ? "inventarios.id" : id.id2name
   end
   
   def custom_condition(sql,condition)
