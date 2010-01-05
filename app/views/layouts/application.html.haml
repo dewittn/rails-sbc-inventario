@@ -12,7 +12,6 @@
   %body
     .wrapper
       - create_top_links("Buscar","Sacar","Reinventariar")
-      - create_logout
       = render :partial => 'application/top_links'
       %p{ :style => "color: green" }
         = flash[:notice]
