@@ -17,27 +17,7 @@ class Inventario < ActiveRecord::Base
   belongs_to :ubicacion
   
   attr_accessor :numero_de_factura, :fecha, :record_historia, :update_ids
-  
-  def fila
-    @fila ||= ubicacion_id ? Ubicacion.all_cached.detect{ |u| u['id'] == ubicacion_id }.fila : nil
-  end
-  
-  def fila=(value)
-    @fila = value
-  end
-  
-  def columna
-    @columna ||= ubicacion_id ? Ubicacion.all_cached.detect{ |u| u['id'] == ubicacion_id }.columna : nil
-  end
-  
-  def columna=(value)
-    @columna = value
-  end
-  
-  def columna_changed?
-    (@columna == Ubicacion.all_cached.detect{ |u| u['id'] == ubicacion_id }.columna) rescue false
-  end
-  
+    
   def columna_required?
     not columna.blank?
   end
@@ -93,5 +73,11 @@ class Inventario < ActiveRecord::Base
   
   def orden_find_or_create(nombre,numero)
     Orden.find_or_create(:nombre => nombre,:numero => numero).id
+  end
+  
+  def location_update
+    self.row = ubicacion.fila rescue nil
+    self.column = ubicacion.columna rescue nil
+    save!
   end
 end
