@@ -37,7 +37,7 @@ class AvanzadoController < ApplicationController
   end
   
   def destroy
-    Inventario.update(params[:id], {"por_sacar" => 0, "eliminado" => true,"eliminado_at" => Time.now})
+    Inventario.update(params[:id], {"por_sacar" => 0})
     flash[:notice] = "El paquete ha sido marcado como eliminado"
     redirect_to avanzado_index_path
   end

@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090326163910) do
+ActiveRecord::Schema.define(:version => 20100105210450) do
 
   create_table "cambios", :force => true do |t|
     t.integer  "cambio"
@@ -43,6 +43,13 @@ ActiveRecord::Schema.define(:version => 20090326163910) do
     t.datetime "updated_at"
   end
 
+  create_table "historials", :force => true do |t|
+    t.integer  "inventario_id"
+    t.datetime "created_at"
+    t.integer  "cantidad_original"
+    t.datetime "created_at_original"
+  end
+
   create_table "historias", :force => true do |t|
     t.integer  "cantidad"
     t.text     "talla"
@@ -67,18 +74,14 @@ ActiveRecord::Schema.define(:version => 20090326163910) do
   end
 
   create_table "inventarios", :force => true do |t|
-    t.integer  "tipo_id",                                     :null => false
-    t.integer  "color_id",                                    :null => false
-    t.integer  "marca_id",                                    :null => false
-    t.integer  "talla_id",                                    :null => false
-    t.integer  "cantidad",                                    :null => false
-    t.boolean  "eliminado",                :default => false, :null => false
+    t.integer  "tipo_id",                        :null => false
+    t.integer  "color_id",                       :null => false
+    t.integer  "marca_id",                       :null => false
+    t.integer  "talla_id",                       :null => false
+    t.integer  "cantidad",                       :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.datetime "eliminado_at"
-    t.boolean  "necesita_reinventariarse"
-    t.integer  "por_sacar",                :default => 0
-    t.boolean  "tiene_por_sacar",          :default => false
+    t.integer  "por_sacar",       :default => 0
     t.string   "nombre_de_orden"
     t.integer  "estilo_id"
     t.integer  "genero_id"
