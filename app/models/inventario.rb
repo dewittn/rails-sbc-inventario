@@ -1,5 +1,5 @@
 class Inventario < ActiveRecord::Base  
-  before_save :find_or_create_ubicacion, :find_or_create_factura, :if  => :update_ids#Proc.new { |i| i.update_ids == true }
+  before_save :find_or_create_factura, :if  => :update_ids#Proc.new { |i| i.update_ids == true }
   after_create :create_history
   before_update :record_orden_history, :if => Proc.new { |i| i.record_historia == true }
   before_destroy :record_orden_history_delete
@@ -22,15 +22,11 @@ class Inventario < ActiveRecord::Base
   end
   
   def self.por_sacar(page)
-    paginate :per_page => 10,:page => page, :conditions => "por_sacar > 0" , :order => "nombre_de_orden ASC"
+    paginate :per_page => 10, :page => page, :conditions => "por_sacar > 0", :order => "nombre_de_orden ASC"
   end
   
   def self.count_camisas(conditions)
-    sum(:cantidad,:conditions => conditions, :joins => :ubicacion)
-  end
-  
-  def find_or_create_ubicacion
-    self.ubicacion_id = Ubicacion.find_or_create(:fila => fila, :columna => columna).id rescue nil
+    sum(:cantidad,:conditions => conditions)
   end
   
   def find_or_create_factura
