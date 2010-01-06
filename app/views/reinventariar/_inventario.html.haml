@@ -8,4 +8,4 @@
     = cantidad_por_sacar(inventario)
   = detalles(inventario)
   %td= link_to 'Editar', :action => 'edit', :id => inventario
-  %td= link_to 'Faltante', avanzado_path(inventario),:confirm => "Est&aacute;s seguro?", :id => inventario, :method => :delete
+  %td= link_to 'Faltante', reinventariar_path(inventario),:confirm => "Est&aacute;s seguro?", :id => inventario, :method => :delete
