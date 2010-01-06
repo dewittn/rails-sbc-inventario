@@ -16,14 +16,7 @@ class Inventario < ActiveRecord::Base
   belongs_to :factura
   
   attr_accessor :numero_de_factura, :fecha, :record_historia, :update_ids
-
-  named_scope :tipos, lambda { |*args| {:conditions => args} }
-  named_scope :tallas, lambda { |*args| {:conditions => args} }
-  named_scope :colors, lambda { |*args| {:conditions => args} }
-  named_scope :marcas, lambda { |*args| {:conditions => args} }
-  named_scope :esillos, lambda { |*args| {:conditions => args} }
-  named_scope :facturas, lambda { |*args| {:conditions => args} }
-
+  
   def columna_required?
     not columna.blank?
   end
