@@ -1,7 +1,6 @@
 class SacarController < ApplicationController
   def index
     @inventarios = Inventario.por_sacar(params[:page])
-    @temporal = Inventario.temporal
   end
   
   def edit
@@ -14,25 +13,14 @@ class SacarController < ApplicationController
       Inventario.destroy(id)
       redirect_to sacar_index_path
     else
-      @inventario = Inventario.update(id, {:cantidad => params[:cantidad], :por_sacar => 0, :nombre_de_orden => nil,:necesita_reinventariarse => false, :record_historia => true})
+      @inventario = Inventario.update(id, {:cantidad => params[:cantidad], :por_sacar => 0, :nombre_de_orden => nil, :record_historia => true})
     end
   end
   
   def destroy
-    Inventario.update(id, {"por_sacar" => 0, "eliminado" => true,"eliminado_at" => Time.now})
+    Inventario.update(id, {"por_sacar" => 0})
     flash[:notice] = "El paquete ha sido marcado como eliminado"
     redirect_to sacar_index_path
-  end
-  
-  def sacar_temporal
-    Inventario.temporal.each do |temporal|
-      temporal.update_attribute(:por_sacar, 0)
-    end
-    redirect_to sacar_index_path
-  end
-  
-  def show
-  
   end
     
   def id

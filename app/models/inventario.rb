@@ -16,7 +16,7 @@ class Inventario < ActiveRecord::Base
   belongs_to :factura
   belongs_to :ubicacion
   
-  attr_accessor :numero_de_factura, :fecha, :record_historia, :update_ids, :admin_changed
+  attr_accessor :numero_de_factura, :fecha, :record_historia, :update_ids
   
   def fila
     @fila ||= ubicacion_id ? Ubicacion.all_cached.detect{ |u| u['id'] == ubicacion_id }.fila : nil
@@ -43,19 +43,11 @@ class Inventario < ActiveRecord::Base
   end
   
   def self.por_sacar(page)
-    paginate :per_page => 10,:page => page, :conditions => { :tiene_por_sacar => true } , :order => "nombre_de_orden ASC"
-  end
-  
-  def self.reinventario(page)
-    paginate :per_page => 10,:page => page, :conditions => { :necesita_reinventariarse => true }
+    paginate :per_page => 10,:page => page, :conditions => "por_sacar > 0" , :order => "nombre_de_orden ASC"
   end
   
   def self.count_camisas(conditions)
     sum(:cantidad,:conditions => conditions, :joins => :ubicacion)
-  end
-  
-  def self.temporal
-    search( ["por_sacar > 0", {:tiene_por_sacar => false}] )
   end
   
   def find_or_create_ubicacion

@@ -5,19 +5,6 @@
     = render :partial => 'application/cantidad'
     = render :partial => 'application/location'
     = render :partial => 'application/attributes'
-    %p
-      Necesita Reinventariarse?
-      %select#inventario_necesita_reinventariarse{ :name => "inventario[necesita_reinventariarse]" }
-        <option value="true"
-        - if @inventario.necesita_reinventariarse == true then
-          selected="true"
-        >S&iacute;
-        </option>
-        <option value="false"
-        - if not @inventario.necesita_reinventariarse == true then
-          selected="true"
-        >No
-        </option>
 - button_1("Inventario", reinventariar_index_path)
 - button_2("Mostrar",avanzado_path(@inventario))
 - button_2("Editar =>",'#', :onclick => 'document.forms[0].submit()')

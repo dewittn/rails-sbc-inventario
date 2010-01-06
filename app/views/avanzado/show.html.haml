@@ -35,9 +35,6 @@
     %td
       - if !@inventario.updated_at.nil?
         = h @inventario.updated_at.strftime("%d/%m/%Y, %I:%M%p")
-- if @inventario.necesita_reinventariarse == true
-  %p{ :style => "color: red" }
-    Necesita Reinventariarse
 - button_1("Inventario",avanzado_index_path)
 - button_2("Editar",edit_avanzado_path(@inventario))
 - button_2("Nuevo",new_avanzado_path)

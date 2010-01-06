@@ -2,9 +2,13 @@ class ReinventariarController < ApplicationController
   before_filter :login_required
   
   def index
-    redirect_to(avanzado_index_path) if params[:commit] == "Limpiar"
-    @sql ||= build_sql(Color,Marca,Genero,Estilo,Tipo,Talla,:id,:fila,:columna)
-    search_vars
+    if params[:commit] == "Buscar"
+      @sql = build_sql(:id,:fila,:columna)
+      @inventarios = Inventario.pag_search(params[:page], @sql)
+      @total = Inventario.count_camisas(@sql) 
+      @solicitadas = params[:cantidad].to_i unless params[:cantidad].blank?
+      @ubicaciones = Ubicacion.all_cached
+    end
   end
   
   def show
@@ -18,17 +22,11 @@ class ReinventariarController < ApplicationController
   def update
     @inventario ||= Inventario.find(params[:id])
     @inventario.record_historia = true
-    @inventario.admin_changed = true
-    respond_to do |format| 
       if @inventario.update_attributes(params[:inventario])
         flash[:notice] = 'Chapter was successfully updated.'
-        format.html { redirect_to avanzado_path(params[:id]) }
-        format.xml  { head :ok }
       else
-        format.html { render :action => "edit" }
-        format.xml  { render :xml => @inventario.errors.to_xml }
+        render :action => "edit"
       end
-    end
   end
 
   def create
@@ -37,7 +35,7 @@ class ReinventariarController < ApplicationController
   end
   
   def destroy
-    Inventario.update(params[:id], {"por_sacar" => 0, "tiene_por_sacar" => false, "eliminado" => true,"eliminado_at" => Time.now})
+    Inventario.update(params[:id], {"por_sacar" => 0})
     flash[:notice] = "El paquete ha sido marcado como eliminado"
     redirect_to avanzado_index_path
   end
