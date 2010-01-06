@@ -5,7 +5,7 @@ class SacarController < ApplicationController
   end
   
   def edit
-    Inventario.update(id, {"por_sacar" => 0, "tiene_por_sacar" => false, "nombre_de_orden" => nil})
+    Inventario.update(id, {"por_sacar" => 0, "nombre_de_orden" => nil})
     redirect_to sacar_index_path
   end
   
@@ -14,12 +14,12 @@ class SacarController < ApplicationController
       Inventario.destroy(id)
       redirect_to sacar_index_path
     else
-      @inventario = Inventario.update(id, {:cantidad => params[:cantidad], :por_sacar => 0, :tiene_por_sacar => false, :nombre_de_orden => nil,:necesita_reinventariarse => false, :record_historia => true})
+      @inventario = Inventario.update(id, {:cantidad => params[:cantidad], :por_sacar => 0, :nombre_de_orden => nil,:necesita_reinventariarse => false, :record_historia => true})
     end
   end
   
   def destroy
-    Inventario.update(id, {"por_sacar" => 0, "tiene_por_sacar" => false, "eliminado" => true,"eliminado_at" => Time.now})
+    Inventario.update(id, {"por_sacar" => 0, "eliminado" => true,"eliminado_at" => Time.now})
     flash[:notice] = "El paquete ha sido marcado como eliminado"
     redirect_to sacar_index_path
   end
