@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100105210450) do
+ActiveRecord::Schema.define(:version => 20100106174738) do
 
   create_table "cambios", :force => true do |t|
     t.integer  "cambio"
@@ -88,6 +88,7 @@ ActiveRecord::Schema.define(:version => 20100105210450) do
     t.integer  "ubicacion_id"
     t.integer  "factura_id"
     t.string   "numero_de_orden"
+    t.boolean  "missing"
   end
 
   add_index "inventarios", ["color_id"], :name => "index_inventarios_on_color_id"
