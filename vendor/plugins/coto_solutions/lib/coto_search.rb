@@ -14,7 +14,7 @@ module CotoSearch
   end
   
   def id_to_name(id)
-  	id == :id ? "inventarios.id" : id.id2name
+  	id == :id ? "inventarios`.`id" : id.id2name
   end
   
   def custom_condition(sql,condition)
@@ -25,10 +25,10 @@ module CotoSearch
   def add_condition(c_arry,c_add,c_table)
         unless c_add.blank?
           if c_arry.empty?
-            c_arry = [c_table + " = ?"]
+            c_arry = ["`#{c_table}` = ?"]
             c_arry + [c_add]
           else
-            c_arry[0] = c_arry[0] + " AND #{c_table} = ?" 
+            c_arry[0] = c_arry[0] + " AND `#{c_table}` = ?" 
             c_arry + [c_add]
           end
         end
