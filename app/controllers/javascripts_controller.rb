@@ -26,7 +26,7 @@ class JavascriptsController < ApplicationController
   end
   
   def por_sacar
-    update_inventario({:tiene_por_sacar => true, :nombre_de_orden => session[:nombre], :numero_de_orden => session[:numero]})
+    update_inventario({:nombre_de_orden => session[:nombre], :numero_de_orden => session[:numero]})
     clear_session
   end
   
