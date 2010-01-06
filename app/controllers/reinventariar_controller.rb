@@ -3,11 +3,10 @@ class ReinventariarController < ApplicationController
   
   def index
     if params[:commit] == "Buscar"
-      @sql = build_sql(:id,:fila,:columna)
+      @sql = build_sql(:id,:row,:column)
       @inventarios = Inventario.pag_search(params[:page], @sql)
       @total = Inventario.count_camisas(@sql) 
       @solicitadas = params[:cantidad].to_i unless params[:cantidad].blank?
-      @ubicaciones = Ubicacion.all_cached
     end
   end
   
