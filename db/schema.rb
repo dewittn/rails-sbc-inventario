@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100106182456) do
+ActiveRecord::Schema.define(:version => 20100106185925) do
 
   create_table "cambios", :force => true do |t|
     t.integer  "cambio"
@@ -85,7 +85,6 @@ ActiveRecord::Schema.define(:version => 20100106182456) do
     t.string   "nombre_de_orden"
     t.integer  "estilo_id"
     t.integer  "genero_id"
-    t.integer  "ubicacion_id"
     t.integer  "factura_id"
     t.string   "numero_de_orden"
     t.string   "row"
@@ -118,14 +117,6 @@ ActiveRecord::Schema.define(:version => 20100106182456) do
 
   create_table "tipos", :force => true do |t|
     t.string "descr", :limit => 250
-  end
-
-  create_table "ubicacions", :force => true do |t|
-    t.text     "descr"
-    t.string   "fila"
-    t.string   "columna"
-    t.datetime "created_at"
-    t.datetime "updated_at"
   end
 
   create_table "users", :force => true do |t|
