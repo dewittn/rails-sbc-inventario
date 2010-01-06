@@ -37,12 +37,24 @@ module CotoSearch
 end
 
 module Searches
-  def search(condistions={},order='id')
-    find :all, :conditions => condistions,:order => order
+  def search(arry)
+    order = arry.delete(:order) || 'id'
+    scope = self.scoped({})
+    arry.keys.each do |key| 
+       scope = scope.scoped :conditions => { key  => arry[key] }
+    end
+    scope.scoped :order => 'id'
   end
   
-  def pag_search(page,condistions={},order='id')
-    paginate :per_page => 10, :conditions => condistions,:order => order, :page => page 
+  def pag_search(arry)
+    page = arry.delete(:page) || 1
+    per_page = arry.delete(:per_page) || 10
+    order = arry.delete(:order) || 'id'
+    scope = self.scoped({})
+    arry.keys.each do |key| 
+       scope = scope.scoped :conditions => { key  => arry[key] }
+    end
+    scope.paginate :per_page => 10, :page => page, :order => order
   end
   
   def search_xml(condistions ={})
