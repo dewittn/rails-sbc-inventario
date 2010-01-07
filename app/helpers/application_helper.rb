@@ -10,8 +10,8 @@ module ApplicationHelper
       end
       content_for :avanzado_search do
         "<td>#{text_field_tag("id", {},{:size => 3, :value => params[:id]})}</td>
-  		 <td>#{text_field_tag("fila", {}, {:size => 3, :value => params[:fila]})}</td>
-  		 <td>#{text_field_tag("columna", {}, {:size => 3, :value => params[:columna]})}</td>"
+  		 <td>#{text_field_tag("row", {}, {:size => 3, :value => params[:fila]})}</td>
+  		 <td>#{text_field_tag("column", {}, {:size => 3, :value => params[:columna]})}</td>"
   		end
   		content_for :avanzado_results_label do
   		  "<th></th>
@@ -28,8 +28,8 @@ module ApplicationHelper
       content_for "inventario_#{inventario.id}".to_sym do
   		    "<td></td>
   		    <td>#{h(inventario.id)}</td>						
-  		    <td>#{Ubicacion.fila_from_cached(inventario.ubicacion_id)}</td>
-      		<td>#{Ubicacion.columna_from_cached(inventario.ubicacion_id)}</td>
+  		    <td>#{h(inventario.row)}</td>
+      		<td>#{h(inventario.column)}</td>
   		    <td>#{link_to 'Mostrar', :action => 'show', :id => inventario}</td>	
   		    <td>#{link_to 'Editar', :action => 'edit', :id => inventario}</td>
   		    <td>#{link_to 'Retirar', avanzado_path(inventario),:confirm => "Est&aacute;s seguro?", :id => inventario, :method => :delete}</td>"

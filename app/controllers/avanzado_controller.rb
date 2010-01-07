@@ -2,9 +2,7 @@ class AvanzadoController < ApplicationController
   before_filter :login_required
   
   def index
-    redirect_to(avanzado_index_path) if params[:commit] == "Limpiar"
-    @sql ||= build_sql(Color,Marca,Genero,Estilo,Tipo,Talla,:id,:fila,:columna)
-    search_vars
+    search_inventory if params[:commit]
   end
   
   def show
@@ -18,17 +16,12 @@ class AvanzadoController < ApplicationController
   def update
     @inventario ||= Inventario.find(params[:id])
     @inventario.record_historia = true
-    @inventario.admin_changed = true
-    respond_to do |format| 
       if @inventario.update_attributes(params[:inventario])
         flash[:notice] = 'Chapter was successfully updated.'
-        format.html { redirect_to avanzado_path(params[:id]) }
-        format.xml  { head :ok }
+        redirect_to avanzado_path(params[:id])
       else
-        format.html { render :action => "edit" }
-        format.xml  { render :xml => @inventario.errors.to_xml }
+        render :action => "edit"
       end
-    end
   end
 
   def create
