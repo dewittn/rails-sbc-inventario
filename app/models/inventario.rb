@@ -17,6 +17,17 @@ class Inventario < ActiveRecord::Base
   
   attr_accessor :numero_de_factura, :fecha, :record_historia, :update_ids
   
+  def self.pag_search(arry)
+    page = arry.delete(:page) || 1
+    per_page = arry.delete(:per_page) || 10
+    order = arry.delete(:order) || 'id'
+    scope = self.scoped({})
+    arry.keys.each do |key| 
+       scope = scope.scoped :conditions => { key  => arry[key] }
+    end
+    scope.paginate :per_page => 10, :page => page, :order => order
+  end
+  
   def columna_required?
     not columna.blank?
   end

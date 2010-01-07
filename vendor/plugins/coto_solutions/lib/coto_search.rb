@@ -46,7 +46,7 @@ module Searches
     scope.scoped :order => 'id'
   end
   
-  def pag_search(arry)
+  def self.pag_search(arry)
     page = arry.delete(:page) || 1
     per_page = arry.delete(:per_page) || 10
     order = arry.delete(:order) || 'id'
