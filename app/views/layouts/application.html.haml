@@ -11,7 +11,7 @@
     = yield :javascripts
   %body
     .wrapper
-      - create_top_links("Buscar","Sacar","Reinventariar")
+      - create_top_links("Buscar","Sacar")
       = render :partial => 'application/top_links'
       %p{ :style => "color: green" }
         = flash[:notice]
