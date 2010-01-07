@@ -2,12 +2,7 @@ class ReinventariarController < ApplicationController
   before_filter :login_required
   
   def index
-    if params[:commit] == "Buscar"
-      @sql = build_sql(:id,:row,:column)
-      @inventarios = Inventario.pag_search(params[:page], @sql)
-      @total = Inventario.count_camisas(@sql) 
-      @solicitadas = params[:cantidad].to_i unless params[:cantidad].blank?
-    end
+    @inventarios = Inventario.pag_search(params_for_search(:row,:column,:id)) if params[:commit] == "Buscar"
   end
   
   def show
