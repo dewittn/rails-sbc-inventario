@@ -2,7 +2,7 @@ class ReinventariarController < ApplicationController
   before_filter :login_required
   
   def index
-    @inventarios = Inventario.pag_search(params_for_search(:row,:column,:id)) if params[:commit] == "Buscar"
+    @inventarios = Inventario.pag_search(read_values(:row,:column,:id)) if params[:commit] == "Buscar"
   end
   
   def show
