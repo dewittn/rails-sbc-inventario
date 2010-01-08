@@ -14,6 +14,7 @@ class Inventario < ActiveRecord::Base
   belongs_to :marca
   belongs_to :estillo
   belongs_to :factura
+  belongs_to :ubicacion
   
   attr_accessor :numero_de_factura, :fecha, :record_historia, :update_ids
   
