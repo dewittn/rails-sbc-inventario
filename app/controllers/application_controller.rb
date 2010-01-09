@@ -16,7 +16,7 @@ class ApplicationController < ActionController::Base
   end
   
   def search_parmas
-    read_values(:color_id, :talla_id, :marca_id, :genero_id, :estilo_id, :row,:column,:id).merge(!params[:updated_at].blank? ? {:order => :updated_at} : {})
+    read_values(:color_id, :tipo_id, :talla_id, :marca_id, :genero_id, :estilo_id, :row, :column, :id).merge(!params[:updated_at].blank? ? {:order => :updated_at} : {})
   end
   
   def read_values(*values)
