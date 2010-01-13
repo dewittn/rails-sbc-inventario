@@ -4,8 +4,16 @@ class SacarController < ApplicationController
   end
   
   def edit
-    Inventario.update(id, {"por_sacar" => 0, "nombre_de_orden" => nil})
-    redirect_to sacar_index_path
+    @inventario = Inventario.find(id)
+    session[:nombre] = @inventario.nombre_de_orden
+    session[:numero] = @inventario.numero_de_orden
+    cantidad = @inventario.por_sacar
+    @inventario.update_attributes({"por_sacar" => 0, "nombre_de_orden" => nil})
+    redirect_to buscar_index_path(:marca_id => @inventario.marca_id, 
+                                  :color_id => @inventario.color_id, 
+                                  :talla_id => @inventario.talla_id,
+                                  :genero_id => @inventario.genero_id,
+                                  :cantidad => cantidad )
   end
   
   def update
