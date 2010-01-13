@@ -1,1 +1,1 @@
-page.redirect_to(sacar_index_path)
+page.redirect_to(buscar_index_path)
