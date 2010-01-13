@@ -6,8 +6,8 @@
   %td
     = h inventario.cantidad
     = cantidad_por_sacar(inventario)
-  %td= h inventario.nombre_de_orden
   %td= h inventario.numero_de_orden
+  %td= h inventario.nombre_de_orden
   %td= h(Marca.detect_from_cached inventario.marca_id)
   %td= h(Tipo.detect_from_cached inventario.tipo_id)
   %td= link_to 'Devolver', edit_sacar_path(inventario)
