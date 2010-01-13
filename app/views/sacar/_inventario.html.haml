@@ -1,6 +1,6 @@
 %tr{ :class => cycle(:odd,:even) }
-  %td= h(Color.detect_from_cached inventario.color_id)
   = fila_columna(inventario)
+  %td= h(Color.detect_from_cached inventario.color_id)
   %td= h inventario.id
   %td= h(Talla.detect_from_cached inventario.talla_id)
   %td
