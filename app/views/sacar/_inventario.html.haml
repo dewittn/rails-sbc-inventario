@@ -2,6 +2,7 @@
   %td= h(Color.detect_from_cached inventario.color_id)
   = fila_columna(inventario)
   %td= h inventario.id
+  %td= h(Talla.detect_from_cached inventario.talla_id)
   %td
     = h inventario.cantidad
     = cantidad_por_sacar(inventario)
@@ -9,6 +10,5 @@
   %td= h inventario.numero_de_orden
   %td= h(Marca.detect_from_cached inventario.marca_id)
   %td= h(Tipo.detect_from_cached inventario.tipo_id)
-  %td= h(Talla.detect_from_cached inventario.talla_id)
   %td= link_to 'Devolver', edit_sacar_path(inventario)
   %td= link_to 'Reinventariar', sacar_path(inventario) + "?cantidad=#{inventario.cantidad - inventario.por_sacar}", :method => 'put'
