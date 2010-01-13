@@ -1,5 +1,5 @@
 - form_tag({},{:method => 'get', :id => "search_form"}) do
-  - searchables(Marca,Tipo,Genero,Estilo,Color,Talla)
+  - searchables(Talla, Genero, Marca, Color, Tipo, Estilo)
   %table#search-results
     %tr
       %th Cantidad
