@@ -1,10 +1,10 @@
 - page_title "Editar"
 %h1= yield :title
 #edit.results
-  - form_tag(avanzado_path(@inventario),:method => :put) do
+  - form_tag(reinventariar_path(@inventario),:method => :put) do
     = render :partial => 'application/cantidad'
     = render :partial => 'application/location'
     = render :partial => 'application/attributes'
 - button_1("Inventario", reinventariar_index_path)
-- button_2("Mostrar",avanzado_path(@inventario))
+- button_2("Mostrar", reinventariar_path(@inventario))
 - button_2("Editar =>",'#', :onclick => 'document.forms[0].submit()')
