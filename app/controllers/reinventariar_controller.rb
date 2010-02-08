@@ -34,6 +34,6 @@ class ReinventariarController < ApplicationController
   def destroy
     Inventario.update(params[:id], {:row => nil, :column => nil})
     flash[:notice] = "El paquete ha sido marcado como eliminado"
-    redirect_to reinventariar_index_path
+    redirect_to reinventariar_index_path(:commit => "Buscar")
   end
 end
