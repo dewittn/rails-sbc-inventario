@@ -9,11 +9,11 @@
     %tr
       %td
         = "<"
-        = text_field_tag("row", {}, {:size => 3, :value => params[:row]})
+        = text_field_tag("row", {}, {:size => 3, :value => session[:row]})
         = ">"
       %td
         = "<"
-        = text_field_tag("column", {}, {:size => 3, :value => params[:column]})
+        = text_field_tag("column", {}, {:size => 3, :value => session[:column]})
         = ">"
       %td= text_field_tag("id", {},{:size => 3, :value => params[:id]})
       %td

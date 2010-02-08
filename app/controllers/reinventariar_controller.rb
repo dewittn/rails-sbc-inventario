@@ -2,7 +2,9 @@ class ReinventariarController < ApplicationController
   before_filter :login_required
   
   def index
-    @inventarios = Inventario.pag_search(read_values(:row,:column,:id)) if params[:commit] == "Buscar"
+  	session[:row] = params[:row] unless params[:row].blank?
+  	session[:column] = params[:column] unless params[:column].blank?
+    @inventarios = Inventario.pag_search(read_values(:id).merge(:row => session[:row]).merge(:column => session[:column])) if params[:commit] == "Buscar"
   end
   
   def show
@@ -21,6 +23,7 @@ class ReinventariarController < ApplicationController
       else
         render :action => "edit"
       end
+      redirect_to reinventariar_index_path(:commit => "Buscar")
   end
 
   def create
