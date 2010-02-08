@@ -1,7 +1,7 @@
 - avanzado_results(inventario)
 %tr{ :class => cycle(:odd,:even), :id => "inventario_#{inventario.id}" }
-  %td= h(inventario.row)
   %td= h(inventario.column)
+  %td= h(inventario.row)
   %td= h(inventario.id)
   %td
     = h(inventario.cantidad)
