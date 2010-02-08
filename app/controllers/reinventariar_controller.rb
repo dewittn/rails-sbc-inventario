@@ -4,7 +4,7 @@ class ReinventariarController < ApplicationController
   def index
   	session[:row] = params[:row] unless params[:row].blank?
   	session[:column] = params[:column] unless params[:column].blank?
-    @inventarios = Inventario.pag_search(read_values(:id).merge(:row => session[:row]).merge(:column => session[:column])) if params[:commit] == "Buscar"
+    @inventarios = Inventario.pag_search(read_values(:id) || {:row => session[:row], :column => session[:column]}) if params[:commit] == "Buscar"
   end
   
   def show
