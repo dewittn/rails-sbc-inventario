@@ -33,7 +33,7 @@ class Inventario < ActiveRecord::Base
 <<<<<<< HEAD
 =======
   def capitalize
-  	self.row.upcase!
+  	self.row.upcase! rescue nil
   end
   
   def columna_changed?

@@ -5,6 +5,7 @@ class ReinventariarController < ApplicationController
   	session[:row] = params[:row].upcase unless params[:row].blank?
   	session[:column] = params[:column] unless params[:column].blank?
     @inventarios = Inventario.pag_search( !params[:id].blank? ? read_values(:id) : {:row => session[:row], :column => session[:column], :per_page => 50}) if params[:commit] == "Buscar"
+  	@last = Inventario.find(session[:last]) unless session[:last].blank?
   end
   
   def show
@@ -13,13 +14,14 @@ class ReinventariarController < ApplicationController
   
   def edit
     @inventario ||= Inventario.find(params[:id])
+    session[:last] = params[:id]
   end
   
   def update
     @inventario ||= Inventario.find(params[:id])
     @inventario.record_historia = true
       if @inventario.update_attributes(params[:inventario])
-        flash[:notice] = 'Chapter was successfully updated.'
+        flash[:notice] = 'Inventory was successfully updated.'
       else
         render :action => "edit"
       end

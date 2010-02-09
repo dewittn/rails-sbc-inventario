@@ -36,7 +36,27 @@
             %th
             %th
           = render :partial => 'inventario', :collection => @inventarios
-      .float-right= location
+      .float-right
+        - if @last
+          %table.results
+            %tr.title
+              %th Last Used
+              %th= link_to "Edit", edit_reinventariar_path(@last)
+            %tr.odd
+              %td Column
+              %td= @last.column
+            %tr.even
+              %td Row
+              %td= @last.row
+            %tr.odd
+              %td ID
+              %td= @last.id
+            %tr.even
+              %td Color
+              %td= @last.color.descr
+            %tr.odd
+              %td Count
+              %td= @last.cantidad
       .clear
       .pagination
         = will_paginate @inventarios
