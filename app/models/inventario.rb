@@ -1,5 +1,6 @@
 class Inventario < ActiveRecord::Base  
   before_save :find_or_create_factura, :if  => :update_ids#Proc.new { |i| i.update_ids == true }
+  before_save :capitalize
   after_create :create_history
   before_update :record_orden_history, :if => Proc.new { |i| i.record_historia == true }
   before_destroy :record_orden_history_delete
@@ -29,6 +30,17 @@ class Inventario < ActiveRecord::Base
     scope.paginate :per_page => per_page, :page => page, :order => order
   end
   
+<<<<<<< HEAD
+=======
+  def capitalize
+  	self.row.upcase!
+  end
+  
+  def columna_changed?
+    (@columna == Ubicacion.all_cached.detect{ |u| u['id'] == ubicacion_id }.columna) rescue false
+  end
+  
+>>>>>>> 8d3dd2c (Force upcase of row values.)
   def columna_required?
     not columna.blank?
   end

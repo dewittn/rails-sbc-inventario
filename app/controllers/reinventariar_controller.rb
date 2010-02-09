@@ -2,7 +2,7 @@ class ReinventariarController < ApplicationController
   before_filter :login_required
   
   def index
-  	session[:row] = params[:row] unless params[:row].blank?
+  	session[:row] = params[:row].upcase unless params[:row].blank?
   	session[:column] = params[:column] unless params[:column].blank?
     @inventarios = Inventario.pag_search( !params[:id].blank? ? read_values(:id) : {:row => session[:row], :column => session[:column], :per_page => 50}) if params[:commit] == "Buscar"
   end
