@@ -26,7 +26,7 @@ class Inventario < ActiveRecord::Base
     arry.keys.each do |key| 
        scope = scope.scoped :conditions => { key  => arry[key] }
     end
-    scope.paginate :per_page => 10, :page => page, :order => order
+    scope.paginate :per_page => per_page, :page => page, :order => order
   end
   
   def columna_required?
