@@ -1,7 +1,7 @@
 %tr{ :class => cycle(:odd,:even), :id => "inventario_#{inventario.id}" }
   %td= h(inventario.column)
   %td= h(inventario.row)
-  %td= h(inventario.id)
+  %td= link_to h(inventario.id), reinventariar_index_path(:column => inventario.column, :row => inventario.row, :commit => "Buscar")
   %td= h(inventario.cantidad)
   = detalles(inventario)
   %td= link_to 'Editar', :action => 'edit', :id => inventario
