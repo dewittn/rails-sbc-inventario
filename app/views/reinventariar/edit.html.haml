@@ -13,7 +13,7 @@
       %th
     - @similar.each do |item|
       %tr{:class => cycle(:odd,:even)}
-        %td= link_to item.column, reinventariar_index_path(:column => item.column, :row => item.row, :commit => "Buscar")
+        %td= link_to item.column, reinventariar_index_path(:column => item.column, :row => item.row, :commit => "Buscar") unless item.column.blank?
         %td= item.row
 .clear
 - button_1("Inventario", reinventariar_index_path)
