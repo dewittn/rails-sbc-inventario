@@ -9,12 +9,14 @@ class ReinventariarController < ApplicationController
   end
   
   def show
-    @inventario ||= Inventario.find(params[:id])
+    @inventario = Inventario.find(params[:id])
+                                     
   end
   
   def edit
     @inventario ||= Inventario.find(params[:id])
     session[:last] = params[:id]
+    @similar = Inventario.scoped(:group => "row").pag_search(:color_id => @inventario.color_id, :marca_id => @inventario.marca_id, :per_page => 20)
   end
   
   def update
