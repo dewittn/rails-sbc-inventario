@@ -15,7 +15,7 @@
         = "<"
         = text_field_tag("row", {}, {:size => 3, :value => session[:row]})
         = ">"
-      %td= text_field_tag("id", {},{:size => 3, :value => params[:id]})
+      %td= text_field_tag("id", {},{:size => 5, :value => params[:id]})
       %td
         = submit_tag 'Buscar'
         = submit_tag 'Limpiar', :name => "limpiar"
