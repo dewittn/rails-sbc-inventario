@@ -17,9 +17,14 @@ class ReinventariarController < ApplicationController
   end
   
   def edit
-    @inventario ||= Inventario.find(params[:id])
-    session[:last] = params[:id]
-    @similar = Inventario.scoped(:group => "row").pag_search(:color_id => @inventario.color_id, :marca_id => @inventario.marca_id, :per_page => 20)
+  	begin
+      @inventario ||= Inventario.find(params[:id])
+      session[:last] = params[:id]
+      @similar = Inventario.scoped(:group => "row").pag_search(:color_id => @inventario.color_id, :marca_id => @inventario.marca_id, :per_page => 20)
+    rescue
+      flash[:notice] = 'Item not found.'
+      redirect_to reinventariar_index_path(:commit => "Buscar")
+    end
   end
   
   def update
