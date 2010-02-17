@@ -1,5 +1,13 @@
 - page_title "Editar"
 %h1= yield :title
+- form_tag(reinventariar_index_path,{:method => 'get', :id => "search_form"}) do
+  %table#search-results
+    %tr
+      %th Código
+    %tr
+      %td= text_field_tag("id", {},{:size => 5, :value => params[:id]})
+      %td
+        = submit_tag 'Buscar'
 .float-left
   #edit.results
     - form_tag(reinventariar_path(@inventario),:method => :put) do
