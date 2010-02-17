@@ -16,6 +16,5 @@
         %td= link_to item.column, reinventariar_index_path(:column => item.column, :row => item.row, :commit => "Buscar") unless item.column.blank?
         %td= item.row
 .clear
-- button_1("Inventario", reinventariar_index_path)
-- button_2("Mostrar", reinventariar_path(@inventario))
+- button_1("Reinventariar", reinventariar_index_path)
 - button_2("Editar =>",'#', :onclick => 'document.forms[0].submit()')
