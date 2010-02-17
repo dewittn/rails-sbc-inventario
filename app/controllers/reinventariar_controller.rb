@@ -2,15 +2,18 @@ class ReinventariarController < ApplicationController
   before_filter :login_required
   
   def index
-  	session[:row] = params[:row].upcase unless params[:row].blank?
-  	session[:column] = params[:column] unless params[:column].blank?
-    @inventarios = Inventario.pag_search( !params[:id].blank? ? read_values(:id) : {:row => session[:row], :column => session[:column], :per_page => 50}) if params[:commit] == "Buscar"
-  	@last = Inventario.find(session[:last]) unless session[:last].blank?
+    if params[:id].blank?
+      session[:row] = params[:row].upcase unless params[:row].blank?
+      session[:column] = params[:column] unless params[:column].blank?
+      @inventarios = Inventario.pag_search({:row => session[:row], :column => session[:column], :per_page => 50}) if params[:commit] == "Buscar"
+      @last = Inventario.find(session[:last]) unless session[:last].blank?
+   else
+      redirect_to edit_reinventariar_path(params[:id])
+   end 
   end
   
   def show
-    @inventario = Inventario.find(params[:id])
-                                     
+    @inventario = Inventario.find(params[:id])                                
   end
   
   def edit
