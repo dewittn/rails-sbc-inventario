@@ -1,9 +1,20 @@
 - page_title "Localizacion"
-- form_tag(reinventariar_path(@inventario),:method => :put) do
-  %p{ :style => "color: navy;" }
-    Por favor, escriba
-    %big
-      %b= @inventario.id
-    en las camisas y especifique la posici&oacute;n del paquete que acaba de ingresar
-  = render :partial => 'application/location'
+.float-left
+  - form_tag(reinventariar_path(@inventario),:method => :put) do
+    %p{ :style => "color: navy;" }
+      Por favor, escriba
+      %big
+        %b= @inventario.id
+      en las camisas y especifique la posici&oacute;n del paquete que acaba de ingresar
+    = render :partial => 'application/location'
+.float-right
+  %table.results
+    %tr.title
+      %th Similar
+      %th
+    - @similar.each do |item|
+      %tr{:class => cycle(:odd,:even)}
+        %td= link_to item.column, reinventariar_index_path(:column => item.column, :row => item.row, :commit => "Buscar") unless item.column.blank?
+        %td= item.row
+.clear
 - button_2("Guardar",'#', :onclick => 'document.forms[0].submit()')
