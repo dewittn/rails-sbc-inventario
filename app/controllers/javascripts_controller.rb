@@ -40,4 +40,13 @@ class JavascriptsController < ApplicationController
   def factura
       session[:factura] = !params[:value].blank? ? params[:value] : Time.now.strftime("%d-%m-%Y")
   end
+  
+  def reinventariar
+  	@inventarios = Inventario.pag_search({:color_id  => params[:inventario][:color_id],
+                                          :tipo_id   => params[:inventario][:tipo_id],
+                                          :talla_id  => params[:inventario][:talla_id],
+                                          :marca_id  => params[:inventario][:marca_id],
+                                          :genero_id => params[:inventario][:genero_id],
+                                          :estilo_id => params[:inventario][:estilo_id],})
+  end
 end

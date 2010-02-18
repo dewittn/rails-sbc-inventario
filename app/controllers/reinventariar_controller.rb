@@ -40,7 +40,12 @@ class ReinventariarController < ApplicationController
 
   def create
     @inventario = Inventario.new(params[:inventario])
-    @inventario.save ? flash[:notice] = "El registro con código <b>#{@inventario.id.to_s}</b> se creó exitosamente" : render(:action => 'new')
+    if @inventario.save 
+      flash[:notice] = "El registro con código <b>#{@inventario.id.to_s}</b> se creó exitosamente"
+      session[:last] = @inventario.id
+    else
+     render(:action => 'new')
+    end
   end
   
   def destroy

@@ -1,0 +1,1 @@
+page[:search].replace_html :partial => "reinventariar"

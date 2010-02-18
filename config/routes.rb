@@ -7,6 +7,7 @@ ActionController::Routing::Routes.draw do |map|
                                                :agregar_otro_para_sacar => :post, 
                                                :cantidad_update =>:post, 
                                                :factura => :post,
+                                               :reinventariar => :post,
                                                :limpiar => :post }
   
   map.nuevo '/nuevo', :controller => 'buscar', :action => 'new'
