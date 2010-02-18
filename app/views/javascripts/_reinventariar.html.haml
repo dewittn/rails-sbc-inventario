@@ -1,0 +1,20 @@
+-if !@inventarios.blank?
+  %table.results
+    %tr.title
+      %th Cantidad
+      %th Columna
+      %th Fila
+      %th Color
+      %th Marca
+      %th Tipo
+      %th Talla
+      %th
+    - @inventarios.each do |item|
+      %tr{:class => cycle(:odd,:even)}
+        %td= item.cantidad
+        %td= item.column
+        %td= item.row
+        =detalles(item)
+        %td= link_to "Edit", edit_reinventariar_path(item)
+-else
+  Did not find anything.
