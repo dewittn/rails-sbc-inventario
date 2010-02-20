@@ -1,6 +1,7 @@
 -if !@inventarios.blank?
   %table.results
     %tr.title
+      %th Codigo
       %th Cantidad
       %th Columna
       %th Fila
@@ -11,6 +12,7 @@
       %th
     - @inventarios.each do |item|
       %tr{:class => cycle(:odd,:even)}
+        %td= item.id
         %td= item.cantidad
         %td= item.column
         %td= item.row
