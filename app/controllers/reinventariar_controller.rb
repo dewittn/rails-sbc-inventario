@@ -41,7 +41,7 @@ class ReinventariarController < ApplicationController
   def create
     @inventario = Inventario.new(params[:inventario])
     if @inventario.save 
-      flash[:notice] = "El registro con código <b>#{@inventario.id.to_s}</b> se creó exitosamente"
+      flash[:notice] = "El registro con codigo <b>#{@inventario.id.to_s}</b> se creo exitosamente"
       session[:last] = @inventario.id
       @similar = Inventario.scoped(:group => "row").pag_search(:color_id => @inventario.color_id, :marca_id => @inventario.marca_id, :per_page => 20)
     else

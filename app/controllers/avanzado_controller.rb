@@ -26,7 +26,7 @@ class AvanzadoController < ApplicationController
 
   def create
     @inventario = Inventario.new(params[:inventario])
-    @inventario.save ? flash[:notice] = "El registro con código <b>#{@inventario.id.to_s}</b> se creó exitosamente" : render(:action => 'new')
+    @inventario.save ? flash[:notice] = "El registro con codigo <b>#{@inventario.id.to_s}</b> se creo exitosamente" : render(:action => 'new')
   end
   
   def destroy
