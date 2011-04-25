@@ -69,7 +69,7 @@ namespace :insert do
     puts "inserting Generos"
     new_record(Genero,'Humbre')
     new_record(Genero,'Mujer')
-    new_record(Genero,'Niño')
+    new_record(Genero,'Nino')
     puts "done"      
   end
   
