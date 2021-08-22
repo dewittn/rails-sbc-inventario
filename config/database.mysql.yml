@@ -1,0 +1,26 @@
+development:
+  database: inventario_dev
+  adapter: mysql
+  username: sbc
+  password:
+  host: localhost
+  #socket: /var/run/mysqld/mysqld.sock # Only for Ubuntu. Remove for OS X
+
+# Warning: The database defined as "test" will be erased and
+# re-generated from your development database when you run "rake".
+# Do not set this db to the same as development or production.
+test:
+  database: inventario_test
+  adapter: mysql
+  username: sbc
+  password:
+  host: localhost
+  #socket: /var/run/mysqld/mysqld.sock # Only for Ubuntu. Remove for OS X
+
+production:
+  database: inventario_pro
+  adapter: mysql
+  username: sbc
+  password:
+  host: localhost
+  #socket: /var/run/mysqld/mysqld.sock # Only for Ubuntu. Remove for OS X
