@@ -21,4 +21,3 @@ config.action_controller.relative_url_root = "/inventario"
 config.cache_store = :mem_cache_store
 
 config.gem "mysql"
-config.gem "newrelic_rpm"
