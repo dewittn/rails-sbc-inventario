@@ -1,0 +1,16 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git add:*)",
+      "Bash(git commit -m \"$(cat <<''EOF''\nStep 1: Fix merge conflict in inventario.rb\n\nResolved merge conflict by keeping HEAD version that uses the actual\n`por_sacar` column. Removed references to non-existent columns\n(tiene_por_sacar, eliminado, necesita_reinventariarse) and simplified\ncount_camisas method.\n\n🤖 Generated with [Claude Code](https://claude.com/claude-code)\n\nCo-Authored-By: Claude <noreply@anthropic.com>\nEOF\n)\")",
+      "Bash(ruby --version)",
+      "Bash(bundle install:*)",
+      "Bash(gem install:*)",
+      "Bash(rbenv versions:*)",
+      "Bash(git commit -m \"$(cat <<''EOF''\nStep 2: Create Gemfile for Rails 4.2\n\nAdded Gemfile with Rails 4.2.11.3 and compatible gems:\n- mysql2 for database\n- haml for views\n- will_paginate for pagination\n- bcrypt for authentication\n- exception_notification\n\nDocker will handle bundle install in Step 15.\n\n🤖 Generated with [Claude Code](https://claude.com/claude-code)\n\nCo-Authored-By: Claude <noreply@anthropic.com>\nEOF\n)\")",
+      "Bash(git commit -m \"$(cat <<''EOF''\nStep 3: Update configuration files for Rails 4.2\n\n- Deleted obsolete config/boot.rb and public/dispatch.rb\n- Created config/application.rb with Rails 4.2 structure\n- Updated config/environment.rb to use new initialization\n- Updated all environment files (development, production, test)\n- Created new minimal config/boot.rb\n- Updated config/database.yml to use mysql2 adapter with ENV support\n\n🤖 Generated with [Claude Code](https://claude.com/claude-code)\n\nCo-Authored-By: Claude <noreply@anthropic.com>\nEOF\n)\")"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}
