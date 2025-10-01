@@ -1,46 +1,52 @@
 class TiposController < ApplicationController
-  cache_sweeper :tipo_sweeper, :only => [:update, :create, :destory]
-  before_filter :login_required
-  
+  # cache_sweeper is deprecated in Rails 4.2 - TODO: replace with cache expiration
+  before_action :login_required
+
   def index
     @attributes = model.all
     @attribute = model.new
   end
-  
+
   def edit
     @attributes = model.all
     @attribute = model.find(params[:id])
-    render :action => "index"
+    render action: "index"
   end
-  
+
   def update
     @attribute = model.find(params[:id])
-    if @attribute.update_attribute(:descr, params[:tipo][:descr])
-      flash[:notice] = "#{model.name} updated..."  
-      redirect_to :action => "index"
+    if @attribute.update(tipo_params)
+      flash[:notice] = "#{model.name} updated..."
+      redirect_to action: "index"
     else
       @attributes = model.all
-      render :action => :index
+      render action: :index
     end
   end
-  
+
   def create
-    @attribute = model.new(params[:tipo])
+    @attribute = model.new(tipo_params)
     if @attribute.save
-      flash[:notice] = "#{model.name} created..."  
-      redirect_to :action => "index"
+      flash[:notice] = "#{model.name} created..."
+      redirect_to action: "index"
     else
       @attributes = model.all
-      render :action => :index
+      render action: :index
     end
   end
-  
+
   def destroy
     model.destroy(params[:id])
-    redirect_to :action => "index"
+    redirect_to action: "index"
   end
-  
+
+  private
+
   def model
     @model ||= Tipo
+  end
+
+  def tipo_params
+    params.require(:tipo).permit(:descr)
   end
 end

@@ -1,5 +1,5 @@
 class ReinventariarController < ApplicationController
-  before_filter :login_required
+  before_action :login_required
   
   def index
     if params[:id].blank?
