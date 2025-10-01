@@ -1,4 +1,4 @@
-class Tipo < ActiveRecord::Base
+class Tipo < ApplicationRecord
   after_save :delete_cached
   after_destroy :delete_cached
   validates_presence_of :descr

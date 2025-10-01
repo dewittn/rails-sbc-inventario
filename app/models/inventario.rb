@@ -1,4 +1,4 @@
-class Inventario < ActiveRecord::Base  
+class Inventario < ApplicationRecord  
   before_save :find_or_create_factura, :if  => :update_ids#Proc.new { |i| i.update_ids == true }
   before_save :capitalize
   after_create :create_history
@@ -23,11 +23,11 @@ class Inventario < ActiveRecord::Base
     page = arry.delete(:page) || 1
     per_page = arry.delete(:per_page) || 10
     order = arry.delete(:order) || 'id'
-    scope = self.scoped({})
-    arry.keys.each do |key| 
-       scope = scope.scoped :conditions => { key  => arry[key] }
+    scope = self.all
+    arry.keys.each do |key|
+       scope = scope.where(key => arry[key])
     end
-    scope.paginate :per_page => per_page, :page => page, :order => order
+    scope.paginate per_page: per_page, page: page, order: order
   end
   
   def capitalize
@@ -43,16 +43,16 @@ class Inventario < ActiveRecord::Base
   end
   
   def self.por_sacar(page)
-    paginate :per_page => 10, :page => page, :conditions => "por_sacar > 0", :order => "nombre_de_orden ASC"
+    where("por_sacar > 0").order("nombre_de_orden ASC").paginate(per_page: 10, page: page)
   end
 
   def self.count_camisas(conditions)
-    sum(:cantidad, :conditions => conditions)
+    where(conditions).sum(:cantidad)
   end
   
   def find_or_create_factura
     unless factura_id
-      self.factura_id = (Factura.find_or_create_by_descr(:descr => numero_de_factura, :fecha => (fecha || Time.now.strftime("%d-%m-%Y"))).id rescue nil)
+      self.factura_id = (Factura.find_or_create_by(descr: numero_de_factura, fecha: (fecha || Time.now.strftime("%d-%m-%Y"))).id rescue nil)
     end
   end
   

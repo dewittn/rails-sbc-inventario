@@ -1,2 +1,2 @@
-class Cambio < ActiveRecord::Base
+class Cambio < ApplicationRecord
 end

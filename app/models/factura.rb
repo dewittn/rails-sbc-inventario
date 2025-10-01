@@ -1,4 +1,4 @@
-class Factura < ActiveRecord::Base
+class Factura < ApplicationRecord
   has_many :historias
   
   def historia_por_report(arry)

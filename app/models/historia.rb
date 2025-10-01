@@ -1,3 +1,3 @@
-class Historia < ActiveRecord::Base
+class Historia < ApplicationRecord
   has_many :cambios
 end
