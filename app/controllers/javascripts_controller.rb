@@ -7,12 +7,12 @@ class JavascriptsController < ApplicationController
   
   def nombre_de_orden
     session[:nombre] = params[:value] unless params[:value].blank?
-    render :text => (session[:nombre].blank? ? "(agregue el nombre)" : session[:nombre].titlecase)
+    render plain: (session[:nombre].blank? ? "(agregue el nombre)" : session[:nombre].titlecase)
   end
-  
+
   def numero_de_orden
-    session[:numero] = params[:value] unless params[:value].blank? 
-    render :text => (session[:numero].blank? ? "(agregue el numero)" : session[:numero].titlecase)
+    session[:numero] = params[:value] unless params[:value].blank?
+    render plain: (session[:numero].blank? ? "(agregue el numero)" : session[:numero].titlecase)
   end
   
   def agregar_otro_para_sacar

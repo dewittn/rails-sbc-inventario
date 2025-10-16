@@ -13,7 +13,7 @@ class Inventario < ApplicationRecord
   belongs_to :talla
   belongs_to :color
   belongs_to :marca
-  belongs_to :estillo
+  belongs_to :estilo
   belongs_to :factura
   belongs_to :ubicacion
   

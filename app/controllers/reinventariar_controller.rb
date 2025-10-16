@@ -20,7 +20,7 @@ class ReinventariarController < ApplicationController
   	begin
       @inventario ||= Inventario.find(params[:id])
       session[:last] = params[:id]
-      @similar = Inventario.scoped(:group => "row").pag_search(:color_id => @inventario.color_id, :marca_id => @inventario.marca_id, :per_page => 20)
+      @similar = Inventario.group("row").pag_search(:color_id => @inventario.color_id, :marca_id => @inventario.marca_id, :per_page => 20)
     rescue
       flash[:notice] = 'Item not found.'
       redirect_to reinventariar_index_path(:commit => "Buscar")
@@ -30,7 +30,7 @@ class ReinventariarController < ApplicationController
   def update
     @inventario ||= Inventario.find(params[:id])
     @inventario.record_historia = true
-      if @inventario.update_attributes(params[:inventario])
+      if @inventario.update_attributes(inventario_params)
         flash[:notice] = 'Inventory was successfully updated.'
       else
         render :action => "edit"
@@ -39,11 +39,11 @@ class ReinventariarController < ApplicationController
   end
 
   def create
-    @inventario = Inventario.new(params[:inventario])
-    if @inventario.save 
+    @inventario = Inventario.new(inventario_params)
+    if @inventario.save
       flash[:notice] = "El registro con codigo <b>#{@inventario.id.to_s}</b> se creo exitosamente"
       session[:last] = @inventario.id
-      @similar = Inventario.scoped(:group => "row").pag_search(:color_id => @inventario.color_id, :marca_id => @inventario.marca_id, :per_page => 20)
+      @similar = Inventario.group("row").pag_search(:color_id => @inventario.color_id, :marca_id => @inventario.marca_id, :per_page => 20)
     else
      render(:action => 'new')
     end
@@ -53,5 +53,13 @@ class ReinventariarController < ApplicationController
     Inventario.update(params[:id], {:row => nil, :column => nil})
     flash[:notice] = "El paquete ha sido marcado como eliminado"
     redirect_to reinventariar_index_path(:commit => "Buscar")
+  end
+
+  private
+
+  def inventario_params
+    params.require(:inventario).permit(:tipo_id, :color_id, :marca_id, :talla_id, :cantidad,
+                                       :estilo_id, :genero_id, :row, :column, :por_sacar,
+                                       :nombre_de_orden, :numero_de_orden, :numero_de_factura, :fecha)
   end
 end
