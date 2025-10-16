@@ -39,30 +39,30 @@ end
 module Searches
   def search(arry)
     order = arry.delete(:order) || 'id'
-    scope = self.scoped({})
-    arry.keys.each do |key| 
-       scope = scope.scoped :conditions => { key  => arry[key] }
+    scope = self.all
+    arry.keys.each do |key|
+       scope = scope.where(key => arry[key])
     end
-    scope.scoped :order => 'id'
+    scope.order('id')
   end
-  
+
   def self.pag_search(arry)
     page = arry.delete(:page) || 1
     per_page = arry.delete(:per_page) || 10
     order = arry.delete(:order) || 'id'
-    scope = self.scoped({})
-    arry.keys.each do |key| 
-       scope = scope.scoped :conditions => { key  => arry[key] }
+    scope = self.all
+    arry.keys.each do |key|
+       scope = scope.where(key => arry[key])
     end
     scope.paginate :per_page => 10, :page => page, :order => order
   end
-  
+
   def search_xml(condistions ={})
-    find(:all,:conditions => condistions,:order => 'id')
+    where(condistions).order('id')
   end
-  
+
   def sort(column='descr')
-    find(:all,:order => "#{column} ASC")
+    order("#{column} ASC")
   end
 end
 

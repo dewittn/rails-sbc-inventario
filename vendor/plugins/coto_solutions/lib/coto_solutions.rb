@@ -40,4 +40,5 @@ if Object.const_defined?("ActionController")
   ActionController::Base.send(:helper, CotoHelper)
 end
 
-ActionView::Helpers::AssetTagHelper.register_javascript_expansion(:coto_solutions => "path_prefix")
+# Commented out for Rails 4.2 - register_javascript_expansion was removed in Rails 3.1+
+# ActionView::Helpers::AssetTagHelper.register_javascript_expansion(:coto_solutions => "path_prefix")

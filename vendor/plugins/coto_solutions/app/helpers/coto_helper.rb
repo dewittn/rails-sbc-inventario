@@ -15,22 +15,26 @@ module CotoHelper
    #Renders button 1 on left of Home button
    def button_1(text,path,options={})
      content_for(:button1) do
-       "<td>#{link_to "<div class='three'><center>#{text}</center></div>", path, options }</td>"
+       content_tag(:td, link_to(content_tag(:div, content_tag(:center, text), class: 'three'), path, options))
        end
      end
 
-   #Renders button 1 on left of Home button
+   #Renders button 2 on right of Home button
    def button_2(text,path,options={})
      content_for(:button2) do
-       "<td>#{link_to "<div class='three'><center>#{text}</center></div>", path, options }</td>"
+       content_tag(:td, link_to(content_tag(:div, content_tag(:center, text), class: 'three'), path, options))
        end
      end
 
-   #Generates links accross left side of top bar
+   #Generates links across left side of top bar
    def create_top_links(*controllers)
      controllers.each do |controller|
        content_for :top_link do
-          params[:controller] == controller.downcase ? "<b>#{controller.titlecase}</b>&nbsp;" : link_to( controller.titlecase, url_for(:controller => controller.downcase, :action => 'index') ) + "&nbsp;"
+          if params[:controller] == controller.downcase
+            content_tag(:b, controller.titlecase) + raw("&nbsp;")
+          else
+            link_to(controller.titlecase, url_for(:controller => controller.downcase, :action => 'index')) + raw("&nbsp;")
+          end
         end
      end
    end

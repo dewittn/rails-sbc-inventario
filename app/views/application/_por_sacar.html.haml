@@ -1,17 +1,13 @@
 - if @por_sacar
-  - form_remote_tag(:url => por_sacar_javascripts_path) do
+  = form_tag(por_sacar_javascripts_path, remote: true) do
     #por_sacar_error
       = @error if @error
     %h2
       Nombre de orden:
-      %span#nombre= nombre_de_orden
-    %script{ :type => "text/javascript" }
-      new Ajax.InPlaceEditor("nombre", path_prefix + "/javascripts/nombre_de_orden");
+      %span#nombre.editable{data: {url: nombre_de_orden_javascripts_path, placeholder: "(agregue el nombre)"}}= nombre_de_orden
     %h2
       Numero de orden:
-      %span#numero= numero_de_orden
-    %script{ :type => "text/javascript" }
-      new Ajax.InPlaceEditor("numero", path_prefix + "/javascripts/numero_de_orden");
+      %span#numero.editable{data: {url: numero_de_orden_javascripts_path, placeholder: "(agregue el numero)"}}= numero_de_orden
     %table#t_por_sacar.results
       %tr.title
         %th Codigo

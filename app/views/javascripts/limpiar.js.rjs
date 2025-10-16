@@ -1,1 +1,0 @@
-page.replace_html :por_sacar, :partial => 'application/por_sacar'

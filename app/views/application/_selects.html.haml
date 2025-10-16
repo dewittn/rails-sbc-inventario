@@ -3,4 +3,4 @@
     %label{ :for => "inventario_#{selects.name.downcase}_id" }
       = selects.name.titlecase
     %br
-    = select("inventario", "#{selects.name.downcase}_id", selects.find(:all).collect{|c| [c.descr, c.id]})
+    = select("inventario", "#{selects.name.downcase}_id", selects.all.collect{|c| [c.descr, c.id]})

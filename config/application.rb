@@ -14,6 +14,13 @@ module SbcInventario
     # Load sweepers from app/sweepers (will need to refactor these later)
     config.autoload_paths += %W(#{config.root}/app/sweepers)
 
+    # Load lib files (Rails 4.2 doesn't auto-load lib/ by default)
+    config.autoload_paths += %W(#{config.root}/lib)
+
+    # Load vendor plugin files
+    config.autoload_paths += %W(#{config.root}/vendor/plugins/coto_solutions/lib)
+    config.autoload_paths += %W(#{config.root}/vendor/plugins/coto_solutions/app/helpers)
+
     # Session configuration
     config.session_store :cookie_store, key: '_inventario2.0_session'
     config.secret_key_base = '***REMOVED***'

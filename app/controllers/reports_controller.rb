@@ -3,6 +3,6 @@ class ReportsController < ApplicationController
   
   def index
     @facturas = Factura.all
-    @historias = Historia.all( :conditions => { :factura_id => @facturas } ,:include => :cambios)
+    @historias = Historia.where(factura_id: @facturas).includes(:cambios)
   end
 end

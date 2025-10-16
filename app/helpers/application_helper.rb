@@ -46,7 +46,9 @@ module ApplicationHelper
   end
   
   def make_dragable
-    drop_receiving_element("por_sacar", :url => { :controller => "javascripts", :action => "agregar_otro_para_sacar", :params => { :cantidad => params[:cantidad] } })
+    # Prototype.js drag-and-drop disabled - needs modernization for Rails 4.2
+    # drop_receiving_element("por_sacar", :url => { :controller => "javascripts", :action => "agregar_otro_para_sacar", :params => { :cantidad => params[:cantidad] } })
+    nil
   end
   
   def nombre_de_orden
@@ -66,7 +68,9 @@ module ApplicationHelper
   end
   
   def draggable(inventario)
-    draggable_element("inventario_#{inventario.id}",:revert => true,:ghosting => true)
+    # Prototype.js drag-and-drop disabled - needs modernization for Rails 4.2
+    # draggable_element("inventario_#{inventario.id}",:revert => true,:ghosting => true)
+    nil
   end
   
   def descr_from_cashed_values(model,id)

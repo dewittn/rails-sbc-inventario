@@ -1,8 +1,6 @@
-version: '3.8'
-
 services:
   db:
-    image: mysql:5.7
+    image: mysql:8.0
     environment:
       MYSQL_ROOT_PASSWORD: ***REMOVED***
       MYSQL_DATABASE: inventario_dev
@@ -12,10 +10,11 @@ services:
       - "3306:3306"
     volumes:
       - mysql_data:/var/lib/mysql
+    command: --default-authentication-plugin=mysql_native_password
 
   web:
     build: .
-    command: bundle exec rails server -b 0.0.0.0
+    command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails server -b 0.0.0.0"
     volumes:
       - .:/app
       - bundle_cache:/usr/local/bundle
@@ -26,6 +25,7 @@ services:
     environment:
       DATABASE_HOST: db
       RAILS_ENV: development
+      BUNDLER_VERSION: 1.17.3
 
 volumes:
   mysql_data:
