@@ -19,19 +19,26 @@ The easiest way to run this application is using Docker Compose.
    cd rails-sbc-inventario
    ```
 
-2. Build and start the containers:
+2. Set up environment variables:
+   ```bash
+   cp .env.example .env
+   ```
+
+   Edit `.env` if you need to customize any settings (optional). The default values work out of the box.
+
+3. Build and start the containers:
    ```bash
    docker compose build
    docker compose up -d
    ```
 
-3. Set up the database:
+4. Set up the database:
    ```bash
    docker compose exec web rake db:schema:load
    docker compose exec web rake db:seed
    ```
 
-4. Access the application:
+5. Access the application:
    - Open your browser to http://localhost:3000
    - Login at http://localhost:3000/login with:
      - Username: `admin`
@@ -86,14 +93,34 @@ docker compose exec web rake test
 docker compose restart
 ```
 
+### Environment Variables
+
+The application uses a `.env` file for configuration. Copy `.env.example` to `.env` to get started:
+
+```bash
+cp .env.example .env
+```
+
+Available environment variables:
+
+- `MYSQL_ROOT_PASSWORD` - MySQL root password (default: ***REMOVED***)
+- `MYSQL_DATABASE` - Database name (default: inventario_dev)
+- `MYSQL_USER` - Database user (default: postgres)
+- `MYSQL_PASSWORD` - Database password (default: ***REMOVED***)
+- `DATABASE_HOST` - Database host (default: db)
+- `MYSQL_PORT` - MySQL port mapping (default: 3306)
+- `RAILS_PORT` - Rails application port (default: 3000)
+- `RAILS_ENV` - Rails environment (default: development)
+- `BUNDLER_VERSION` - Bundler version (default: 1.17.3)
+
 ### Database Information
 
 - **Database:** MySQL 8.0
-- **Database name:** inventario_dev
-- **Username:** postgres
-- **Password:** ***REMOVED***
-- **Host:** db (within Docker network)
-- **Port:** 3306 (accessible from host at localhost:3306)
+- **Database name:** Configured via `MYSQL_DATABASE` (default: inventario_dev)
+- **Username:** Configured via `MYSQL_USER` (default: postgres)
+- **Password:** Configured via `MYSQL_PASSWORD` (default: ***REMOVED***)
+- **Host:** Configured via `DATABASE_HOST` (default: db within Docker network)
+- **Port:** Configured via `MYSQL_PORT` (default: 3306, accessible from host at localhost:3306)
 
 ### Troubleshooting
 
