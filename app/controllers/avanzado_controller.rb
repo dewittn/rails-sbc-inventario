@@ -16,17 +16,17 @@ class AvanzadoController < ApplicationController
   def update
     @inventario ||= Inventario.find(params[:id])
     @inventario.record_historia = true
-      if @inventario.update_attributes(inventario_params)
+      if @inventario.update(inventario_params)
         flash[:notice] = 'Chapter was successfully updated.'
         redirect_to avanzado_path(params[:id])
       else
-        render :action => "edit"
+        render action: "edit"
       end
   end
 
   def create
     @inventario = Inventario.new(inventario_params)
-    @inventario.save ? flash[:notice] = "El registro con codigo <b>#{@inventario.id.to_s}</b> se creo exitosamente" : render(:action => 'new')
+    @inventario.save ? flash[:notice] = "El registro con codigo <b>#{@inventario.id.to_s}</b> se creo exitosamente" : render(action: 'new')
   end
   
   def destroy

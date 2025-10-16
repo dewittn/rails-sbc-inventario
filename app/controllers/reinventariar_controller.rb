@@ -5,11 +5,11 @@ class ReinventariarController < ApplicationController
     if params[:id].blank?
       session[:row] = params[:row].upcase unless params[:row].blank?
       session[:column] = params[:column] unless params[:column].blank?
-      @inventarios = Inventario.pag_search({:row => session[:row], :column => session[:column], :per_page => 50}) if params[:commit] == "Buscar"
+      @inventarios = Inventario.pag_search({row: session[:row], column: session[:column], per_page: 50}) if params[:commit] == "Buscar"
       @last = Inventario.find(session[:last]) unless session[:last].blank?
    else
       redirect_to edit_reinventariar_path(params[:id])
-   end 
+   end
   end
   
   def show
@@ -20,22 +20,22 @@ class ReinventariarController < ApplicationController
   	begin
       @inventario ||= Inventario.find(params[:id])
       session[:last] = params[:id]
-      @similar = Inventario.group("row").pag_search(:color_id => @inventario.color_id, :marca_id => @inventario.marca_id, :per_page => 20)
+      @similar = Inventario.group("row").pag_search(color_id: @inventario.color_id, marca_id: @inventario.marca_id, per_page: 20)
     rescue
       flash[:notice] = 'Item not found.'
-      redirect_to reinventariar_index_path(:commit => "Buscar")
+      redirect_to reinventariar_index_path(commit: "Buscar")
     end
   end
   
   def update
     @inventario ||= Inventario.find(params[:id])
     @inventario.record_historia = true
-      if @inventario.update_attributes(inventario_params)
+      if @inventario.update(inventario_params)
         flash[:notice] = 'Inventory was successfully updated.'
       else
-        render :action => "edit"
+        render action: "edit"
       end
-      redirect_to reinventariar_index_path(:commit => "Buscar")
+      redirect_to reinventariar_index_path(commit: "Buscar")
   end
 
   def create
@@ -43,16 +43,16 @@ class ReinventariarController < ApplicationController
     if @inventario.save
       flash[:notice] = "El registro con codigo <b>#{@inventario.id.to_s}</b> se creo exitosamente"
       session[:last] = @inventario.id
-      @similar = Inventario.group("row").pag_search(:color_id => @inventario.color_id, :marca_id => @inventario.marca_id, :per_page => 20)
+      @similar = Inventario.group("row").pag_search(color_id: @inventario.color_id, marca_id: @inventario.marca_id, per_page: 20)
     else
-     render(:action => 'new')
+     render(action: 'new')
     end
   end
   
   def destroy
-    Inventario.update(params[:id], {:row => nil, :column => nil})
+    Inventario.update(params[:id], {row: nil, column: nil})
     flash[:notice] = "El paquete ha sido marcado como eliminado"
-    redirect_to reinventariar_index_path(:commit => "Buscar")
+    redirect_to reinventariar_index_path(commit: "Buscar")
   end
 
   private
