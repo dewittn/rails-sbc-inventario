@@ -23,6 +23,6 @@ module SbcInventario
 
     # Session configuration
     config.session_store :cookie_store, key: '_inventario2.0_session'
-    config.secret_key_base = '***REMOVED***'
+    config.secret_key_base = 'a48925b3938f307c5b01e60870a87571c30aa86beedf2540fe2c532ee7db3a251393026253713573dee0573cc6002d8db5d505598c8b434d360385344022c052'
   end
 end

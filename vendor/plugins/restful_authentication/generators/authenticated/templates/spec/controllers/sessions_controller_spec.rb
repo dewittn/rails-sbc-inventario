@@ -16,7 +16,7 @@ describe <%= controller_class_name %>Controller do
   end
   describe "on successful login," do
     [ [:nil,       nil,            nil],
-      [:expired,   'valid_token',  1***REMOVED***],
+      [:expired,   'valid_token',  15.minutes.ago],
       [:different, 'i_haxxor_joo', 15.minutes.from_now], 
       [:valid,     'valid_token',  15.minutes.from_now]
         ].each do |has_request_token, token_value, token_expiry|

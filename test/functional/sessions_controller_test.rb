@@ -58,7 +58,7 @@ class SessionsControllerTest < ActionController::TestCase
 
   def test_should_fail_expired_cookie_login
     users(:quentin).remember_me
-    users(:quentin).update_attribute :remember_token_expires_at, ***REMOVED***
+    users(:quentin).update_attribute :remember_token_expires_at, 5.minutes.ago
     @request.cookies["auth_token"] = cookie_for(:quentin)
     get :new
     assert !@controller.send(:logged_in?)

@@ -93,7 +93,7 @@ describe <%= controller_class_name %>Controller do
     end
     
     it 'fails expired cookie login' do
-      set_remember_token 'hello!', ***REMOVED***
+      set_remember_token 'hello!', 5.minutes.ago
       stub!(:cookies).and_return({ :auth_token => 'hello!' })
       logged_in?.should_not be_true
     end

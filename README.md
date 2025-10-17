@@ -1,25 +1,40 @@
-# SBC Inventario
+# Inventario - An Embroidery Inventory Management System
 
-This was an inventory tracking Rails application that I developed from 2007 to 2011 for SBC in Panamá.
+This was a Rails 2.x application that I development while working with [SBC Panamá](https://nelsonroberto.com/portfolio/sbc-panama/) that tracked the company's inventory and helped workers pull shirts to be used in production. During it's use this application helped track and manage inventory items, mostly T-Shirts and Polo shirts, that were being used to fulfill orders. It allowed workers to quickly locate products in a room storing thousands of items, and helped with the restocking process.
 
-## Getting Started with Docker
+I've used Claude Code to resurrect this project from the dead, migrating it to Rails 4.2, but the original application was designed, development and maintained by me.
 
-The easiest way to run this application is using Docker Compose.
+## Overview
 
-### Prerequisites
+This application helps manage inventory by:
 
-- Docker Desktop (or Docker Engine + Docker Compose)
+- Tracking groups of shirts stored in bins
+- Locating shirts to use for an order
+- Restocking shirts after they have been pulled
+
+**Tech Stack:**
+
+- **Ruby version:** 2.7.8
+- **Rails version:** 4.2.11.3
+- **Database:** MySQL 8.0 (production/development), SQLite3 (test)
+
+## Prerequisites
+
+- [Docker](https://www.docker.com/get-started) (20.10 or higher)
+- [Docker Compose](https://docs.docker.com/compose/install/) (1.29 or higher)
 - Git
 
-### Setup and Run
+## Quick Start
 
 1. Clone the repository:
+
    ```bash
-   git clone <repository-url>
+   git clone https://github.com/dewittn/rails-sbc-inventario
    cd rails-sbc-inventario
    ```
 
 2. Set up environment variables:
+
    ```bash
    cp .env.example .env
    ```
@@ -27,31 +42,35 @@ The easiest way to run this application is using Docker Compose.
    Edit `.env` if you need to customize any settings (optional). The default values work out of the box.
 
 3. Build and start the containers:
+
    ```bash
    docker compose build
    docker compose up -d
    ```
 
 4. Set up the database:
+
    ```bash
    docker compose exec web rake db:schema:load
    docker compose exec web rake db:seed
    ```
 
 5. Access the application:
-   - Open your browser to http://localhost:3000
-   - Login at http://localhost:3000/login with:
+   - Open your browser to <http://localhost:3000>
+   - Login at <http://localhost:3000/login> with:
      - Username: `admin`
      - Password: `password123`
 
 ### Common Docker Commands
 
 **View running containers:**
+
 ```bash
 docker compose ps
 ```
 
 **View logs:**
+
 ```bash
 docker compose logs web      # Rails application logs
 docker compose logs db       # MySQL database logs
@@ -59,36 +78,43 @@ docker compose logs -f       # Follow all logs in real-time
 ```
 
 **Stop the containers:**
+
 ```bash
 docker compose stop
 ```
 
 **Stop and remove containers:**
+
 ```bash
 docker compose down
 ```
 
 **Access Rails console:**
+
 ```bash
 docker compose exec web rails console
 ```
 
 **Run migrations:**
+
 ```bash
 docker compose exec web rake db:migrate
 ```
 
 **Seed the database (creates admin user):**
+
 ```bash
 docker compose exec web rake db:seed
 ```
 
 **Run tests:**
+
 ```bash
 docker compose exec web rake test
 ```
 
 **Restart containers:**
+
 ```bash
 docker compose restart
 ```
@@ -127,17 +153,20 @@ Available environment variables:
 **If the database connection fails:**
 
 The database might still be initializing. Wait a few seconds and try again:
+
 ```bash
 docker compose logs db    # Check if MySQL is ready
 docker compose restart web
 ```
 
 **If you need to reset the database:**
+
 ```bash
 docker compose exec web rake db:drop db:schema:load db:seed
 ```
 
 **If you need to rebuild from scratch:**
+
 ```bash
 docker compose down -v           # Remove containers and volumes
 docker compose build --no-cache  # Rebuild without cache
@@ -155,7 +184,7 @@ When you run `rake db:seed`, a default admin user is created:
 
 - **Username:** `admin`
 - **Password:** `password123`
-- **Login URL:** http://localhost:3000/login
+- **Login URL:** <http://localhost:3000/login>
 
 **Important:** Change the admin password after first login in a production environment.
 
@@ -163,8 +192,9 @@ When you run `rake db:seed`, a default admin user is created:
 
 Users can be created in two ways:
 
-1. **Via signup form:** Visit http://localhost:3000/signup
+1. **Via signup form:** Visit <http://localhost:3000/signup>
 2. **Via Rails console:**
+
    ```bash
    docker compose exec web rails console
    # Then:
@@ -176,9 +206,3 @@ Users can be created in two ways:
      name: 'Full Name'
    )
    ```
-
-## Technical Details
-
-- **Ruby version:** 2.7.8
-- **Rails version:** 4.2.11.3
-- **Database:** MySQL 8.0 (production/development), SQLite3 (test)
