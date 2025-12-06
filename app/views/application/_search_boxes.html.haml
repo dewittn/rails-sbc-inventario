@@ -1,4 +1,4 @@
-- form_tag({},{:method => 'get', :id => "search_form"}) do
+= form_tag({},{:method => 'get', :id => "search_form"}) do
   - searchables(Talla, Genero, Color, Marca, Tipo, Estilo)
   %table#search-results
     %tr
@@ -7,7 +7,7 @@
       = yield :avanzado_search_labels
       %th= Orden 
     %tr
-      %td= text_field_tag "", params[:cantidad],:size => 2
+      %td= text_field_tag "cantidad", params[:cantidad], :size => 2
       = yield :searchable
       = yield :avanzado_search
       %td= check_box_tag :updated_at, value = true 

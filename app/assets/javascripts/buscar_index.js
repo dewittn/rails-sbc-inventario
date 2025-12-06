@@ -1,25 +1,6 @@
 // jQuery version of buscar_index.js for Rails 4.2
 $(document).ready(function() {
-  // Make search form submit via AJAX
-  $('#search_form').on('submit', function(e) {
-    e.preventDefault();
-    $.ajax({
-      url: $(this).attr('action'),
-      type: 'GET',
-      data: $(this).serialize(),
-      dataType: 'script'
-    });
-  });
-
-  // Make pagination links work via AJAX
-  $(document).on('click', 'div.pagination a', function(e) {
-    e.preventDefault();
-    $.ajax({
-      url: $(this).attr('href'),
-      type: 'GET',
-      dataType: 'script'
-    });
-  });
+  // Form submits normally (no AJAX) - just let it work as a standard form
 });
 
 function sacar() {

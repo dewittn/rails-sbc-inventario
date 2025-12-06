@@ -22,12 +22,14 @@ class Inventario < ApplicationRecord
   def self.pag_search(arry)
     page = arry.delete(:page) || 1
     per_page = arry.delete(:per_page) || 10
-    order = arry.delete(:order) || 'id'
+    order_by = arry.delete(:order) || 'id'
+    cantidad_min = arry.delete(:cantidad)
     scope = self.all
     arry.keys.each do |key|
        scope = scope.where(key => arry[key])
     end
-    scope.paginate per_page: per_page, page: page, order: order
+    scope = scope.where("cantidad >= ?", cantidad_min.to_i) if cantidad_min.present?
+    scope.order(order_by).paginate(per_page: per_page, page: page)
   end
   
   def capitalize

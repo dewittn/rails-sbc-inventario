@@ -49,12 +49,12 @@ module Searches
   def self.pag_search(arry)
     page = arry.delete(:page) || 1
     per_page = arry.delete(:per_page) || 10
-    order = arry.delete(:order) || 'id'
+    order_by = arry.delete(:order) || 'id'
     scope = self.all
     arry.keys.each do |key|
        scope = scope.where(key => arry[key])
     end
-    scope.paginate :per_page => 10, :page => page, :order => order
+    scope.order(order_by).paginate(per_page: per_page, page: page)
   end
 
   def search_xml(condistions ={})

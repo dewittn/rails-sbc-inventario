@@ -4,5 +4,6 @@
     = h(inventario.cantidad)
     = cantidad_por_sacar(inventario)
   = detalles(inventario)
-  = yield resultados_avanzados(inventario)
-= draggable(inventario)
+  %td= link_to "Agregar", agregar_otro_para_sacar_javascripts_path(id: "inventario_#{inventario.id}", cantidad: params[:cantidad]), remote: true, method: :post, class: "agregar-btn"
+  - if resultados_avanzados(inventario)
+    = content_for(resultados_avanzados(inventario))

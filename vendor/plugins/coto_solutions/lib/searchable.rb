@@ -8,10 +8,10 @@ class Searchable
   def selectors_for_search()
     @tables.each do  |table|
       content_for :searchable_label do
-        "<th>#{table.name}</th>"
+        "<th>#{table.name}</th>".html_safe
       end
       content_for :searchable do
-        "<td>#{select_for_search_from_table(table)}</td>"
+        "<td>#{select_for_search_from_table(table)}</td>".html_safe
       end
     end
   end

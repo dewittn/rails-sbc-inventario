@@ -5,10 +5,11 @@
         %table.results
           %tr.title
             %th Cantidad
+            %th Color
             %th Marca
             %th Tipo
-            %th Color
             %th Talla
+            %th
             = yield :avanzado_results_label
           = render :partial => 'application/inventario', :collection => @inventarios
       .float-right= location
