@@ -1,6 +1,6 @@
 # Inventario - An Embroidery Inventory Management System
 
-This was a Rails 2.x application that I development while working with [SBC Panamá](https://nelsonroberto.com/portfolio/sbc-panama/) that tracked the company's inventory and helped workers pull shirts to be used in production. During it's use this application helped track and manage inventory items, mostly T-Shirts and Polo shirts, that were being used to fulfill orders. It allowed workers to quickly locate products in a room storing thousands of items, and helped with the restocking process.
+This was a Rails 2.x application that I development while working with [SBC Panamá](https://nelsonroberto.com/portfolio/sbc-panama/), from 2007 to 2012, that tracked the company's inventory and helped workers pull shirts to be used in production. During it's use this application helped track and manage inventory items, mostly T-Shirts and Polo shirts, that were being used to fulfill orders. It allowed workers to quickly locate products in a room storing thousands of items, and helped with the restocking process.
 
 I've used Claude Code to resurrect this project from the dead, migrating it to Rails 4.2, but the original application was designed, development and maintained by me.
 
