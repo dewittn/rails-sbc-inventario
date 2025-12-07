@@ -1,7 +1,7 @@
 <% page_title "Nuevo" %>
 
 <h1><%= yield :title %></h1>
-<% form_tag(:action => "create") do %>
+<%= form_tag(:action => "create") do %>
 	<div id="new" class="results">
 		<h2>Factura: <span id="factura"><%= hidden_field :inventario, :numero_de_factura, :value => factura %><%= factura %></span></h2>
 		<script type="text/javascript">

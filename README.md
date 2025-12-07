@@ -4,6 +4,20 @@ This was a Rails 2.x application that I development while working with [SBC Pana
 
 I've used Claude Code to resurrect this project from the dead, migrating it to Rails 4.2, but the original application was designed, development and maintained by me.
 
+## Screenshots
+
+### Search & Browse Inventory
+![Search Inventory](doc/images/search-inventory.png)
+*Main search interface with filters for brand, color, size, type, and style. Results show quantity and bin location (row/column).*
+
+### Select Items for Orders
+![Select Order Items](doc/images/select-order-items.png)
+*Adding items to an order. The "Por Sacar" panel shows items queued for pulling.*
+
+### Fulfillment Queue
+![Fulfillment Queue](doc/images/fulfillment-queue.png)
+*The "Para Sacar" view lists all items to be pulled, organized by bin location for efficient warehouse picking.*
+
 ## Overview
 
 This application helps manage inventory by:
