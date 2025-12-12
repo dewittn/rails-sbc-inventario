@@ -6,3 +6,7 @@ config/deploy.rb
 db/*.sqlite3
 .env
 tmp
+
+# Seed data directory (keep .gitkeep)
+data/*
+!data/.gitkeep

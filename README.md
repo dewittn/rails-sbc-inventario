@@ -143,10 +143,10 @@ cp .env.example .env
 
 Available environment variables:
 
-- `MYSQL_ROOT_PASSWORD` - MySQL root password (default: ***REMOVED***)
+- `MYSQL_ROOT_PASSWORD` - MySQL root password (default: makaveli)
 - `MYSQL_DATABASE` - Database name (default: inventario_dev)
 - `MYSQL_USER` - Database user (default: postgres)
-- `MYSQL_PASSWORD` - Database password (default: ***REMOVED***)
+- `MYSQL_PASSWORD` - Database password (default: makaveli)
 - `DATABASE_HOST` - Database host (default: db)
 - `MYSQL_PORT` - MySQL port mapping (default: 3306)
 - `RAILS_PORT` - Rails application port (default: 3000)
@@ -158,7 +158,7 @@ Available environment variables:
 - **Database:** MySQL 8.0
 - **Database name:** Configured via `MYSQL_DATABASE` (default: inventario_dev)
 - **Username:** Configured via `MYSQL_USER` (default: postgres)
-- **Password:** Configured via `MYSQL_PASSWORD` (default: ***REMOVED***)
+- **Password:** Configured via `MYSQL_PASSWORD` (default: makaveli)
 - **Host:** Configured via `DATABASE_HOST` (default: db within Docker network)
 - **Port:** Configured via `MYSQL_PORT` (default: 3306, accessible from host at localhost:3306)
 

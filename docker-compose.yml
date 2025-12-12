@@ -10,7 +10,15 @@ services:
       - "${MYSQL_PORT}:3306"
     volumes:
       - mysql_data:/var/lib/mysql
+      - ./data:/data:ro
+      - ./bin/docker/load-seed-data.sh:/docker-entrypoint-initdb.d/load-seed-data.sh:ro
     command: --default-authentication-plugin=mysql_native_password
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-p${MYSQL_ROOT_PASSWORD}"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+      start_period: 30s
 
   web:
     build: .
@@ -21,7 +29,8 @@ services:
     ports:
       - "${RAILS_PORT}:3000"
     depends_on:
-      - db
+      db:
+        condition: service_healthy
     environment:
       DATABASE_HOST: ${DATABASE_HOST}
       RAILS_ENV: ${RAILS_ENV}

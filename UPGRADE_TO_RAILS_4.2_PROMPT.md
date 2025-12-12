@@ -174,7 +174,7 @@ development:
   adapter: mysql2  # Changed from mysql
   database: inventario_dev
   username: postgres
-  password: ***REMOVED***
+  password: makaveli
   host: localhost
   encoding: utf8
 ```
@@ -585,10 +585,10 @@ services:
   db:
     image: mysql:5.7
     environment:
-      MYSQL_ROOT_PASSWORD: ***REMOVED***
+      MYSQL_ROOT_PASSWORD: makaveli
       MYSQL_DATABASE: inventario_dev
       MYSQL_USER: postgres
-      MYSQL_PASSWORD: ***REMOVED***
+      MYSQL_PASSWORD: makaveli
     ports:
       - "3306:3306"
     volumes:
@@ -620,7 +620,7 @@ development:
   adapter: mysql2
   database: inventario_dev
   username: postgres
-  password: ***REMOVED***
+  password: makaveli
   host: <%= ENV['DATABASE_HOST'] || 'localhost' %>
   encoding: utf8
 ```
