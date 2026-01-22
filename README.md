@@ -1,4 +1,4 @@
-# Inventario
+# Inventario - An Embroidery Inventory Management System
 
 From 2008 to 2011, I built Inventario as the first app of a business management suite for S.B.C. Panamá, my family's embroidery business in David, Panama.
 
@@ -9,6 +9,8 @@ To help the family business, I leveraged my background in software development t
 When the contractor quit in March 2008, I took over the development work and rewrote the entire system from scratch. By October 2008, I launched Inventario 2.0. But even the workflow I had developed for my rewrite was too rigid. Workers struggled to locate and restock inventory. So I kept watching. I observed how they used my application and where they were getting stuck. That second round of observation led to the features that made it work: a fuzzy search that understood "dark blue" rather than hex codes, a custom color picker for visual selection, and the separation of reinventory from order processing.
 
 The result: order fulfillment dropped from 15 minutes to under 5. The application ran in production for over 5 years, managing more than 5,000 items, and was part of a suite that supported approximately $1.55M in total revenue over 6 years.
+
+Read the full [S.B.C. Panamá case study](https://nelsonroberto.com/portfolio/sbc-panama/).
 
 ## What This Project Demonstrates
 
@@ -23,15 +25,15 @@ The result: order fulfillment dropped from 15 minutes to under 5. The applicatio
 ## Screenshots
 
 ### Search & Browse Inventory
-![Search Inventory](docs/images/search-inventory.png)
+![Search Inventory](doc/images/search-inventory.png)
 *Main search interface with filters for brand, color, size, type, and style. Results show quantity and bin location (row/column).*
 
 ### Select Items for Orders
-![Select Order Items](docs/images/select-order-items.png)
+![Select Order Items](doc/images/select-order-items.png)
 *Adding items to an order. The "Por Sacar" panel shows items queued for pulling.*
 
 ### Fulfillment Queue
-![Fulfillment Queue](docs/images/fulfillment-queue.png)
+![Fulfillment Queue](doc/images/fulfillment-queue.png)
 *The "Para Sacar" view lists all items to be pulled, organized by bin location for efficient warehouse picking.*
 
 ## Overview
