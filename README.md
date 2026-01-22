@@ -1,21 +1,37 @@
-# Inventario - An Embroidery Inventory Management System
+# Inventario
 
-This was a Rails 2.x application that I development while working with [SBC Panamá](https://nelsonroberto.com/portfolio/sbc-panama/), from 2007 to 2012, that tracked the company's inventory and helped workers pull shirts to be used in production. During it's use this application helped track and manage inventory items, mostly T-Shirts and Polo shirts, that were being used to fulfill orders. It allowed workers to quickly locate products in a room storing thousands of items, and helped with the restocking process.
+From 2008 to 2011, I built Inventario as the first app of a business management suite for S.B.C. Panamá, my family's embroidery business in David, Panama.
 
-I've used Claude Code to resurrect this project from the dead, migrating it to Rails 4.2, but the original application was designed, development and maintained by me.
+While visiting in 2007, I noticed that the business was having trouble fulfilling orders because the inventory room was in total chaos. It had over 5,000 t-shirts crammed into unmarked cardboard boxes with no organization system. Workers spent 15 minutes digging through boxes for each order, often coming up empty even when the item was actually in stock somewhere in the room.
+
+To help the family business, I leveraged my background in software development to build an inventory system that alleviated some bottlenecks. Before writing any code, I spent weeks working alongside staff, doing inventory counts, sorting shirts, and experiencing the frustrations firsthand. Then I hired a contractor in late 2007 to build the first version of the application while I worked with the business to create a flexible grid storage system that allowed workers to place inventory wherever it was convenient.
+
+When the contractor quit in March 2008, I took over the development work and rewrote the entire system from scratch. By October 2008, I launched Inventario 2.0. But even the workflow I had developed for my rewrite was too rigid. Workers struggled to locate and restock inventory. So I kept watching. I observed how they used my application and where they were getting stuck. That second round of observation led to the features that made it work: a fuzzy search that understood "dark blue" rather than hex codes, a custom color picker for visual selection, and the separation of reinventory from order processing.
+
+The result: order fulfillment dropped from 15 minutes to under 5. The application ran in production for over 5 years, managing more than 5,000 items, and was part of a suite that supported approximately $1.55M in total revenue over 6 years.
+
+## What This Project Demonstrates
+
+**End-to-end ownership.** When the contractor I hired quit, I took over completely. I rewrote the system from scratch, built the UI, handled deployment from Boston to Panama, and maintained the codebase through multiple Rails upgrades over five years. The final system was 12,000 lines of production code that I owned from problem discovery to ongoing maintenance.
+
+**Iterative product development.** The first version I spec'd was too rigid. The second version I built was still too rigid. The system only worked after I watched workers struggle with it in production and built features to match how they actually thought: fuzzy search for approximate color descriptions, a visual color picker, and separated workflows for order fulfillment versus restocking. The insights came from observing failure, not just observing the problem.
+
+**Production-grade engineering.** This system ran in production for over five years serving a real business. The architecture could have supported 50 to 100 concurrent users even though the immediate team was smaller: MySQL for the database, multi-layer caching, full-text search with Thinking Sphinx, remote deployment via Hamachi VPN and Capistrano, and production monitoring with NewRelic.
+
+**Part of a larger system.** Inventario was the largest of five applications in the S.B.C. business management suite, totaling 15,400 lines of code and 441 commits across 42 months. I built and maintained all of it remotely while traveling between Boston and Panama.
 
 ## Screenshots
 
 ### Search & Browse Inventory
-![Search Inventory](doc/images/search-inventory.png)
+![Search Inventory](docs/images/search-inventory.png)
 *Main search interface with filters for brand, color, size, type, and style. Results show quantity and bin location (row/column).*
 
 ### Select Items for Orders
-![Select Order Items](doc/images/select-order-items.png)
+![Select Order Items](docs/images/select-order-items.png)
 *Adding items to an order. The "Por Sacar" panel shows items queued for pulling.*
 
 ### Fulfillment Queue
-![Fulfillment Queue](doc/images/fulfillment-queue.png)
+![Fulfillment Queue](docs/images/fulfillment-queue.png)
 *The "Para Sacar" view lists all items to be pulled, organized by bin location for efficient warehouse picking.*
 
 ## Overview
@@ -28,195 +44,46 @@ This application helps manage inventory by:
 
 **Tech Stack:**
 
-- **Ruby version:** 2.7.8
-- **Rails version:** 4.2.11.3
-- **Database:** MySQL 8.0 (production/development), SQLite3 (test)
-
-## Prerequisites
-
-- [Docker](https://www.docker.com/get-started) (20.10 or higher)
-- [Docker Compose](https://docs.docker.com/compose/install/) (1.29 or higher)
-- Git
+- Ruby 2.7.8
+- Rails 4.2.11.3
+- MySQL 8.0 (production/development), SQLite3 (test)
 
 ## Quick Start
 
-1. Clone the repository:
+**Prerequisites:** Docker and Docker Compose
+
+1. Clone and setup:
 
    ```bash
    git clone https://github.com/dewittn/rails-sbc-inventario
    cd rails-sbc-inventario
-   ```
-
-2. Set up environment variables:
-
-   ```bash
    cp .env.example .env
    ```
 
-   Edit `.env` if you need to customize any settings (optional). The default values work out of the box.
-
-3. Build and start the containers:
+2. Start the application:
 
    ```bash
    docker compose build
    docker compose up -d
+   docker compose exec web rake db:schema:load db:seed
    ```
 
-4. Set up the database:
+3. Access at <http://localhost:3000>
 
-   ```bash
-   docker compose exec web rake db:schema:load
-   docker compose exec web rake db:seed
-   ```
+   Login with username `admin` and password `password123`
 
-5. Access the application:
-   - Open your browser to <http://localhost:3000>
-   - Login at <http://localhost:3000/login> with:
-     - Username: `admin`
-     - Password: `password123`
+## Documentation
 
-### Common Docker Commands
+See the [docs](./docs) folder for detailed information:
 
-**View running containers:**
+- [Docker Setup](./docs/docker.md) - Complete Docker configuration, environment variables, and troubleshooting
+- [Authentication](./docs/authentication.md) - User management and login system
+- [Development Guide](./docs/development.md) - Architecture, testing, and development workflow
 
-```bash
-docker compose ps
-```
+## AI Usage
 
-**View logs:**
+This project was developed primarily by hand from 2008 to 2011. The Rails 4.2 migration and Docker setup were completed in 2026 with assistance from Claude Code (Sonnet 4.5) for modernizing deployment and documentation.
 
-```bash
-docker compose logs web      # Rails application logs
-docker compose logs db       # MySQL database logs
-docker compose logs -f       # Follow all logs in real-time
-```
+## License
 
-**Stop the containers:**
-
-```bash
-docker compose stop
-```
-
-**Stop and remove containers:**
-
-```bash
-docker compose down
-```
-
-**Access Rails console:**
-
-```bash
-docker compose exec web rails console
-```
-
-**Run migrations:**
-
-```bash
-docker compose exec web rake db:migrate
-```
-
-**Seed the database (creates admin user):**
-
-```bash
-docker compose exec web rake db:seed
-```
-
-**Run tests:**
-
-```bash
-docker compose exec web rake test
-```
-
-**Restart containers:**
-
-```bash
-docker compose restart
-```
-
-### Environment Variables
-
-The application uses a `.env` file for configuration. Copy `.env.example` to `.env` to get started:
-
-```bash
-cp .env.example .env
-```
-
-Available environment variables:
-
-- `MYSQL_ROOT_PASSWORD` - MySQL root password (default: makaveli)
-- `MYSQL_DATABASE` - Database name (default: inventario_dev)
-- `MYSQL_USER` - Database user (default: postgres)
-- `MYSQL_PASSWORD` - Database password (default: makaveli)
-- `DATABASE_HOST` - Database host (default: db)
-- `MYSQL_PORT` - MySQL port mapping (default: 3306)
-- `RAILS_PORT` - Rails application port (default: 3000)
-- `RAILS_ENV` - Rails environment (default: development)
-- `BUNDLER_VERSION` - Bundler version (default: 1.17.3)
-
-### Database Information
-
-- **Database:** MySQL 8.0
-- **Database name:** Configured via `MYSQL_DATABASE` (default: inventario_dev)
-- **Username:** Configured via `MYSQL_USER` (default: postgres)
-- **Password:** Configured via `MYSQL_PASSWORD` (default: makaveli)
-- **Host:** Configured via `DATABASE_HOST` (default: db within Docker network)
-- **Port:** Configured via `MYSQL_PORT` (default: 3306, accessible from host at localhost:3306)
-
-### Troubleshooting
-
-**If the database connection fails:**
-
-The database might still be initializing. Wait a few seconds and try again:
-
-```bash
-docker compose logs db    # Check if MySQL is ready
-docker compose restart web
-```
-
-**If you need to reset the database:**
-
-```bash
-docker compose exec web rake db:drop db:schema:load db:seed
-```
-
-**If you need to rebuild from scratch:**
-
-```bash
-docker compose down -v           # Remove containers and volumes
-docker compose build --no-cache  # Rebuild without cache
-docker compose up -d
-docker compose exec web rake db:schema:load db:seed
-```
-
-## Authentication
-
-The application uses a username/password authentication system.
-
-### Default Admin User
-
-When you run `rake db:seed`, a default admin user is created:
-
-- **Username:** `admin`
-- **Password:** `password123`
-- **Login URL:** <http://localhost:3000/login>
-
-**Important:** Change the admin password after first login in a production environment.
-
-### Creating Additional Users
-
-Users can be created in two ways:
-
-1. **Via signup form:** Visit <http://localhost:3000/signup>
-2. **Via Rails console:**
-
-   ```bash
-   docker compose exec web rails console
-   # Then:
-   User.create(
-     login: 'username',
-     email: 'user@example.com',
-     password: 'password',
-     password_confirmation: 'password',
-     name: 'Full Name'
-   )
-   ```
+This project is provided as-is for portfolio and educational purposes. Contact the author for usage permissions.
